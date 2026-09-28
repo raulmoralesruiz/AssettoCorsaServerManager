@@ -42,6 +42,7 @@ def _clamp_slot(s: dict) -> dict:
         "team":       str(s.get("team",       ""))[:64],
         "guid":       str(s.get("guid",       ""))[:64],
         "spectator":  int(bool(s.get("spectator", 0))),
+        "ai":         str(s.get("ai",         ""))[:16],
     }
 
 
@@ -168,3 +169,4 @@ def delete_el_preset(name):
     del presets[name]
     _save_el_presets(presets)
     return jsonify({"ok": True})
+

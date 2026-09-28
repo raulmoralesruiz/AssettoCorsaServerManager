@@ -14,8 +14,8 @@ import re as _re
 from helpers.content import get_car_skins, get_car_ui, get_track_ui, list_cars, list_tracks
 from helpers.system import (
     ensure_udp, get_car_data, get_recent_chat, get_system_stats,
-    get_uptime_string, load_spline_points, run_systemctl, server_info,
-    server_json, server_status, get_local_ip,
+    get_uptime_string, load_spline_points, read_server_logs, run_systemctl,
+    server_info, server_json, server_status, get_local_ip,
 )
 import subprocess
 from constants import SERVICE_NAME
@@ -225,14 +225,7 @@ def api_uptime():
 @bp.route("/api/weather_log")
 @login_required
 def api_weather_log():
-    try:
-        out = subprocess.check_output(
-            ["journalctl", "-u", SERVICE_NAME, "--no-pager", "-n", "200",
-             "--output=short-iso"],
-            stderr=subprocess.DEVNULL, text=True, timeout=5
-        )
-    except Exception:
-        return jsonify({"entries": [], "error": "journalctl nicht verfügbar"})
+    out = read_server_logs(200)
 
     entries = []
     lines = out.splitlines()
@@ -414,14 +407,7 @@ def control(action):
 @bp.route("/logs")
 @login_required
 def logs():
-    try:
-        r = subprocess.run(
-            ["journalctl", "-u", SERVICE_NAME, "-n", "200", "--no-pager", "-o", "cat"],
-            capture_output=True, text=True, timeout=10,
-        )
-        return jsonify({"logs": r.stdout})
-    except Exception as e:
-        return jsonify({"logs": f"Error: {e}"})
+    return jsonify({"logs": read_server_logs(200)})
 
 
 import re as _re_log
@@ -457,23 +443,16 @@ def api_logs():
     n       = min(request.args.get("n", 300, type=int), 1000)
     typ     = request.args.get("type", "").strip()
     q       = request.args.get("q",    "").strip().lower()
-    try:
-        r = subprocess.run(
-            ["journalctl", "-u", SERVICE_NAME, "-n", str(n), "--no-pager", "-o", "short-iso"],
-            capture_output=True, text=True, timeout=10,
-        )
-        lines   = r.stdout.strip().splitlines()
-        typ_set = set(typ.split(",")) if typ else set()
-        entries = []
-        for line in lines:
-            if not line.strip():
-                continue
-            entry = _classify_log(line)
-            if typ_set and entry["type"] not in typ_set:
-                continue
-            if q and q not in (entry["msg"] + entry["ts"]).lower():
-                continue
-            entries.append(entry)
-        return jsonify({"ok": True, "entries": entries, "total": len(entries)})
-    except Exception as exc:
-        return jsonify({"ok": False, "entries": [], "error": str(exc)})
+    lines   = read_server_logs(n).strip().splitlines()
+    typ_set = set(typ.split(",")) if typ else set()
+    entries = []
+    for line in lines:
+        if not line.strip():
+            continue
+        entry = _classify_log(line)
+        if typ_set and entry["type"] not in typ_set:
+            continue
+        if q and q not in (entry["msg"] + entry["ts"]).lower():
+            continue
+        entries.append(entry)
+    return jsonify({"ok": True, "entries": entries, "total": len(entries)})

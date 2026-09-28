@@ -7,6 +7,7 @@ from pathlib import Path
 # ── Service ───────────────────────────────────────────────────────────────────
 SERVICE_NAME = "acserver"
 RCON_PORT    = 9700
+AC_HOST      = os.environ.get("AC_HOST", "127.0.0.1")
 
 # ── Auth ──────────────────────────────────────────────────────────────────────
 def _require_env(name: str) -> str:

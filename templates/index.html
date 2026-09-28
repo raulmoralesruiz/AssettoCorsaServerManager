@@ -34,7 +34,7 @@
   </div>
 
   <div class="sb-restart">
-    <label><input type="checkbox" id="auto-restart" style="accent-color:var(--red)"> <span data-i18n="sb_auto_restart">Nach Speichern neu starten</span></label>
+    <label><input type="checkbox" id="auto-restart" style="accent-color:var(--red)"> <span data-i18n="sb_auto_restart">Nach <span data-i18n="save_btn">Speichern</span> neu starten</span></label>
   </div>
 
   <!-- Navigation -->
@@ -47,19 +47,19 @@
     <div class="ng-items" id="ngi-daten">
       <div class="nav-item nav-sub" data-nav="records" onclick="navTo('records')"><span data-i18n="nav_records">Rundenzeiten</span></div>
       <div class="nav-item nav-sub" data-nav="analytics" onclick="navTo('analytics')"><span data-i18n="nav_analytics">Fahrerprofil</span></div>
-      <div class="nav-item nav-sub" data-nav="results" onclick="navTo('results')"><span data-i18n="nav_results">Ergebnisse</span></div>
+      <div class="nav-item nav-sub" data-nav="results" onclick="navTo('results')"><span data-i18n="nav_results"><span data-i18n="results_header">Ergebnisse</span></span></div>
       <div class="nav-item nav-sub" data-nav="championship" onclick="navTo('championship')"><span data-i18n="nav_championship">Meisterschaft</span></div>
     </div>
   </div>
 
   <div class="ng" id="ng-konfiguration">
-    <div class="ng-hdr" id="ngh-konfiguration" onclick="toggleGroup('konfiguration')"><span class="ng-icon">⚙</span><span class="ng-label">Konfiguration</span><span class="ng-chevron" id="ngc-konfiguration">›</span></div>
+    <div class="ng-hdr" id="ngh-konfiguration" onclick="toggleGroup('konfiguration')"><span class="ng-icon">⚙</span><span class="ng-label" data-i18n="nav_group_config">Konfiguration</span><span class="ng-chevron" id="ngc-konfiguration">›</span></div>
     <div class="ng-items" id="ngi-konfiguration">
       <div class="nav-item nav-sub" data-nav="settings-server" onclick="navTo('settings-server')"><span data-i18n="nav_server">Server</span></div>
       <div class="nav-item nav-sub" data-nav="settings-track" onclick="navTo('settings-track')"><span data-i18n="nav_track">Strecke & Autos</span></div>
       <div class="nav-item nav-sub" data-nav="settings-assists" onclick="navTo('settings-assists')"><span data-i18n="nav_assists">Fahrhilfen</span></div>
       <div class="nav-item nav-sub" data-nav="settings-sessions" onclick="navTo('settings-sessions')"><span data-i18n="nav_sessions">Sessions</span></div>
-      <div class="nav-item nav-sub" data-nav="settings-weather" onclick="navTo('settings-weather')"><span data-i18n="nav_weather">Wetter</span></div>
+      <div class="nav-item nav-sub" data-nav="settings-weather" onclick="navTo('settings-weather')"><span data-i18n="nav_weather"><span data-i18n="weather">Wetter</span></span></div>
       <div class="nav-item nav-sub" data-nav="settings-profile" onclick="navTo('settings-profile')"><span data-i18n="nav_profile">Serverprofil</span></div>
       <div class="nav-item nav-sub" data-nav="settings-ai" onclick="navTo('settings-ai')"><span data-i18n="nav_ai">KI-Fahrer</span></div>
     </div>
@@ -76,7 +76,7 @@
   </div>
 
   <div class="ng" id="ng-system">
-    <div class="ng-hdr" id="ngh-system" onclick="toggleGroup('system')"><span class="ng-icon">⬡</span><span class="ng-label">System</span><span class="ng-chevron" id="ngc-system">›</span></div>
+    <div class="ng-hdr" id="ngh-system" onclick="toggleGroup('system')"><span class="ng-icon">⬡</span><span class="ng-label" data-i18n="nav_group_system"><span data-i18n="system">System</span></span><span class="ng-chevron" id="ngc-system">›</span></div>
     <div class="ng-items" id="ngi-system">
       <div class="nav-item nav-sub" data-nav="server-monitor" onclick="navTo('server-monitor')"><span>Monitor</span></div>
       <div class="nav-item nav-sub" data-nav="logs" onclick="navTo('logs')"><span data-i18n="nav_logs">Logs</span></div>
@@ -85,7 +85,7 @@
 
   <!-- Bottom: Lang + Hilfe + Logout -->
   <div class="sb-bottom">
-    <button class="lang-btn btn btn-gray btn-sm" id="lang-toggle" onclick="toggleLang()">EN</button>
+    <button class="lang-btn btn btn-gray btn-sm" id="lang-toggle" onclick="toggleLang()">🌐 ES</button>
     <button class="btn btn-gray btn-sm" onclick="navTo('help')" title="Hilfe">?</button>
     <a href="/logout" class="btn btn-gray btn-sm" style="justify-content:center" data-i18n="btn_logout">Abmelden</a>
   </div>
@@ -108,9 +108,9 @@
       </div>
       <div class="dash-hero-meta">
         <div class="dash-meta-sep"></div>
-        <div class="dash-meta-item"><strong id="dh-drivers">0</strong>/<span id="dh-maxdrv">{{ cfg.get('MAX_CLIENTS','?') }}</span> <span data-i18n="players_online">Fahrer</span></div>
+        <div class="dash-meta-item"><strong id="dh-drivers">0</strong>/<span id="dh-maxdrv">{{ cfg.get('MAX_CLIENTS','?') }}</span> <span data-i18n="players_online"><span data-i18n="col_driver">Fahrer</span></span></div>
         <div class="dash-meta-sep"></div>
-        <div class="dash-meta-item" id="dh-session">Practice</div>
+        <div class="dash-meta-item" id="dh-session"><span data-i18n="practice_header">Practice</span></div>
         <div class="dash-meta-sep"></div>
         <div class="dash-meta-item" id="dh-weather-bar" style="display:none"></div>
         <div class="dash-meta-item">
@@ -121,7 +121,7 @@
     <div class="dash-hero-actions">
       <button class="btn btn-green btn-sm" onclick="ctrl('start')">▶ <span data-i18n="btn_start">Starten</span></button>
       <button class="btn btn-gray btn-sm" onclick="ctrl('stop')">■ <span data-i18n="btn_stop">Stoppen</span></button>
-      <button class="btn btn-gray btn-sm" onclick="ctrl('restart')">↻ <span data-i18n="btn_restart">Neustart</span></button>
+      <button class="btn btn-gray btn-sm" onclick="ctrl('restart')">↻ <span data-i18n="btn_restart"><span data-i18n="restart_q">Neustart</span></span></button>
     </div>
   </div>
 
@@ -135,7 +135,7 @@
         <div class="status-dot online" style="width:6px;height:6px;animation:pulse-on 2s infinite"></div>
       </div>
       <canvas id="map-canvas-dash" width="400" height="280" style="border-radius:6px;background:var(--bg);width:100%;height:auto"></canvas>
-      <div class="dash-map-link" onclick="navTo('live')">Live-Ansicht →</div>
+      <div class="dash-map-link" onclick="navTo('live')" data-i18n="live_view_arrow">Live-Ansicht →</div>
     </div>
 
     <!-- 2b. Aktive Fahrer -->
@@ -145,14 +145,14 @@
         <div class="status-dot online" style="width:6px;height:6px;animation:pulse-on 2s infinite"></div>
       </div>
       <div class="dg" id="d-drivers">
-        <div class="empty"><div class="empty-ico">🏁</div><div data-i18n="no_drivers">Keine Fahrer verbunden</div></div>
+        <div class="empty"><div class="empty-ico">🏁</div><div data-i18n="no_drivers"><span data-i18n="no_drivers_connected">Keine Fahrer verbunden</span></div></div>
       </div>
     </div>
 
     <!-- 2c. System-Health + Tagesstatistik -->
     <div>
       <div class="card">
-        <div class="card-ttl">System</div>
+        <div class="card-ttl"><span data-i18n="system">System</span></div>
         <div class="dash-sys">
           <div class="dash-sys-row">
             <span class="dash-sys-lbl">CPU</span>
@@ -176,7 +176,7 @@
         <div class="dash-today">
           <div class="dash-today-row"><span class="dash-today-lbl" data-i18n="qs_laps_today">Runden heute</span><strong id="qs-laps">—</strong></div>
           <div class="dash-today-row"><span class="dash-today-lbl" data-i18n="qs_drivers_today">Fahrer heute</span><strong id="qs-drivers">—</strong></div>
-          <div class="dash-today-row"><span class="dash-today-lbl" data-i18n="qs_best_today">Bestzeit</span><strong id="qs-best" class="best-t">—</strong></div>
+          <div class="dash-today-row"><span class="dash-today-lbl" data-i18n="qs_best_today"><span data-i18n="col_best">Bestzeit</span></span><strong id="qs-best" class="best-t">—</strong></div>
         </div>
         <div style="font-size:11px;color:var(--muted);margin-top:10px" id="d-up">—</div>
       </div>
@@ -189,7 +189,7 @@
     <!-- Letzte Events -->
     <div class="card">
       <div class="sh">
-        <div class="sh-t">Letzte Events</div>
+        <div class="sh-t" data-i18n="recent_events">Letzte Events</div>
         <a onclick="navTo('live')" style="font-size:11px;color:var(--muted);cursor:pointer">Live →</a>
       </div>
       <div id="dash-event-log" style="display:flex;flex-direction:column;gap:3px;max-height:180px;overflow-y:auto">
@@ -204,7 +204,7 @@
         <div style="color:var(--muted)" data-i18n="waiting_chat">Warte auf Chat...</div>
       </div>
       <div style="display:flex;gap:6px;margin-top:8px">
-        <input class="inp" id="dash-chat-inp" data-i18n-placeholder="chat_ph" placeholder="Nachricht..." style="flex:1;font-size:12px" onkeydown="if(event.key==='Enter')sendChatFrom('dash-chat-inp')">
+        <input class="inp" id="dash-chat-inp" data-i18n-placeholder="chat_ph" placeholder="Nachricht..." data-i18n-placeholder="ph_message" style="flex:1;font-size:12px" onkeydown="if(event.key==='Enter')sendChatFrom('dash-chat-inp')">
         <button class="btn btn-red btn-sm" onclick="sendChatFrom('dash-chat-inp')" data-i18n="btn_send">Senden</button>
       </div>
     </div>
@@ -215,9 +215,9 @@
         <div class="sh-t" data-i18n="presets">Strecken-Presets</div>
         <button class="btn btn-gray btn-sm" onclick="loadPresetList()">↻</button>
       </div>
-      <div class="preset-list" id="preset-list"><div style="color:var(--muted);font-size:13px" data-i18n="loading">Lade...</div></div>
+      <div class="preset-list" id="preset-list"><div style="color:var(--muted);font-size:13px" data-i18n="loading"><span data-i18n="loading">Lade...</span></div></div>
       <div style="display:flex;gap:8px;margin-top:12px">
-        <input class="inp" id="preset-name" data-i18n-placeholder="preset_name_ph" placeholder="Preset-Name..." style="flex:1">
+        <input class="inp" id="preset-name" data-i18n-placeholder="preset_name_ph" placeholder="Preset-Name..." data-i18n-placeholder="preset_name_ph" style="flex:1">
         <button class="btn btn-red btn-sm" onclick="savePreset()" data-i18n="save_preset">💾</button>
       </div>
     </div>
@@ -232,7 +232,7 @@
   <span id="i-name" style="display:none">{{ info.name if info else '' }}</span>
   <span id="i-track" style="display:none">{{ info.track if info else cfg.get('TRACK','—') }}</span>
   <span id="i-layout" style="display:none">{{ cfg.get('TRACK_LAYOUT','—') or '—' }}</span>
-  <span id="i-sess" style="display:none">Practice</span>
+  <span id="i-sess" style="display:none"><span data-i18n="practice_header">Practice</span></span>
   <span id="i-uptime" style="display:none">—</span>
   <span id="pub-ip" style="display:none">{{ info.ip if info else '—' }}</span>
 
@@ -266,8 +266,8 @@
         <div class="tbl-wrap">
           <table>
             <thead><tr>
-              <th data-i18n="col_pos">Pos.</th><th data-i18n="col_driver">Fahrer</th><th data-i18n="col_vehicle">Fahrzeug</th>
-              <th data-i18n="col_laps">Runden</th><th data-i18n="col_best">Beste</th><th data-i18n="col_last">Letzte</th><th data-i18n="col_current">Aktuell</th><th data-i18n="col_gap">Gap</th>
+              <th data-i18n="col_pos">Pos.</th><th data-i18n="col_driver"><span data-i18n="col_driver">Fahrer</span></th><th data-i18n="col_vehicle">Fahrzeug</th>
+              <th data-i18n="col_laps"><span data-i18n="col_laps">Runden</span></th><th data-i18n="col_best">Beste</th><th data-i18n="col_last">Letzte</th><th data-i18n="col_current">Aktuell</th><th data-i18n="col_gap">Gap</th>
             </tr></thead>
             <tbody id="lap-tbody">
               <tr><td colspan="8" style="text-align:center;color:var(--muted);padding:48px" data-i18n="no_data">Keine Daten – warte auf Fahrer</td></tr>
@@ -286,24 +286,23 @@
         <!-- Event-Feed -->
         <div class="card live-events">
           <div class="sh" style="flex-shrink:0">
-            <div class="sh-t">Event-Feed</div>
+            <div class="sh-t" data-i18n="event_feed">Event-Feed</div>
             <div style="display:flex;gap:8px;align-items:center">
               <label style="font-size:11px;color:var(--muted);cursor:pointer">
-                <input type="checkbox" id="ev-auto" checked style="accent-color:var(--red)"> Auto
-              </label>
+                <input type="checkbox" id="ev-auto" checked style="accent-color:var(--red)"><span data-i18n="col_car">Auto</span></label>
               <button class="btn btn-gray btn-sm" onclick="loadEvents()">↻</button>
             </div>
           </div>
           <div>
             <div style="display:flex;gap:6px;margin-bottom:8px">
               <select class="sel" id="ev-filter" style="flex:1;font-size:11px" onchange="loadEvents()">
-                <option value="">Alle Events</option>
-                <option value="connection">Verbindungen</option>
-                <option value="lap">Runden</option>
-                <option value="chat">Chat</option>
-                <option value="collision">Kollisionen</option>
+                <option value=""><span data-i18n="all_events"><span data-i18n="all_label">Alle</span> Events</span></option>
+                <option value="connection"><span data-i18n="connections">Verbindungen</span></option>
+                <option value="lap" data-i18n="feed_laps"><span data-i18n="col_laps">Runden</span></option>
+                <option value="chat" data-i18n="feed_chat">Chat</option>
+                <option value="collision" data-i18n="feed_collisions">Kollisionen</option>
               </select>
-              <input class="inp" id="ev-search" placeholder="Suche..." style="flex:1;font-size:11px">
+              <input class="inp" id="ev-search" placeholder="Suche..." data-i18n-placeholder="ph_search" style="flex:1;font-size:11px">
             </div>
           </div>
           <div class="live-events-feed" id="event-log"></div>
@@ -319,7 +318,7 @@
             <div style="color:var(--muted)" data-i18n="waiting_chat">Warte auf Chat...</div>
           </div>
           <div style="display:flex;gap:6px;margin-top:8px">
-            <input class="inp" id="chat-send-inp" data-i18n-placeholder="chat_ph" placeholder="Nachricht an alle..." style="flex:1;font-size:12px" onkeydown="if(event.key==='Enter')sendChatFrom('chat-send-inp')">
+            <input class="inp" id="chat-send-inp" data-i18n-placeholder="chat_ph" placeholder="Nachricht an alle..." data-i18n-placeholder="chat_ph" style="flex:1;font-size:12px" onkeydown="if(event.key==='Enter')sendChatFrom('chat-send-inp')">
             <button class="btn btn-red btn-sm" onclick="sendChatFrom('chat-send-inp')" data-i18n="btn_send">Senden</button>
           </div>
         </div>
@@ -343,8 +342,8 @@
 
   <!-- Sub-Navigation -->
   <div class="rec-tabs">
-    <button class="rec-tab active" data-tab="best" onclick="_recTab('best')">🏆 Bestzeiten</button>
-    <button class="rec-tab" data-tab="all" onclick="_recTab('all')">📋 Alle Runden</button>
+    <button class="rec-tab active" data-tab="best" onclick="_recTab('best')">🏆 <span data-i18n="best_times">Bestzeiten</span></button>
+    <button class="rec-tab" data-tab="all" onclick="_recTab('all')">📋 <span data-i18n="all_laps_header"><span data-i18n="all_label">Alle</span> Runden</span></button>
     <button class="rec-tab" data-tab="drivers" onclick="_recTab('drivers')">👤 Fahrer</button>
   </div>
 
@@ -352,22 +351,22 @@
   <div class="rec-pane active" id="recp-best">
     <div class="card">
       <div class="sh">
-        <div class="sh-t">🏆 Bestzeiten <span style="font-size:11px;color:var(--muted);font-weight:400">(schnellste Runde pro Fahrer &amp; Strecke)</span></div>
+        <div class="sh-t">🏆 <span data-i18n="best_times">Bestzeiten</span> <span style="font-size:11px;color:var(--muted);font-weight:400"><span data-i18n="best_times_desc">(schnellste Runde pro Fahrer &amp; Strecke)</span></span></div>
         <button class="btn btn-gray btn-sm" onclick="loadBestLaps()">↻</button>
       </div>
       <div class="tbl-wrap">
         <table id="best-table">
           <thead><tr>
             <th>Pos.</th>
-            <th class="sort-th" data-col-b="driver" onclick="_sortBest('driver')">Fahrer</th>
-            <th class="sort-th" data-col-b="car" onclick="_sortBest('car')">Auto</th>
-            <th class="sort-th" data-col-b="track" onclick="_sortBest('track')">Strecke</th>
-            <th class="sort-th" data-col-b="laptime" onclick="_sortBest('laptime')">Bestzeit</th>
-            <th>Cuts</th>
-            <th class="sort-th" data-col-b="ts" onclick="_sortBest('ts')">Datum</th>
+            <th class="sort-th" data-col-b="driver" onclick="_sortBest('driver')"><span data-i18n="col_driver">Fahrer</span></th>
+            <th class="sort-th" data-col-b="car" onclick="_sortBest('car')"><span data-i18n="col_car">Auto</span></th>
+            <th class="sort-th" data-col-b="track" onclick="_sortBest('track')"><span data-i18n="col_track">Strecke</span></th>
+            <th class="sort-th" data-col-b="laptime" onclick="_sortBest('laptime')"><span data-i18n="col_best">Bestzeit</span></th>
+            <th data-i18n="col_cuts"><span data-i18n="col_cuts">Cuts</span></th>
+            <th class="sort-th" data-col-b="ts" onclick="_sortBest('ts')"><span data-i18n="col_date">Datum</span></th>
           </tr></thead>
           <tbody id="best-tbody">
-            <tr><td colspan="7" style="text-align:center;color:var(--muted);padding:32px">Lade...</td></tr>
+            <tr><td colspan="7" style="text-align:center;color:var(--muted);padding:32px"><span data-i18n="loading">Lade...</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -380,34 +379,34 @@
       <!-- Filter Bar -->
       <div class="rec-filter-bar">
         <div class="dff">
-          <label>Fahrer</label>
+          <label><span data-i18n="col_driver">Fahrer</span></label>
           <select class="sel" id="rec-filter-driver" onchange="loadAllLaps()">
-            <option value="">Alle Fahrer</option>
+            <option value="" data-i18n="all_drivers"><span data-i18n="all_label">Alle</span> Fahrer</option>
           </select>
         </div>
         <div class="dff">
-          <label>Strecke</label>
+          <label><span data-i18n="col_track">Strecke</span></label>
           <select class="sel" id="rec-filter-track" onchange="loadAllLaps()">
-            <option value="">Alle Strecken</option>
+            <option value="" data-i18n="all_tracks"><span data-i18n="all_label">Alle</span> Strecken</option>
           </select>
         </div>
         <div class="dff">
-          <label>Auto</label>
+          <label><span data-i18n="col_car">Auto</span></label>
           <select class="sel" id="rec-filter-car" onchange="loadAllLaps()">
-            <option value="">Alle Autos</option>
+            <option value="" data-i18n="all_cars"><span data-i18n="all_label">Alle</span> Autos</option>
           </select>
         </div>
         <div class="dff">
-          <label>Von</label>
+          <label><span data-i18n="filter_from">Von</span></label>
           <input type="date" class="inp" id="rec-filter-from" onchange="loadAllLaps()" style="width:128px">
         </div>
         <div class="dff">
-          <label>Bis</label>
+          <label><span data-i18n="filter_to">Bis</span></label>
           <input type="date" class="inp" id="rec-filter-to" onchange="loadAllLaps()" style="width:128px">
         </div>
         <div class="dff" style="flex:2;min-width:150px">
-          <label>Suche</label>
-          <input type="search" class="inp" id="rec-filter-search" placeholder="Fahrer, Auto, Strecke…" oninput="_onSearchInput()">
+          <label><span data-i18n="filter_search">Suche</span></label>
+          <input type="search" class="inp" id="rec-filter-search" placeholder="Fahrer, Auto, Strecke…" data-i18n-placeholder="ph_driver_car_track" oninput="_onSearchInput()">
         </div>
         <div class="rec-filter-actions">
           <span id="rec-count" style="font-size:11px;color:var(--muted)"></span>
@@ -419,12 +418,12 @@
         <table>
           <thead><tr>
             <th>Pos.</th>
-            <th class="sort-th" data-col="driver" onclick="_sortCol('driver')">Fahrer</th>
-            <th class="sort-th" data-col="car" onclick="_sortCol('car')">Auto</th>
-            <th class="sort-th" data-col="track" onclick="_sortCol('track')">Strecke</th>
-            <th class="sort-th" data-col="laptime" onclick="_sortCol('laptime')">Zeit</th>
-            <th>Cuts</th>
-            <th class="sort-th" data-col="ts" onclick="_sortCol('ts')">Datum</th>
+            <th class="sort-th" data-col="driver" onclick="_sortCol('driver')"><span data-i18n="col_driver">Fahrer</span></th>
+            <th class="sort-th" data-col="car" onclick="_sortCol('car')"><span data-i18n="col_car">Auto</span></th>
+            <th class="sort-th" data-col="track" onclick="_sortCol('track')"><span data-i18n="col_track">Strecke</span></th>
+            <th class="sort-th" data-col="laptime" onclick="_sortCol('laptime')"><span data-i18n="col_time">Zeit</span></th>
+            <th><span data-i18n="col_cuts">Cuts</span></th>
+            <th class="sort-th" data-col="ts" onclick="_sortCol('ts')"><span data-i18n="col_date">Datum</span></th>
           </tr></thead>
           <tbody id="all-tbody"></tbody>
         </table>
@@ -437,24 +436,24 @@
   <div class="rec-pane" id="recp-drivers">
     <div class="card">
       <div class="sh">
-        <div class="sh-t">👤 Fahrer Statistiken</div>
+        <div class="sh-t">👤 <span data-i18n="driver_stats_header">Fahrer Statistiken</span></div>
         <div style="display:flex;gap:8px;align-items:center">
-          <input type="search" class="inp" id="stats-search" placeholder="Fahrer suchen…" oninput="_filterStats()" style="width:200px">
+          <input type="search" class="inp" id="stats-search" placeholder="Fahrer suchen…" data-i18n-placeholder="ph_search_driver" oninput="_filterStats()" style="width:200px">
           <button class="btn btn-gray btn-sm" onclick="loadDriverStats()">↻</button>
         </div>
       </div>
       <div class="tbl-wrap">
         <table>
           <thead><tr>
-            <th class="sort-th" data-col-s="driver" onclick="_sortStats('driver')">Fahrer</th>
-            <th class="sort-th" data-col-s="total_laps" onclick="_sortStats('total_laps')">Runden</th>
-            <th class="sort-th" data-col-s="clean_laps" onclick="_sortStats('clean_laps')">Sauber</th>
-            <th class="sort-th" data-col-s="best_overall" onclick="_sortStats('best_overall')">Bestzeit</th>
-            <th>Beste Strecke</th>
-            <th>Bestes Auto</th>
+            <th class="sort-th" data-col-s="driver" onclick="_sortStats('driver')"><span data-i18n="col_driver">Fahrer</span></th>
+            <th class="sort-th" data-col-s="total_laps" onclick="_sortStats('total_laps')"><span data-i18n="col_laps">Runden</span></th>
+            <th class="sort-th" data-col-s="clean_laps" onclick="_sortStats('clean_laps')"><span data-i18n="col_clean">Sauber</span></th>
+            <th class="sort-th" data-col-s="best_overall" onclick="_sortStats('best_overall')"><span data-i18n="col_best">Bestzeit</span></th>
+            <th><span data-i18n="best_track">Beste Strecke</span></th>
+            <th><span data-i18n="best_car">Bestes Auto</span></th>
           </tr></thead>
           <tbody id="stats-tbody">
-            <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px">Lade...</td></tr>
+            <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px"><span data-i18n="loading">Lade...</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -471,7 +470,7 @@
       <button class="btn btn-gray btn-sm" onclick="loadAnalyticsDrivers()">↻</button>
     </div>
     <div class="fg" style="max-width:320px;margin-bottom:0">
-      <label class="lbl" data-i18n="col_driver">Fahrer</label>
+      <label class="lbl" data-i18n="col_driver"><span data-i18n="col_driver">Fahrer</span></label>
       <select class="sel" id="an-driver-select" onchange="loadDriverProfile()">
         <option value="" data-i18n="an_select_driver">— Fahrer wählen —</option>
       </select>
@@ -481,7 +480,7 @@
   <div id="an-profile-wrap" style="display:none">
     <div class="g4 gap" style="margin:14px 0">
       <div class="kpi-card">
-        <div class="kpi-lbl">Beste Runde</div>
+        <div class="kpi-lbl"><span data-i18n="best_lap">Beste Runde</span></div>
         <div id="an-best" class="kpi-val" style="font-family:monospace;font-size:20px">—</div>
       </div>
       <div class="kpi-card">
@@ -490,12 +489,12 @@
         <div class="kpi-sub">km/h schnellste Runde</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-lbl">Konsistenz</div>
+        <div class="kpi-lbl"><span data-i18n="consistency">Konsistenz</span></div>
         <div id="an-consistency" class="kpi-val">—</div>
-        <div class="kpi-sub">Std.abw. Rundenzeiten</div>
+        <div class="kpi-sub"><span data-i18n="std_dev">Std.abw. Rundenzeiten</span></div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-lbl">Safety-Score</div>
+        <div class="kpi-lbl"><span data-i18n="safety_score">Safety-Score</span></div>
         <div id="an-safety" class="kpi-val">—</div>
         <div class="kpi-sub">Saubere Runden %</div>
       </div>
@@ -506,12 +505,12 @@
       <div class="tbl-wrap">
         <table>
           <thead><tr>
-            <th data-i18n="col_track">Strecke</th><th data-i18n="an_laps">Runden</th>
-            <th data-i18n="stat_clean_laps">Saubere Runden</th><th data-i18n="col_best">Bestzeit</th>
-            <th data-i18n="an_avg_speed">Ø Geschwindigkeit</th><th data-i18n="col_car">Auto</th>
+            <th data-i18n="col_track"><span data-i18n="col_track">Strecke</span></th><th data-i18n="an_laps"><span data-i18n="col_laps">Runden</span></th>
+            <th data-i18n="stat_clean_laps">Saubere Runden</th><th data-i18n="col_best"><span data-i18n="col_best">Bestzeit</span></th>
+            <th data-i18n="an_avg_speed">Ø Geschwindigkeit</th><th data-i18n="col_car"><span data-i18n="col_car">Auto</span></th>
           </tr></thead>
           <tbody id="an-tracks-tbody">
-            <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px" data-i18n="loading">Lade...</td></tr>
+            <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px" data-i18n="loading"><span data-i18n="loading">Lade...</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -522,11 +521,11 @@
       <div class="tbl-wrap">
         <table>
           <thead><tr>
-            <th data-i18n="col_date">Datum</th><th data-i18n="col_track">Strecke</th><th data-i18n="col_car">Auto</th>
-            <th data-i18n="col_time">Zeit</th><th data-i18n="col_cuts">Cuts</th><th data-i18n="an_avg_speed">Ø Geschwindigkeit</th>
+            <th data-i18n="col_date"><span data-i18n="col_date">Datum</span></th><th data-i18n="col_track"><span data-i18n="col_track">Strecke</span></th><th data-i18n="col_car"><span data-i18n="col_car">Auto</span></th>
+            <th data-i18n="col_time"><span data-i18n="col_time">Zeit</span></th><th data-i18n="col_cuts"><span data-i18n="col_cuts">Cuts</span></th><th data-i18n="an_avg_speed">Ø Geschwindigkeit</th>
           </tr></thead>
           <tbody id="an-recent-tbody">
-            <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px" data-i18n="loading">Lade...</td></tr>
+            <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px" data-i18n="loading"><span data-i18n="loading">Lade...</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -534,16 +533,16 @@
 
     <!-- Fahrerprofil-Charts -->
     <div class="card" style="margin-top:14px">
-      <div class="sh"><div class="sh-t">Rundenzeiten-Verlauf</div></div>
+      <div class="sh"><div class="sh-t" data-i18n="an_lap_trend">Rundenzeiten-Verlauf</div></div>
       <div style="position:relative;height:220px"><canvas id="an-chart-timeline"></canvas></div>
     </div>
     <div class="g2 gap" style="margin-top:14px">
       <div class="card">
-        <div class="sh"><div class="sh-t">Bestzeit pro Auto</div></div>
+        <div class="sh"><div class="sh-t" data-i18n="an_best_per_car">Bestzeit pro Auto</div></div>
         <div style="position:relative;height:200px"><canvas id="an-chart-p-tracks"></canvas></div>
       </div>
       <div class="card">
-        <div class="sh"><div class="sh-t">Fahrzeug-Nutzung</div></div>
+        <div class="sh"><div class="sh-t" data-i18n="an_car_usage"><span data-i18n="car_usage">Fahrzeug-Nutzung</span></div></div>
         <div style="position:relative;height:200px"><canvas id="an-chart-p-cars"></canvas></div>
       </div>
     </div>
@@ -551,7 +550,7 @@
 
   <div class="card" style="margin-top:14px">
     <div class="sh">
-      <div class="sh-t">Fahrervergleich <span style="font-size:11px;color:var(--muted);font-weight:400">(alle Fahrer)</span></div>
+      <div class="sh-t"><span data-i18n="driver_compare_all">Fahrervergleich</span> <span style="font-size:11px;color:var(--muted);font-weight:400"><span data-i18n="driver_compare_desc">(alle Fahrer)</span></span></div>
       <div style="display:flex;gap:8px;align-items:center">
         <input type="search" class="inp" id="leaderboard-search" placeholder="Fahrer suchen…" oninput="_filterLeaderboard()" style="width:200px">
         <button class="btn btn-gray btn-sm" onclick="loadAnalyticsDrivers()">↻</button>
@@ -561,14 +560,14 @@
       <table>
         <thead><tr>
           <th>Pos.</th>
-          <th class="sort-th" data-col-lb="driver" onclick="_sortLeaderboard('driver')">Fahrer</th>
-          <th class="sort-th" data-col-lb="total_laps" onclick="_sortLeaderboard('total_laps')">Runden</th>
-          <th class="sort-th" data-col-lb="safety_score" onclick="_sortLeaderboard('safety_score')">Safety-Score</th>
-          <th class="sort-th" data-col-lb="consistency" onclick="_sortLeaderboard('consistency')">Konsistenz</th>
-          <th class="sort-th" data-col-lb="best_overall" onclick="_sortLeaderboard('best_overall')">Bestzeit</th>
+          <th class="sort-th" data-col-lb="driver" onclick="_sortLeaderboard('driver')"><span data-i18n="col_driver">Fahrer</span></th>
+          <th class="sort-th" data-col-lb="total_laps" onclick="_sortLeaderboard('total_laps')"><span data-i18n="col_laps">Runden</span></th>
+          <th class="sort-th" data-col-lb="safety_score" onclick="_sortLeaderboard('safety_score')"><span data-i18n="safety_score">Safety-Score</span></th>
+          <th class="sort-th" data-col-lb="consistency" onclick="_sortLeaderboard('consistency')"><span data-i18n="consistency">Konsistenz</span></th>
+          <th class="sort-th" data-col-lb="best_overall" onclick="_sortLeaderboard('best_overall')"><span data-i18n="col_best">Bestzeit</span></th>
         </tr></thead>
         <tbody id="an-leaderboard-tbody">
-          <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px">Lade...</td></tr>
+          <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px"><span data-i18n="loading">Lade...</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -577,21 +576,21 @@
   <!-- Globale Aktivitäts-Charts -->
   <div class="g2 gap" style="margin-top:14px">
     <div class="card">
-      <div class="sh"><div class="sh-t">Aktivität (30 Tage)</div></div>
+      <div class="sh"><div class="sh-t" data-i18n="an_activity_30d">Aktivität (30 Tage)</div></div>
       <div style="position:relative;height:200px"><canvas id="an-chart-activity"></canvas></div>
     </div>
     <div class="card">
-      <div class="sh"><div class="sh-t">Top Fahrer</div></div>
+      <div class="sh"><div class="sh-t" data-i18n="an_top_drivers">Top Fahrer</div></div>
       <div style="position:relative;height:200px"><canvas id="an-chart-drivers"></canvas></div>
     </div>
   </div>
   <div class="g2 gap" style="margin-top:14px">
     <div class="card">
-      <div class="sh"><div class="sh-t">Top Strecken</div></div>
+      <div class="sh"><div class="sh-t" data-i18n="an_top_tracks">Top Strecken</div></div>
       <div style="position:relative;height:200px"><canvas id="an-chart-tracks"></canvas></div>
     </div>
     <div class="card">
-      <div class="sh"><div class="sh-t">Fahrzeug-Nutzung</div></div>
+      <div class="sh"><div class="sh-t"><span data-i18n="car_usage">Fahrzeug-Nutzung</span></div></div>
       <div style="position:relative;height:200px"><canvas id="an-chart-cars"></canvas></div>
     </div>
   </div>
@@ -605,21 +604,21 @@
     <div>
       <div class="card">
         <div class="sh">
-          <div class="sh-t">🏁 Ergebnisse</div>
+          <div class="sh-t">🏁 <span data-i18n="results_header">Ergebnisse</span></div>
           <button class="btn btn-gray btn-sm" onclick="loadResults()">↻</button>
         </div>
         <!-- Filter -->
         <div style="display:flex;gap:8px;margin:10px 0 8px">
-          <input type="search" class="inp" id="res-search" placeholder="Strecke, Fahrer…" oninput="filterResults()" style="flex:1">
+          <input type="search" class="inp" id="res-search" placeholder="Strecke, Fahrer…" data-i18n-placeholder="ph_track_driver" oninput="filterResults()" style="flex:1">
           <select class="sel" id="res-filter-type" onchange="filterResults()" style="width:120px">
-            <option value="">Alle Typen</option>
-            <option value="P">Practice</option>
-            <option value="Q">Qualifying</option>
-            <option value="R">Race</option>
+            <option value="" data-i18n="res_all_types"><span data-i18n="all_label">Alle</span> Typen</option>
+            <option value="P"><span data-i18n="practice_header">Practice</span></option>
+            <option value="Q"><span data-i18n="qualifying_header">Qualifying</span></option>
+            <option value="R"><span data-i18n="race_header">Race</span></option>
           </select>
         </div>
         <div id="results-list" style="display:flex;flex-direction:column;gap:6px">
-          <div style="color:var(--muted);font-size:13px;text-align:center;padding:32px">Lade Ergebnisse…</div>
+          <div style="color:var(--muted);font-size:13px;text-align:center;padding:32px">Lade <span data-i18n="results_header">Ergebnisse</span>…</div>
         </div>
       </div>
     </div>
@@ -642,7 +641,7 @@
     <div>
       <div class="card" style="margin-bottom:14px">
         <div class="sh" style="cursor:pointer" onclick="var f=document.getElementById('champ-create-form');var open=f.style.display!=='none';f.style.display=open?'none':'flex';this.querySelector('.ct').textContent=open?'▼':'▲'">
-          <div class="sh-t">➕ Neue Meisterschaft</div>
+          <div class="sh-t">➕ <span data-i18n="new_championship">Neue Meisterschaft</span></div>
           <span class="ct" style="color:var(--muted);font-size:12px">▼</span>
         </div>
         <div id="champ-create-form" style="display:none;flex-direction:column;gap:10px;margin-top:12px">
@@ -651,20 +650,20 @@
             <input class="inp" id="champ-name" placeholder="AC Liga 2025">
           </div>
           <div class="fg">
-            <label class="lbl">Punkte-Preset</label>
+            <label class="lbl" data-i18n="champ_pts_preset">Punkte-Preset</label>
             <select class="sel" id="champ-preset" onchange="applyPointsPreset()">
               <option value="F1">F1 (25-18-15-12-10…)</option>
               <option value="Liga">Liga (20-15-12-10-8…)</option>
               <option value="Simple">Simple (10-8-6-5-4…)</option>
               <option value="IMSA">IMSA (35-32-30…)</option>
-              <option value="custom">Benutzerdefiniert</option>
+              <option value="custom" data-i18n="champ_custom">Benutzerdefiniert</option>
             </select>
           </div>
           <div class="fg">
-            <label class="lbl">Punkte-Schema (kommagetrennt)</label>
+            <label class="lbl" data-i18n="champ_schema">Punkte-Schema (kommagetrennt)</label>
             <input class="inp" id="champ-points" value="25,18,15,12,10,8,6,4,2,1">
           </div>
-          <button class="btn btn-red" onclick="createChampionship()">🏆 Erstellen</button>
+          <button class="btn btn-red" onclick="createChampionship()" data-i18n="champ_btn_create">🏆 Erstellen</button>
         </div>
       </div>
 
@@ -696,18 +695,17 @@
       <div class="sh-t">📋 Server Events <span id="ev-count" style="color:var(--muted);font-weight:400;font-size:12px"></span></div>
       <div style="display:flex;gap:8px;align-items:center">
         <label style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);cursor:pointer">
-          <input type="checkbox" id="ev-auto" checked style="accent-color:var(--red)"> Auto
-        </label>
+          <input type="checkbox" id="ev-auto" checked style="accent-color:var(--red)"><span data-i18n="col_car">Auto</span></label>
         <button class="btn btn-gray btn-sm" onclick="loadEvents()">↻</button>
       </div>
     </div>
     <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
       <select class="inp" id="ev-filter" style="max-width:160px;font-size:12px" onchange="renderEvents()">
-        <option value="" data-i18n="ev_all">Alle Events</option>
+        <option value="" data-i18n="ev_all"><span data-i18n="all_events"><span data-i18n="all_label">Alle</span> Events</span></option>
         <option value="join" data-i18n="ev_joins">Nur Beitritte</option>
         <option value="leave" data-i18n="ev_leaves">Nur Abgänge</option>
       </select>
-      <input class="inp" id="ev-search" data-i18n-placeholder="ev_driver_ph" placeholder="Fahrer filtern..." style="max-width:200px;font-size:12px" oninput="renderEvents()">
+      <input class="inp" id="ev-search" data-i18n-placeholder="ev_driver_ph" placeholder="Fahrer filtern..." data-i18n-placeholder="ev_driver_ph" style="max-width:200px;font-size:12px" oninput="renderEvents()">
     </div>
     <div id="event-log" style="max-height:620px;overflow-y:auto;display:flex;flex-direction:column;gap:3px">
       <div style="color:var(--muted);font-size:13px;text-align:center;padding:48px" data-i18n="ev_loading">Lade Events...</div>
@@ -756,19 +754,19 @@
       <div class="num-row"><span class="tog-lbl">UDP / TCP Port</span><input class="inp num-inp" type="number" id="sv-udp" min="1024" max="65535" value="{{ cfg.get('UDP_PORT','9600') }}"></div>
       <div class="num-row"><span class="tog-lbl">HTTP Port</span><input class="inp num-inp" type="number" id="sv-http" min="1024" max="65535" value="{{ cfg.get('HTTP_PORT','8081') }}"></div>
       <div class="tog-row"><div><div class="tog-lbl">Pickup Mode</div><div class="tog-desc" data-i18n="tog_pickup_desc">Spieler wählen ihr Auto selbst</div></div><label class="tog"><input type="checkbox" id="sv-pickup" {% if cfg.get('PICKUP_MODE_ENABLED','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
-      <div class="tog-row"><div><div class="tog-lbl">Loop Mode</div><div class="tog-desc" data-i18n="tog_loop_desc">Automatischer Session-Neustart</div></div><label class="tog"><input type="checkbox" id="sv-loop" {% if cfg.get('LOOP_MODE','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
+      <div class="tog-row"><div><div class="tog-lbl">Loop Mode</div><div class="tog-desc" data-i18n="tog_loop_desc">Automatischer Session-<span data-i18n="restart_q">Neustart</span></div></div><label class="tog"><input type="checkbox" id="sv-loop" {% if cfg.get('LOOP_MODE','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
       <div class="tog-row"><div><div class="tog-lbl">Blacklist Mode</div><div class="tog-desc" data-i18n="tog_blacklist_desc">Gebannte Spieler werden abgelehnt</div></div><label class="tog"><input type="checkbox" id="sv-blacklist" {% if cfg.get('BLACKLIST_MODE','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
       <div class="num-row"><div><span class="tog-lbl" data-i18n="lbl_kick_quorum">Kick-Quorum %</span><div style="font-size:10px;color:var(--muted)" data-i18n="lbl_kick_quorum_desc">Mindest-% für Kick-Vote</div></div><input class="inp num-inp" type="number" id="sv-kickq" min="0" max="100" value="{{ cfg.get('KICK_QUORUM','85') }}"></div>
       <div class="num-row"><span class="tog-lbl" data-i18n="lbl_vote_quorum">Voting-Quorum %</span><input class="inp num-inp" type="number" id="sv-voteq" min="0" max="100" value="{{ cfg.get('VOTING_QUORUM','80') }}"></div>
       <div class="num-row"><span class="tog-lbl" data-i18n="lbl_vote_duration">Vote-Dauer (s)</span><input class="inp num-inp" type="number" id="sv-vdur" min="5" max="120" value="{{ cfg.get('VOTE_DURATION','20') }}"></div>
-      <div class="num-row"><div><span class="tog-lbl">Race Over Time (s)</span><div style="font-size:10px;color:var(--muted)" data-i18n="lbl_race_over_desc">Zeit nach Sieger bis Session endet</div></div><input class="inp num-inp" type="number" id="sv-raceover" min="0" max="3600" value="{{ cfg.get('RACE_OVER_TIME','180') }}"></div>
+      <div class="num-row"><div><span class="tog-lbl"><span data-i18n="race_header">Race</span> Over Time (s)</span><div style="font-size:10px;color:var(--muted)" data-i18n="lbl_race_over_desc">Zeit nach Sieger bis Session endet</div></div><input class="inp num-inp" type="number" id="sv-raceover" min="0" max="3600" value="{{ cfg.get('RACE_OVER_TIME','180') }}"></div>
       <div class="num-row"><div><span class="tog-lbl">Client Send Rate (Hz)</span><div style="font-size:10px;color:var(--muted)" data-i18n="lbl_hz_desc">Standard: 18</div></div><input class="inp num-inp" type="number" id="sv-hz" min="1" max="60" value="{{ cfg.get('CLIENT_SEND_INTERVAL_HZ','18') }}"></div>
       <div class="fg" style="margin-top:8px"><label class="lbl">Legal Tyres <span style="font-weight:400;color:var(--muted)" data-i18n="lbl_tyres_hint">(leer = alle erlaubt)</span></label><input class="inp" id="sv-tyres" placeholder="z.B. SV,SM,HR" value="{{ cfg.get('LEGAL_TYRES','') }}"></div>
     </div>
   </div>
   <div class="save-footer">
     <button class="btn btn-red" onclick="saveAllServerSettings()" data-i18n="btn_save_server">💾 Server-Einstellungen speichern</button>
-    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Neustart</button>
+    <button class="btn btn-gray" onclick="ctrl('restart')">↻ <span data-i18n="restart_q">Neustart</span></button>
   </div>
 </div>
 
@@ -776,9 +774,9 @@
   <div class="sec-hdr"><h2>🗺️ <span data-i18n="nav_track">Strecke & Autos</span></h2></div>
   <div class="g2 gap">
     <div class="card">
-      <div class="card-ttl" data-i18n="sec_track">Strecke</div>
+      <div class="card-ttl" data-i18n="sec_track"><span data-i18n="col_track">Strecke</span></div>
       <div class="fg">
-        <label class="lbl" data-i18n="lbl_track">Strecke</label>
+        <label class="lbl" data-i18n="lbl_track"><span data-i18n="col_track">Strecke</span></label>
         <select class="sel" id="s-track" onchange="updateLayouts();loadTrackPreview()">
           {% for t in tracks %}<option value="{{ t.name }}" data-layouts='{{ t.layouts|tojson }}' {% if t.name == cfg.get('TRACK') %}selected{% endif %}>{{ track_ui.get(t.name, {}).get('name', t.name) }}</option>{% endfor %}
         </select>
@@ -791,7 +789,7 @@
     <div class="card">
       <div class="sh">
         <div class="sh-t" data-i18n="card_vehicles">Fahrzeuge</div>
-        <span id="car-sel-count" style="font-size:11px;color:var(--muted)">{{ selected_cars|length }} ausgewählt</span>
+        <span id="car-sel-count" style="font-size:11px;color:var(--muted)">{{ selected_cars|length }} <span data-i18n="selected">ausgewählt</span></span>
       </div>
       <input class="inp" id="car-search" data-i18n-placeholder="ph_search" placeholder="Suchen..." oninput="filterCars()" style="margin-bottom:6px">
       <div class="clist" id="car-list">
@@ -813,28 +811,28 @@
   </div>
   <div class="save-footer">
     <button class="btn btn-red" onclick="saveTrackCars()" data-i18n="btn_save_track">💾 Strecke & Autos speichern</button>
-    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Neustart</button>
+    <button class="btn btn-gray" onclick="ctrl('restart')">↻ <span data-i18n="restart_q">Neustart</span></button>
   </div>
 
   <!-- Dynamische Strecke gehört konzeptionell zu Strecke, nicht Wetter -->
   {% set dt = full_cfg.get('DYNAMIC_TRACK', {}) %}
   <div class="card gap" style="margin-top:0">
     <div class="sh">
-      <div class="sh-t">🛣 Dynamische Strecke</div>
-      <span style="font-size:11px;color:var(--muted)">Gummi-Aufbau &amp; Grip-Simulation</span>
+      <div class="sh-t">🛣 <span data-i18n="dynamic_track">Dynamische Strecke</span></div>
+      <span style="font-size:11px;color:var(--muted)"><span data-i18n="rubber_grip_sim">Gummi-Aufbau &amp; Grip-Simulation</span></span>
     </div>
     <div class="g2 gap" style="margin-top:8px">
       <div>
-        <div class="num-row"><div><span class="tog-lbl">Start Grip %</span><div style="font-size:10px;color:var(--muted)">Grip zu Session-Beginn (0–100)</div></div><input class="inp num-inp" type="number" id="dt-start" min="0" max="100" value="{{ dt.get('SESSION_START','95') }}"></div>
+        <div class="num-row"><div><span class="tog-lbl"><span data-i18n="start_grip">Start Grip %</span></span><div style="font-size:10px;color:var(--muted)">Grip zu Session-Beginn (0–100)</div></div><input class="inp num-inp" type="number" id="dt-start" min="0" max="100" value="{{ dt.get('SESSION_START','95') }}"></div>
         <div class="num-row"><div><span class="tog-lbl" data-i18n="lbl_randomness">Zufälligkeit</span><div style="font-size:10px;color:var(--muted)">Grip-Variation (0–10)</div></div><input class="inp num-inp" type="number" id="dt-rand" min="0" max="10" value="{{ dt.get('RANDOMNESS','1') }}"></div>
       </div>
       <div>
-        <div class="num-row"><div><span class="tog-lbl">Session Transfer %</span><div style="font-size:10px;color:var(--muted)">Carry-Over zur nächsten Session</div></div><input class="inp num-inp" type="number" id="dt-transfer" min="0" max="100" value="{{ dt.get('SESSION_TRANSFER','80') }}"></div>
-        <div class="num-row"><div><span class="tog-lbl" data-i18n="lbl_lap_gain">Grip-Gewinn / Runde</span><div style="font-size:10px;color:var(--muted)">Standard: 132</div></div><input class="inp num-inp" type="number" id="dt-lap" min="0" max="500" value="{{ dt.get('LAP_GAIN','132') }}"></div>
+        <div class="num-row"><div><span class="tog-lbl"><span data-i18n="session_transfer">Session Transfer %</span></span><div style="font-size:10px;color:var(--muted)"><span data-i18n="carry_over_next">Carry-Over zur nächsten Session</span></div></div><input class="inp num-inp" type="number" id="dt-transfer" min="0" max="100" value="{{ dt.get('SESSION_TRANSFER','80') }}"></div>
+        <div class="num-row"><div><span class="tog-lbl" data-i18n="lbl_lap_gain">Grip-Gewinn / Runde</span><div style="font-size:10px;color:var(--muted)"><span data-i18n="standard_132">Standard: 132</span></div></div><input class="inp num-inp" type="number" id="dt-lap" min="0" max="500" value="{{ dt.get('LAP_GAIN','132') }}"></div>
       </div>
     </div>
     <div class="save-footer" style="margin-top:8px;padding-top:8px">
-      <button class="btn btn-red btn-sm" onclick="saveWeather()">💾 Streckenparameter speichern</button>
+      <button class="btn btn-red btn-sm" onclick="saveWeather()">💾 <span data-i18n="save_track_params">Streckenparameter speichern</span></button>
     </div>
   </div>
 </div>
@@ -844,7 +842,7 @@
   <div class="g2 gap">
     <div class="card">
       <div class="card-ttl" data-i18n="nav_assists">Fahrhilfen</div>
-      <div class="tog-row"><div><div class="tog-lbl">ABS</div><div class="tog-desc" data-i18n="tog_abs_desc">Anti-Blockier-System</div></div><label class="tog"><input type="checkbox" id="a-abs" {% if cfg.get('ABS_ALLOWED','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
+      <div class="tog-row"><div><div class="tog-lbl">ABS</div><div class="tog-desc" data-i18n="tog_abs_desc">Anti-Blockier-<span data-i18n="system">System</span></div></div><label class="tog"><input type="checkbox" id="a-abs" {% if cfg.get('ABS_ALLOWED','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
       <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_tc">Traktionskontrolle (TC)</div></div><label class="tog"><input type="checkbox" id="a-tc" {% if cfg.get('TC_ALLOWED','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
       <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_esp">Stabilitätskontrolle (ESP)</div></div><label class="tog"><input type="checkbox" id="a-stab" {% if cfg.get('STABILITY_ALLOWED','0')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
       <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_autoclutch">Auto-Kupplung</div></div><label class="tog"><input type="checkbox" id="a-clutch" {% if cfg.get('AUTOCLUTCH_ALLOWED','0')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
@@ -862,22 +860,22 @@
   </div>
   <div class="save-footer">
     <button class="btn btn-red" onclick="saveAssists()" data-i18n="btn_save_assists">💾 Fahrhilfen speichern</button>
-    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Neustart</button>
+    <button class="btn btn-gray" onclick="ctrl('restart')">↻ <span data-i18n="restart_q">Neustart</span></button>
   </div>
 
   <!-- Cut-Aktionen -->
   <div class="card gap" style="margin-top:0">
     <div class="card-ttl" data-i18n="card_cut_actions">Cut-Aktionen</div>
     <div class="tog-row">
-      <div><div class="tog-lbl" data-i18n="lbl_ca_enabled">Aktiviert</div><div class="tog-desc" data-i18n="lbl_ca_enabled_desc">Automatische Warn- und Kick-Aktionen bei Cuts</div></div>
+      <div><div class="tog-lbl" data-i18n="lbl_ca_enabled">Aktiviert</div><div class="tog-desc" data-i18n="lbl_ca_enabled_desc">Automatische <span data-i18n="warn">Warn</span>- und Kick-Aktionen bei Cuts</div></div>
       <label class="tog"><input type="checkbox" id="ca-enabled"><span class="tog-sl"></span></label>
     </div>
     <div class="num-row">
-      <span class="tog-lbl" data-i18n="lbl_ca_warn_per_lap">Warn ab X Cuts / Runde <span style="color:var(--muted)">(0 = aus)</span></span>
+      <span class="tog-lbl" data-i18n="lbl_ca_warn_per_lap"><span data-i18n="warn">Warn</span> ab X Cuts / Runde <span style="color:var(--muted)">(0 = aus)</span></span>
       <input class="inp num-inp" type="number" id="ca-warn-per-lap" min="0" max="20" value="2">
     </div>
     <div class="fg">
-      <label class="lbl" data-i18n="lbl_ca_warn_msg">Warn-Nachricht <span style="color:var(--muted);font-weight:400">({driver}, {cuts})</span></label>
+      <label class="lbl" data-i18n="lbl_ca_warn_msg"><span data-i18n="warn">Warn</span>-Nachricht <span style="color:var(--muted);font-weight:400">({driver}, {cuts})</span></label>
       <input class="inp" id="ca-warn-msg" placeholder="⚠️ {driver}: {cuts} Cuts!">
     </div>
     <div class="num-row">
@@ -888,7 +886,7 @@
       <label class="lbl" data-i18n="lbl_ca_kick_msg">Kick-Nachricht <span style="color:var(--muted);font-weight:400">({cuts})</span></label>
       <input class="inp" id="ca-kick-msg" placeholder="Kick: Zu viele Cuts ({cuts} gesamt)">
     </div>
-    <button class="btn btn-red" onclick="saveCutActions()" data-i18n="btn_save">💾 Speichern</button>
+    <button class="btn btn-red" onclick="saveCutActions()" data-i18n="btn_save">💾 <span data-i18n="save_btn">Speichern</span></button>
   </div>
 </div>
 
@@ -902,27 +900,27 @@
 
   <!-- Session-Flow Hinweis -->
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:12px;color:var(--muted)">
-    <span style="background:var(--bg3);border:1px solid var(--border);padding:3px 10px;border-radius:20px">🏃 Practice</span>
+    <span style="background:var(--bg3);border:1px solid var(--border);padding:3px 10px;border-radius:20px">🏃 <span data-i18n="practice_header">Practice</span></span>
     <span>→</span>
-    <span style="background:var(--bg3);border:1px solid var(--border);padding:3px 10px;border-radius:20px">🏎 Qualifying</span>
+    <span style="background:var(--bg3);border:1px solid var(--border);padding:3px 10px;border-radius:20px">🏎 <span data-i18n="qualifying_header">Qualifying</span></span>
     <span>→</span>
-    <span style="background:var(--bg3);border:1px solid var(--border);padding:3px 10px;border-radius:20px">🏁 Race</span>
-    <span style="margin-left:8px">· Qualifying/Race mit TIME=0 bzw. LAPS=0 deaktivieren</span>
+    <span style="background:var(--bg3);border:1px solid var(--border);padding:3px 10px;border-radius:20px">🏁 <span data-i18n="race_header">Race</span></span>
+    <span style="margin-left:8px">· <span data-i18n="disable_quali_race"><span data-i18n="qualifying_header">Qualifying</span>/<span data-i18n="race_header">Race</span> mit TIME=0 bzw. LAPS=0 deaktivieren</span></span>
   </div>
 
   <div class="g3 gap">
     <!-- Practice -->
     <div class="card">
       <div class="sh">
-        <div class="sh-t">🏃 Practice</div>
-        <span style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--status-online);background:rgba(34,197,94,.12);padding:2px 8px;border-radius:10px">Immer aktiv</span>
+        <div class="sh-t">🏃 <span data-i18n="practice_header">Practice</span></div>
+        <span style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--status-online);background:rgba(34,197,94,.12);padding:2px 8px;border-radius:10px"><span data-i18n="always_active">Immer aktiv</span></span>
       </div>
       <div class="num-row">
-        <div><span class="tog-lbl" data-i18n="lbl_duration_min">Dauer (min)</span><div style="font-size:10px;color:var(--muted)">9999 = unbegrenzt</div></div>
+        <div><span class="tog-lbl" data-i18n="lbl_duration_min">Dauer (min)</span><div style="font-size:10px;color:var(--muted)"><span data-i18n="9999_unlimited">9999 = unbegrenzt</span></div></div>
         <input class="inp num-inp" type="number" id="prc-time" value="{{ practice.get('TIME','9999') }}">
       </div>
       <div class="tog-row">
-        <div><div class="tog-lbl" data-i18n="lbl_open_practice">Offener Beitritt</div><div class="tog-desc">Spieler können jederzeit beitreten</div></div>
+        <div><div class="tog-lbl" data-i18n="lbl_open_practice"><span data-i18n="open_join">Offener Beitritt</span></div><div class="tog-desc"><span data-i18n="players_join_anytime">Spieler können jederzeit beitreten</span></div></div>
         <label class="tog"><input type="checkbox" id="prc-open" {% if practice.get('IS_OPEN','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label>
       </div>
     </div>
@@ -930,15 +928,15 @@
     <!-- Qualifying -->
     <div class="card">
       <div class="sh">
-        <div class="sh-t">🏎 Qualifying</div>
-        <span style="font-size:10px;font-weight:700;text-transform:uppercase;color:{{ 'var(--status-online)' if qualify.get('TIME','0') != '0' else 'var(--muted)' }};background:{{ 'rgba(34,197,94,.12)' if qualify.get('TIME','0') != '0' else 'var(--bg3)' }};padding:2px 8px;border-radius:10px">{{ 'Aktiv' if qualify.get('TIME','0') != '0' else 'Deaktiviert' }}</span>
+        <div class="sh-t">🏎 <span data-i18n="qualifying_header">Qualifying</span></div>
+        <span style="font-size:10px;font-weight:700;text-transform:uppercase;color:{{ 'var(--status-online)' if qualify.get('TIME','0') != '0' else 'var(--muted)' }};background:{{ 'rgba(34,197,94,.12)' if qualify.get('TIME','0') != '0' else 'var(--bg3)' }};padding:2px 8px;border-radius:10px">{{ 'Aktiv' if qualify.get('TIME','0') != '0' else '<span data-i18n="disabled"><span data-i18n="disabled_label">Deaktiviert</span></span>' }}</span>
       </div>
       <div class="num-row">
-        <div><span class="tog-lbl" data-i18n="lbl_duration_min">Dauer (min)</span><div style="font-size:10px;color:var(--muted)">0 = kein Qualifying</div></div>
+        <div><span class="tog-lbl" data-i18n="lbl_duration_min">Dauer (min)</span><div style="font-size:10px;color:var(--muted)"><span data-i18n="0_no_quali">0 = kein <span data-i18n="qualifying_header">Qualifying</span></span></div></div>
         <input class="inp num-inp" type="number" id="qlf-time" value="{{ qualify.get('TIME','0') }}" min="0">
       </div>
       <div class="tog-row">
-        <div><div class="tog-lbl" data-i18n="lbl_open">Offener Beitritt</div><div class="tog-desc">Spieler können während Qualifying joinen</div></div>
+        <div><div class="tog-lbl" data-i18n="lbl_open"><span data-i18n="open_join">Offener Beitritt</span></div><div class="tog-desc"><span data-i18n="players_join_quali">Spieler können während <span data-i18n="qualifying_header">Qualifying</span> joinen</span></div></div>
         <label class="tog"><input type="checkbox" id="qlf-open" {% if qualify.get('IS_OPEN','0')=='1' %}checked{% endif %}><span class="tog-sl"></span></label>
       </div>
     </div>
@@ -946,30 +944,30 @@
     <!-- Race -->
     <div class="card">
       <div class="sh">
-        <div class="sh-t">🏁 Race</div>
-        <span style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--status-online);background:rgba(34,197,94,.12);padding:2px 8px;border-radius:10px">Immer aktiv</span>
+        <div class="sh-t">🏁 <span data-i18n="race_header">Race</span></div>
+        <span style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--status-online);background:rgba(34,197,94,.12);padding:2px 8px;border-radius:10px"><span data-i18n="always_active">Immer aktiv</span></span>
       </div>
       <div class="num-row">
-        <div><span class="tog-lbl" data-i18n="lbl_laps_0time">Runden</span><div style="font-size:10px;color:var(--muted)">0 = zeitbasiert</div></div>
+        <div><span class="tog-lbl" data-i18n="lbl_laps_0time"><span data-i18n="col_laps">Runden</span></span><div style="font-size:10px;color:var(--muted)"><span data-i18n="0_time_based">0 = zeitbasiert</span></div></div>
         <input class="inp num-inp" type="number" id="race-laps" value="{{ race.get('LAPS','0') }}" min="0">
       </div>
       <div class="num-row">
-        <div><span class="tog-lbl" data-i18n="lbl_wait_time">Wartezeit (s)</span><div style="font-size:10px;color:var(--muted)">Verzögerung nach Quali bis Race-Start</div></div>
+        <div><span class="tog-lbl" data-i18n="lbl_wait_time">Wartezeit (s)</span><div style="font-size:10px;color:var(--muted)"><span data-i18n="delay_after_quali">Verzögerung nach Quali bis <span data-i18n="race_header">Race</span>-Start</span></div></div>
         <input class="inp num-inp" type="number" id="race-wait" value="{{ race.get('WAIT_TIME','0') }}" min="0">
       </div>
       <div class="tog-row">
-        <div><div class="tog-lbl">Offener Beitritt</div><div class="tog-desc">Spieler können nach Race-Start noch joinen</div></div>
+        <div><div class="tog-lbl"><span data-i18n="open_join">Offener Beitritt</span></div><div class="tog-desc"><span data-i18n="players_join_race">Spieler können nach <span data-i18n="race_header">Race</span>-Start noch joinen</span></div></div>
         <label class="tog"><input type="checkbox" id="race-open" {% if race.get('IS_OPEN','0')=='1' %}checked{% endif %}><span class="tog-sl"></span></label>
       </div>
     </div>
   </div>
   <div class="save-footer">
     <button class="btn btn-red" onclick="saveSessions()" data-i18n="btn_save_sessions">💾 Sessions speichern</button>
-    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Neustart</button>
+    <button class="btn btn-gray" onclick="ctrl('restart')">↻ <span data-i18n="restart_q">Neustart</span></button>
   </div>
 
   <!-- Geplante Events (Zeitplanung) -->
-  <h3 style="margin:24px 0 12px;font-size:14px;font-weight:700;color:var(--text)">📅 Geplante Events</h3>
+  <h3 style="margin:24px 0 12px;font-size:14px;font-weight:700;color:var(--text)">📅 <span data-i18n="scheduled_events">Geplante Events</span></h3>
   <div class="g2 gap">
     <div class="card gap">
       <div class="card-ttl" data-i18n="sched_create">Neues geplantes Event</div>
@@ -998,7 +996,7 @@
     </div>
     <div class="card">
       <div class="sh">
-        <div class="sh-t" data-i18n="sched_events">Geplante Events</div>
+        <div class="sh-t" data-i18n="sched_events"><span data-i18n="scheduled_events">Geplante Events</span></div>
         <button class="btn btn-gray btn-sm" onclick="loadScheduledEvents()">↻</button>
       </div>
       <div id="sched-list" style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
@@ -1021,25 +1019,25 @@
     <!-- Slot 1 -->
     <div class="card">
       <div class="sh">
-        <div class="sh-t">Wetter Slot 1</div>
+        <div class="sh-t"><span data-i18n="weather_slot_1">Wetter Slot 1</span></div>
         <span id="w0-icon" style="font-size:20px">☀️</span>
       </div>
       <div class="fg">
-        <label class="lbl">Grafik-Preset</label>
+        <label class="lbl"><span data-i18n="graphic_preset">Grafik-Preset</span></label>
         <select class="sel" id="w0-graphics" onchange="updateWeatherIcon('w0')">
           {% for wp in weather_presets %}<option value="{{ wp }}" {% if w0.get('GRAPHICS','3_clear')==wp %}selected{% endif %}>{{ wp }}</option>{% endfor %}
         </select>
       </div>
       <div class="g2 gap" style="margin-top:10px">
         <div>
-          <label class="lbl">Ambient °C</label>
+          <label class="lbl"><span data-i18n="ambient_c">Ambient °C</span></label>
           <input class="inp" type="number" id="w0-amb" value="{{ w0.get('BASE_TEMPERATURE_AMBIENT','18') }}" min="-20" max="50">
-          <div style="font-size:10px;color:var(--muted);margin-top:3px">Lufttemperatur</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:3px"><span data-i18n="air_temp">Lufttemperatur</span></div>
         </div>
         <div>
-          <label class="lbl">Straße °C</label>
+          <label class="lbl"><span data-i18n="road_c">Straße °C</span></label>
           <input class="inp" type="number" id="w0-road" value="{{ (w0.get('BASE_TEMPERATURE_AMBIENT','18')|int + w0.get('BASE_TEMPERATURE_ROAD','8')|int) }}" min="-20" max="80">
-          <div style="font-size:10px;color:var(--muted);margin-top:3px">Asphalttemperatur</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:3px"><span data-i18n="asphalt_temp">Asphalttemperatur</span></div>
         </div>
       </div>
     </div>
@@ -1047,32 +1045,32 @@
     <!-- Slot 2 -->
     <div class="card">
       <div class="sh">
-        <div class="sh-t">Wetter Slot 2</div>
+        <div class="sh-t"><span data-i18n="weather_slot_2">Wetter Slot 2</span></div>
         <span id="w1-icon" style="font-size:20px">☁️</span>
       </div>
       <div class="fg">
-        <label class="lbl">Grafik-Preset</label>
+        <label class="lbl"><span data-i18n="graphic_preset">Grafik-Preset</span></label>
         <select class="sel" id="w1-graphics" onchange="updateWeatherIcon('w1')">
           {% for wp in weather_presets %}<option value="{{ wp }}" {% if w1.get('GRAPHICS','7_heavy_clouds')==wp %}selected{% endif %}>{{ wp }}</option>{% endfor %}
         </select>
       </div>
       <div class="g2 gap" style="margin-top:10px">
         <div>
-          <label class="lbl">Ambient °C</label>
+          <label class="lbl"><span data-i18n="ambient_c">Ambient °C</span></label>
           <input class="inp" type="number" id="w1-amb" value="{{ w1.get('BASE_TEMPERATURE_AMBIENT','15') }}" min="-20" max="50">
-          <div style="font-size:10px;color:var(--muted);margin-top:3px">Lufttemperatur</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:3px"><span data-i18n="air_temp">Lufttemperatur</span></div>
         </div>
         <div>
-          <label class="lbl">Straße °C</label>
+          <label class="lbl"><span data-i18n="road_c">Straße °C</span></label>
           <input class="inp" type="number" id="w1-road" value="{{ (w1.get('BASE_TEMPERATURE_AMBIENT','15')|int + w1.get('BASE_TEMPERATURE_ROAD','14')|int) }}" min="-20" max="80">
-          <div style="font-size:10px;color:var(--muted);margin-top:3px">Asphalttemperatur</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:3px"><span data-i18n="asphalt_temp">Asphalttemperatur</span></div>
         </div>
       </div>
     </div>
   </div>
   <div class="save-footer">
-    <button class="btn btn-red" onclick="saveWeatherPage()">💾 Wetter speichern</button>
-    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Neustart</button>
+    <button class="btn btn-red" onclick="saveWeatherPage()">💾 <span data-i18n="save_weather">Wetter speichern</span></button>
+    <button class="btn btn-gray" onclick="ctrl('restart')">↻ <span data-i18n="restart_q">Neustart</span></button>
   </div>
 </div>
 
@@ -1089,7 +1087,7 @@
       <button class="btn btn-gray btn-sm" onclick="insertWelcomeText('🚗 ')">🚗</button>
       <button class="btn btn-gray btn-sm" onclick="insertWelcomeText('⚡ ')">⚡</button>
       <button class="btn btn-gray btn-sm" onclick="insertWelcomeVar('NAME')" data-i18n="btn_var_name">Servername</button>
-      <button class="btn btn-gray btn-sm" onclick="insertWelcomeVar('TRACK')" data-i18n="btn_trackname">Strecke</button>
+      <button class="btn btn-gray btn-sm" onclick="insertWelcomeVar('TRACK')" data-i18n="btn_trackname"><span data-i18n="col_track">Strecke</span></button>
     </div>
     <div class="g2">
       <div><label class="lbl" data-i18n="lbl_edit">Bearbeiten</label><textarea id="welcome-msg" rows="12" class="ta" placeholder="Willkommen auf unserem Server!&#10;&#10;• Respektvoller Umgang&#10;• Sauberes Fahren" oninput="updateWelcomePreview()"></textarea></div>
@@ -1112,7 +1110,7 @@
       <div class="tog-row"><div><div class="tog-lbl">Anti-AFK Kick</div><div class="tog-desc">Inaktive Fahrer automatisch trennen</div></div><label class="tog"><input type="checkbox" id="ec-afk"><span class="tog-sl"></span></label></div>
       <div class="num-row"><div><span class="tog-lbl">AFK Timeout (min)</span><div style="font-size:10px;color:var(--muted)">Standard: 10 min</div></div><input class="inp num-inp" type="number" id="ec-afkmin" min="1" max="60" value="10"></div>
       <div class="num-row"><div><span class="tog-lbl">Max Ping (ms)</span><div style="font-size:10px;color:var(--muted)">0 = kein Limit</div></div><input class="inp num-inp" type="number" id="ec-ping" min="100" max="2000" value="500"></div>
-      <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_force_lights">Lichter erzwingen</div><div class="tog-desc">Alle Spieler müssen Scheinwerfer verwenden</div></div><label class="tog"><input type="checkbox" id="ec-lights"><span class="tog-sl"></span></label></div>
+      <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_force_lights">Lichter erzwingen</div><div class="tog-desc"><span data-i18n="all_label">Alle</span> Spieler müssen Scheinwerfer verwenden</div></div><label class="tog"><input type="checkbox" id="ec-lights"><span class="tog-sl"></span></label></div>
       <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_weatherfx">WeatherFX (CSP Regen)</div><div class="tog-desc" data-i18n="tog_weatherfx_desc">Benötigt CSP 0.1.76+</div></div><label class="tog"><input type="checkbox" id="ec-wxfx"><span class="tog-sl"></span></label></div>
       <div class="tog-row"><div><div class="tog-lbl">Client Messages (CSP)</div></div><label class="tog"><input type="checkbox" id="ec-clmsg"><span class="tog-sl"></span></label></div>
       <div class="tog-row"><div><div class="tog-lbl">Real Time</div></div><label class="tog"><input type="checkbox" id="ec-realtime"><span class="tog-sl"></span></label></div>
@@ -1123,17 +1121,17 @@
         <label class="lbl">Loading Image URL</label>
         <input class="inp" id="ec-loadimg" placeholder="https://...">
       </div>
-      <button class="btn btn-red" onclick="saveExtraCfg()">💾 Speichern &amp; Neustart</button>
+      <button class="btn btn-red" onclick="saveExtraCfg()">💾 <span data-i18n="save_btn">Speichern</span> &amp; <span data-i18n="restart_q">Neustart</span></button>
     </div>
 
     <!-- Plugins -->
     <div>
       <div class="card gap">
         <div class="sh">
-          <div class="sh-t">🔌 AssettoServer Plugins</div>
+          <div class="sh-t" data-i18n="cfg_plugins_title">🔌 AssettoServer Plugins</div>
           <button class="btn btn-gray btn-sm" onclick="loadPluginStatus()">↻</button>
         </div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Status aus extra_cfg.yml — Änderungen erfordern Neustart.</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Status aus extra_cfg.yml — Änderungen erfordern <span data-i18n="restart_q">Neustart</span>.</div>
         <div style="display:flex;flex-direction:column;gap:8px" id="plugin-status-list">
           <div class="tog-row" style="background:var(--bg);border-radius:6px;padding:8px 10px">
             <div style="display:flex;align-items:center;gap:8px">
@@ -1153,14 +1151,14 @@
               <div class="num-row" style="margin-bottom:6px"><span class="tog-lbl" style="font-size:11px">Intervall (Min.)</span><input class="inp num-inp" type="number" id="vwp-interval" min="1" max="120" value="30"></div>
               <div class="num-row" style="margin-bottom:6px"><span class="tog-lbl" style="font-size:11px">Dauer (Sek.)</span><input class="inp num-inp" type="number" id="vwp-duration" min="5" max="120" value="30"></div>
               <div class="tog-row" style="margin-bottom:8px"><span class="tog-lbl" style="font-size:11px">Wetter nacheinander</span><label class="tog"><input type="checkbox" id="vwp-sequential"><span class="tog-sl"></span></label></div>
-              <button class="btn btn-gray btn-sm" onclick="saveVotingWeather()">💾 Speichern</button>
+              <button class="btn btn-gray btn-sm" onclick="saveVotingWeather()">💾 <span data-i18n="save_btn">Speichern</span></button>
             </div>
           </div>
           <div style="background:var(--bg);border-radius:6px;padding:8px 10px">
             <div class="tog-row" style="margin-bottom:0">
               <div style="display:flex;align-items:center;gap:8px">
                 <span id="dot-lwp" style="font-size:13px">○</span>
-                <div><div style="font-size:12px;font-weight:600">LiveWeatherPlugin</div><div style="font-size:10px;color:var(--muted)" id="lwp-status-txt">Deaktiviert — benötigt OpenWeatherMap API-Key</div></div>
+                <div><div style="font-size:12px;font-weight:600">LiveWeatherPlugin</div><div style="font-size:10px;color:var(--muted)" id="lwp-status-txt"><span data-i18n="disabled"><span data-i18n="disabled_label">Deaktiviert</span></span> — benötigt OpenWeatherMap API-Key</div></div>
               </div>
               <label class="tog"><input type="checkbox" id="lwp-toggle" onchange="toggleLiveWeather(this.checked)"><span class="tog-sl"></span></label>
             </div>
@@ -1170,7 +1168,7 @@
                 <input class="inp" id="lwp-apikey" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" style="font-family:monospace;font-size:12px">
               </div>
               <div class="num-row" style="margin-bottom:8px"><span class="tog-lbl" style="font-size:11px">Aktualisierung (Min.)</span><input class="inp num-inp" type="number" id="lwp-interval" min="5" max="60" value="10"></div>
-              <button class="btn btn-red btn-sm" onclick="saveLiveWeather()">💾 Speichern &amp; Neustart</button>
+              <button class="btn btn-red btn-sm" onclick="saveLiveWeather()">💾 <span data-i18n="save_btn">Speichern</span> &amp; <span data-i18n="restart_q">Neustart</span></button>
             </div>
           </div>
         </div>
@@ -1179,7 +1177,7 @@
       <!-- LiveWeather Log -->
       <div class="card gap" style="margin-top:14px" id="lwp-log-card">
         <div class="sh">
-          <div class="sh-t">LiveWeather Log</div>
+          <div class="sh-t" data-i18n="cfg_lw_log">LiveWeather Log</div>
           <button class="btn btn-gray btn-sm" onclick="loadWeatherLog()">↻</button>
         </div>
         <div id="lwp-log" style="font-family:monospace;font-size:11px;display:flex;flex-direction:column;gap:4px;max-height:240px;overflow-y:auto">
@@ -1263,7 +1261,7 @@
   <div class="cl-toolbar">
     <input class="inp cl-search" id="cl-search" placeholder="🔍 Suchen..." oninput="filterContentLibrary()">
     <div class="cl-tabs">
-      <button class="cl-tab active" data-tab="all" onclick="setContentTab(this,'all')">Alle</button>
+      <button class="cl-tab active" data-tab="all" onclick="setContentTab(this,'all')"><span data-i18n="all"><span data-i18n="all_label">Alle</span></span></button>
       <button class="cl-tab" data-tab="cars" onclick="setContentTab(this,'cars')" data-i18n="btn_type_car">Autos</button>
       <button class="cl-tab" data-tab="tracks" onclick="setContentTab(this,'tracks')" data-i18n="btn_type_track">Strecken</button>
     </div>
@@ -1272,16 +1270,16 @@
 
   <!-- Batch ops bar -->
   <div class="cl-batch" id="cl-batch">
-    <span class="cl-batch-count" id="cl-batch-count">0 ausgewählt</span>
-    <button class="btn btn-danger btn-sm" onclick="batchDelete()">🗑 Löschen</button>
-    <button class="btn btn-gray btn-sm" onclick="clearBatchSelection()">✕ Abbrechen</button>
+    <span class="cl-batch-count" id="cl-batch-count">0 <span data-i18n="selected">ausgewählt</span></span>
+    <button class="btn btn-danger btn-sm" onclick="batchDelete()">🗑 <span data-i18n="delete_btn">Löschen</span></button>
+    <button class="btn btn-gray btn-sm" onclick="clearBatchSelection()">✕ <span data-i18n="cancel_q">Abbrechen</span></button>
   </div>
 
   <!-- Library: Autos -->
   <div id="cl-cars-section">
     <div class="cl-section-hdr"><span data-i18n="lbl_cars_section">Autos</span> <span id="cl-cars-count" style="font-weight:400;letter-spacing:0;text-transform:none;font-size:11px"></span></div>
     <div class="cl-grid" id="cl-cars-grid">
-      <div class="cl-empty" data-i18n="loading">Lade...</div>
+      <div class="cl-empty" data-i18n="loading"><span data-i18n="loading">Lade...</span></div>
     </div>
   </div>
 
@@ -1289,7 +1287,7 @@
   <div id="cl-tracks-section">
     <div class="cl-section-hdr"><span data-i18n="lbl_tracks_section">Strecken</span> <span id="cl-tracks-count" style="font-weight:400;letter-spacing:0;text-transform:none;font-size:11px"></span></div>
     <div class="cl-grid" id="cl-tracks-grid">
-      <div class="cl-empty" data-i18n="loading">Lade...</div>
+      <div class="cl-empty" data-i18n="loading"><span data-i18n="loading">Lade...</span></div>
     </div>
   </div>
 
@@ -1342,8 +1340,8 @@
 
 <div class="panel" id="p-entry-list">
 <div class="sec-hdr" style="display:flex;align-items:center;justify-content:space-between">
-    <h2>📋 Entry List</h2>
-    <span style="font-size:12px;color:var(--muted)">Konfiguriert, wer in welchem Auto startet</span>
+    <h2 data-i18n="el_title">📋 Entry List</h2>
+    <span style="font-size:12px;color:var(--muted)" data-i18n="el_desc">Konfiguriert, wer in welchem Auto startet</span>
   </div>
 
   <!-- Toolbar -->
@@ -1359,22 +1357,22 @@
         <select class="sel el-qa-car" id="el-qa-car" style="min-width:160px"></select>
         <select class="sel el-qa-skin" id="el-qa-skin" style="min-width:130px"></select>
         <input class="inp num-inp" type="number" id="el-qa-count" value="1" min="1" max="20" style="width:54px" title="Anzahl Slots">
-        <button class="btn btn-gray btn-sm" onclick="elQuickAdd()">+ Hinzufügen</button>
+        <button class="btn btn-gray btn-sm" onclick="elQuickAdd()"><span data-i18n="add_plus">+ Hinzufügen</span></button>
       </div>
       <span class="el-toolbar-sep"></span>
       <!-- Presets -->
       <select class="sel" id="el-preset-sel" style="min-width:130px">
         <option value="">Preset laden…</option>
       </select>
-      <button class="btn btn-gray btn-sm" onclick="elLoadPreset()">Laden</button>
-      <button class="btn btn-gray btn-sm" onclick="elSavePreset()">Speichern als…</button>
+      <button class="btn btn-gray btn-sm" onclick="elLoadPreset()"><span data-i18n="load"><span data-i18n="load_btn">Laden</span></span></button>
+      <button class="btn btn-gray btn-sm" onclick="elSavePreset()"><span data-i18n="save_btn">Speichern</span> als…</button>
       <span class="el-toolbar-sep"></span>
       <!-- Import / Export -->
-      <button class="btn btn-gray btn-sm" onclick="elImportClick()">⬆ Import</button>
+      <button class="btn btn-gray btn-sm" onclick="elImportClick()">⬆ <span data-i18n="import_q">Import</span></button>
       <input type="file" id="el-import-file" accept=".ini" style="display:none" onchange="elImportFile(this)">
-      <a class="btn btn-gray btn-sm" id="el-export-btn" href="/api/entry_list/export">⬇ Export</a>
+      <a class="btn btn-gray btn-sm" id="el-export-btn" href="/api/entry_list/export">⬇ <span data-i18n="export_q">Export</span></a>
       <!-- Save -->
-      <button class="btn btn-red" onclick="elSave()">💾 Speichern</button>
+      <button class="btn btn-red" onclick="elSave()">💾 <span data-i18n="save_btn">Speichern</span></button>
     </div>
   </div>
 
@@ -1383,7 +1381,7 @@
 
   <!-- Multi-Edit Bar -->
   <div class="el-multiedit" id="el-multiedit" style="display:none">
-    <span id="el-sel-count">0 ausgewählt</span>
+    <span id="el-sel-count">0 <span data-i18n="selected">ausgewählt</span></span>
     <span class="el-toolbar-sep"></span>
     <label class="lbl" style="color:var(--muted)">Ballast:</label>
     <input class="inp num-inp" type="number" id="el-me-ballast" min="0" max="150" placeholder="—" style="width:60px">
@@ -1391,15 +1389,15 @@
     <input class="inp num-inp" type="number" id="el-me-restrictor" min="0" max="400" placeholder="—" style="width:60px">
     <button class="btn btn-gray btn-sm" onclick="elMultiApply()">Anwenden</button>
     <span class="el-toolbar-sep"></span>
-    <button class="btn btn-gray btn-sm" onclick="elMultiDelete()">🗑 Löschen</button>
-    <button class="btn btn-gray btn-sm" onclick="elClearSelection()">✕ Abwählen</button>
+    <button class="btn btn-gray btn-sm" onclick="elMultiDelete()">🗑 <span data-i18n="delete_btn">Löschen</span></button>
+    <button class="btn btn-gray btn-sm" onclick="elClearSelection()" data-i18n="el_unselect">✕ Abwählen</button>
   </div>
 
   <!-- Slot Grid -->
   <div class="el-grid" id="el-grid">
     <div class="el-empty" id="el-empty">
       <div style="font-size:32px;margin-bottom:8px">📋</div>
-      <div>Keine Slots. Quick-Add verwenden oder <strong>Import</strong> klicken.</div>
+      <div>Keine Slots. Quick-Add verwenden oder <strong><span data-i18n="import_q">Import</span></strong> klicken.</div>
     </div>
   </div>
 </div>
@@ -1413,10 +1411,10 @@
         <div class="sh-t">✅ Whitelist</div>
         <button class="btn btn-gray btn-sm" onclick="loadGuidList('whitelist')">↻</button>
       </div>
-      <div class="guid-list" id="wl-list" style="margin-bottom:10px"><div style="color:var(--muted);font-size:12px;padding:8px" data-i18n="loading">Lade...</div></div>
+      <div class="guid-list" id="wl-list" style="margin-bottom:10px"><div style="color:var(--muted);font-size:12px;padding:8px" data-i18n="loading"><span data-i18n="loading">Lade...</span></div></div>
       <div style="display:flex;gap:6px">
         <input class="inp" id="wl-input" placeholder="Steam GUID..." style="flex:1;font-size:12px">
-        <button class="btn btn-green btn-sm" onclick="addGuid('whitelist')" data-i18n="btn_add">+ Hinzufügen</button>
+        <button class="btn btn-green btn-sm" onclick="addGuid('whitelist')" data-i18n="btn_add"><span data-i18n="add_plus">+ Hinzufügen</span></button>
       </div>
     </div>
     <!-- Admins -->
@@ -1425,10 +1423,10 @@
         <div class="sh-t">👑 Admins</div>
         <button class="btn btn-gray btn-sm" onclick="loadGuidList('admins')">↻</button>
       </div>
-      <div class="guid-list" id="adm-list" style="margin-bottom:10px"><div style="color:var(--muted);font-size:12px;padding:8px" data-i18n="loading">Lade...</div></div>
+      <div class="guid-list" id="adm-list" style="margin-bottom:10px"><div style="color:var(--muted);font-size:12px;padding:8px" data-i18n="loading"><span data-i18n="loading">Lade...</span></div></div>
       <div style="display:flex;gap:6px">
         <input class="inp" id="adm-input" placeholder="Steam GUID..." style="flex:1;font-size:12px">
-        <button class="btn btn-green btn-sm" onclick="addGuid('admins')" data-i18n="btn_add">+ Hinzufügen</button>
+        <button class="btn btn-green btn-sm" onclick="addGuid('admins')" data-i18n="btn_add"><span data-i18n="add_plus">+ Hinzufügen</span></button>
       </div>
     </div>
     <!-- Blacklist -->
@@ -1437,7 +1435,7 @@
         <div class="sh-t">⛔ <span data-i18n="ban_list">Ban-Liste</span></div>
         <button class="btn btn-gray btn-sm" onclick="loadGuidList('blacklist')">↻</button>
       </div>
-      <div class="guid-list" id="bl-list" style="margin-bottom:10px"><div style="color:var(--muted);font-size:12px;padding:8px" data-i18n="loading">Lade...</div></div>
+      <div class="guid-list" id="bl-list" style="margin-bottom:10px"><div style="color:var(--muted);font-size:12px;padding:8px" data-i18n="loading"><span data-i18n="loading">Lade...</span></div></div>
       <div style="font-size:11px;color:var(--muted)" data-i18n="ban_hint">Gebannte Spieler können hier entfernt (unban) werden.</div>
     </div>
   </div>
@@ -1451,7 +1449,7 @@
 
 <!-- ══ INTEGRATIONEN ════════════════════════════════════════════════════════ -->
 <div class="panel" id="p-integrations">
-  <div class="sec-hdr"><h2>🔗 Integrationen</h2></div>
+  <div class="sec-hdr"><h2 data-i18n="int_title">🔗 Integrationen</h2></div>
   <div class="g2 gap">
     <div>
       <!-- Discord -->
@@ -1461,15 +1459,15 @@
           <label class="lbl">Webhook URL</label>
           <input class="inp" id="discord-url" placeholder="https://discord.com/api/webhooks/...">
         </div>
-        <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin:10px 0 6px">Benachrichtigungen</div>
-        <div class="tog-row"><div><div class="tog-lbl">🔴 Server Crash / Neustart</div><div class="tog-desc">Rich Embed wenn Server offline oder online kommt</div></div><label class="tog"><input type="checkbox" id="discord-notify-crash" checked><span class="tog-sl"></span></label></div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin:10px 0 6px"><span data-i18n="notifications">Benachrichtigungen</span></div>
+        <div class="tog-row"><div><div class="tog-lbl" data-i18n="int_discord_crash">🔴 Server Crash / <span data-i18n="restart_q">Neustart</span></div><div class="tog-desc" data-i18n="int_discord_crash_desc">Rich Embed wenn Server offline oder online kommt</div></div><label class="tog"><input type="checkbox" id="discord-notify-crash" checked><span class="tog-sl"></span></label></div>
         <div class="tog-row"><div><div class="tog-lbl" data-i18n="discord_notify_join">🟢 Fahrer Join / Leave</div><div class="tog-desc" data-i18n="discord_notify_join_desc">Embed wenn Fahrer verbindet oder trennt</div></div><label class="tog"><input type="checkbox" id="discord-notify-join"><span class="tog-sl"></span></label></div>
-        <div class="tog-row"><div><div class="tog-lbl">🏆 Neuer Streckenrekord</div><div class="tog-desc">Embed wenn ein absoluter Streckenrekord gebrochen wird</div></div><label class="tog"><input type="checkbox" id="discord-notify-record" checked><span class="tog-sl"></span></label></div>
-        <div class="tog-row"><div><div class="tog-lbl">⏱️ Neuer Personal Best</div><div class="tog-desc">Embed wenn ein Fahrer seine eigene Bestzeit unterbietet</div></div><label class="tog"><input type="checkbox" id="discord-notify-pb"><span class="tog-sl"></span></label></div>
+        <div class="tog-row"><div><div class="tog-lbl" data-i18n="int_discord_rec">🏆 Neuer Streckenrekord</div><div class="tog-desc" data-i18n="int_discord_rec_desc">Embed wenn ein absoluter Streckenrekord gebrochen wird</div></div><label class="tog"><input type="checkbox" id="discord-notify-record" checked><span class="tog-sl"></span></label></div>
+        <div class="tog-row"><div><div class="tog-lbl" data-i18n="int_discord_pb">⏱️ Neuer Personal Best</div><div class="tog-desc" data-i18n="int_discord_pb_desc">Embed wenn ein Fahrer seine eigene Bestzeit unterbietet</div></div><label class="tog"><input type="checkbox" id="discord-notify-pb"><span class="tog-sl"></span></label></div>
         <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
-          <button class="btn btn-red" onclick="saveDiscord()" data-i18n="btn_save">💾 Speichern</button>
+          <button class="btn btn-red" onclick="saveDiscord()" data-i18n="btn_save">💾 <span data-i18n="save_btn">Speichern</span></button>
           <button class="btn btn-gray" onclick="testDiscord()">🔔 Test Embed</button>
-          <button class="btn btn-blue" onclick="sendDiscordSummary()">📊 Summary senden</button>
+          <button class="btn btn-blue" onclick="sendDiscordSummary()" data-i18n="int_send_summary">📊 Summary senden</button>
         </div>
       </div>
 
@@ -1478,9 +1476,9 @@
         <div class="card-ttl">Telegram Bot</div>
         <div class="fg"><label class="lbl" data-i18n="lbl_tg_token">Bot Token</label><input class="inp" id="tg-token" type="password" placeholder="123456789:ABCdef..."></div>
         <div class="fg"><label class="lbl" data-i18n="lbl_tg_chatid">Chat ID</label><input class="inp" id="tg-chatid" placeholder="-100123456789"></div>
-        <div class="tog-row"><div><div class="tog-lbl">Fahrer Join/Leave melden</div></div><label class="tog"><input type="checkbox" id="tg-notify-join"><span class="tog-sl"></span></label></div>
+        <div class="tog-row"><div><div class="tog-lbl"><span data-i18n="report_driver_join_leave">Fahrer Join/Leave melden</span></div></div><label class="tog"><input type="checkbox" id="tg-notify-join"><span class="tog-sl"></span></label></div>
         <div style="display:flex;gap:8px;margin-top:10px">
-          <button class="btn btn-red" onclick="saveTelegram()" data-i18n="btn_save">💾 Speichern</button>
+          <button class="btn btn-red" onclick="saveTelegram()" data-i18n="btn_save">💾 <span data-i18n="save_btn">Speichern</span></button>
           <button class="btn btn-gray" onclick="testTelegram()">🔔 Test senden</button>
         </div>
         <div style="font-size:11px;color:var(--muted);margin-top:8px" data-i18n="tg_hint">Token: @BotFather → /newbot &nbsp;·&nbsp; Chat ID: @userinfobot</div>
@@ -1489,31 +1487,31 @@
     <div>
       <!-- Chat Lap-Notifications -->
       <div class="card gap" style="margin-bottom:16px">
-        <div class="card-ttl" data-i18n="card_chat_notify">Chat Lap-Notifications</div>
+        <div class="card-ttl" data-i18n="card_chat_notify">Chat <span data-i18n="lap">Lap</span>-Notifications</div>
         <div class="tog-row"><div><div class="tog-lbl" data-i18n="lbl_cn_enabled">Aktiviert</div><div class="tog-desc" data-i18n="lbl_cn_enabled_desc">Rundenzeiten im Spiel-Chat ansagen (via RCON)</div></div><label class="tog"><input type="checkbox" id="cn-enabled"><span class="tog-sl"></span></label></div>
         <div class="tog-row"><div><div class="tog-lbl" data-i18n="lbl_cn_delta">Delta anzeigen</div><div class="tog-desc" data-i18n="lbl_cn_delta_desc">+/- zur eigenen Bestzeit</div></div><label class="tog"><input type="checkbox" id="cn-delta" checked><span class="tog-sl"></span></label></div>
         <div class="tog-row"><div><div class="tog-lbl" data-i18n="lbl_cn_cuts">Cuts anzeigen</div></div><label class="tog"><input type="checkbox" id="cn-cuts" checked><span class="tog-sl"></span></label></div>
-        <div class="tog-row"><div><div class="tog-lbl">Splittzeiten im Chat</div><div class="tog-desc">Sendet Zwischenzeiten beim Überfahren konfigurierter Track-Positionen</div></div><label class="tog"><input type="checkbox" id="cn-splits" onchange="document.getElementById('cn-splits-editor').style.display=this.checked?'block':'none'"><span class="tog-sl"></span></label></div>
+        <div class="tog-row"><div><div class="tog-lbl"><span data-i18n="split_times_chat">Splittzeiten im Chat</span></div><div class="tog-desc"><span data-i18n="send_split_times_desc">Sendet Zwischenzeiten beim Überfahren konfigurierter Track-Positionen</span></div></div><label class="tog"><input type="checkbox" id="cn-splits" onchange="document.getElementById('cn-splits-editor').style.display=this.checked?'block':'none'"><span class="tog-sl"></span></label></div>
         <div class="fg"><label class="lbl" data-i18n="lbl_cn_prefix">Prefix</label><input class="inp" id="cn-prefix" placeholder=">> " maxlength="10"></div>
         <div id="cn-splits-editor" style="display:none;margin-top:4px">
           <div class="lbl" style="margin-bottom:6px">Split-Punkte <span style="font-size:11px;color:var(--muted)">(Track-Position 0.0–1.0)</span></div>
           <div id="cn-splits-list" style="display:flex;flex-direction:column;gap:6px;margin-bottom:8px"></div>
           <button class="btn btn-blue" onclick="cnAddSplit()" style="font-size:12px;padding:4px 10px">+ Split hinzufügen</button>
         </div>
-        <button class="btn btn-red" onclick="saveChatNotify()" data-i18n="btn_save">💾 Speichern</button>
+        <button class="btn btn-red" onclick="saveChatNotify()" data-i18n="btn_save">💾 <span data-i18n="save_btn">Speichern</span></button>
       </div>
 
       <!-- Track Params Editor -->
       <div class="card gap" style="margin-bottom:16px">
         <div class="card-ttl" data-i18n="track_params">Track Parameter</div>
         <div style="font-size:11px;color:var(--muted);margin-bottom:10px" data-i18n="track_params_hint">Koordinaten für neu installierte Strecken setzen (für Real Time).</div>
-        <div class="fg"><label class="lbl" data-i18n="lbl_track">Strecke</label><select class="sel" id="tp-track">{% for t in tracks %}<option value="{{ t.name }}">{{ t.name }}</option>{% endfor %}</select></div>
+        <div class="fg"><label class="lbl" data-i18n="lbl_track"><span data-i18n="col_track">Strecke</span></label><select class="sel" id="tp-track">{% for t in tracks %}<option value="{{ t.name }}">{{ t.name }}</option>{% endfor %}</select></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
           <div><label class="lbl">Latitude</label><input class="inp" type="number" id="tp-lat" step="0.0001" value="0"></div>
           <div><label class="lbl">Longitude</label><input class="inp" type="number" id="tp-lon" step="0.0001" value="0"></div>
         </div>
         <div class="fg" style="margin-top:8px"><label class="lbl" data-i18n="lbl_timezone">Timezone (UTC-Offset, z.B. 1 = CET, 2 = CEST)</label><input class="inp" type="number" id="tp-tz" min="-12" max="14" step="1" value="1"></div>
-        <button class="btn btn-red" onclick="saveTrackParams()" data-i18n="btn_save">💾 Speichern</button>
+        <button class="btn btn-red" onclick="saveTrackParams()" data-i18n="btn_save">💾 <span data-i18n="save_btn">Speichern</span></button>
       </div>
 
       <!-- Backup -->
@@ -1534,11 +1532,11 @@
 <!-- ══ SERVER MONITOR ═══════════════════════════════════════════════════════ -->
 <div class="panel" id="p-server-monitor">
   <div class="page">
-    <div class="sec-hdr"><h2>🖥️ Server Monitor</h2></div>
+    <div class="sec-hdr"><h2 data-i18n="sm_title">🖥️ Server Monitor</h2></div>
 
     <!-- System-Metriken -->
     <div class="card gap" style="margin-bottom:16px">
-      <div class="card-ttl">System</div>
+      <div class="card-ttl"><span data-i18n="system">System</span></div>
       <div class="sm-metrics">
         <div class="sm-card">
           <div class="sm-card-lbl">CPU</div>
@@ -1552,12 +1550,12 @@
           <div class="sm-bar-wrap"><div class="sm-bar" id="sm-ram-bar" style="width:0%"></div></div>
         </div>
         <div class="sm-card">
-          <div class="sm-card-lbl">↑ Upload</div>
+          <div class="sm-card-lbl" data-i18n="sm_upload">↑ Upload</div>
           <div class="sm-card-val" id="sm-tx">—</div>
           <div class="sm-card-sub">KB/s</div>
         </div>
         <div class="sm-card">
-          <div class="sm-card-lbl">↓ Download</div>
+          <div class="sm-card-lbl" data-i18n="sm_download">↓ Download</div>
           <div class="sm-card-val" id="sm-rx">—</div>
           <div class="sm-card-sub">KB/s</div>
         </div>
@@ -1570,15 +1568,15 @@
 
     <!-- Fahrer-Herkunft -->
     <div class="card gap" style="margin-bottom:16px">
-      <div class="card-ttl">Fahrer-Herkunft</div>
+      <div class="card-ttl" data-i18n="sm_driver_origin">Fahrer-Herkunft</div>
       <div id="sm-nation-wrap">
-        <div style="color:var(--muted);font-size:13px">Keine Fahrer verbunden.</div>
+        <div style="color:var(--muted);font-size:13px" data-i18n="sm_no_drivers">Keine Fahrer verbunden.</div>
       </div>
     </div>
 
     <!-- Theme -->
     <div class="card gap">
-      <div class="card-ttl">Erscheinungsbild</div>
+      <div class="card-ttl" data-i18n="sm_appearance">Erscheinungsbild</div>
       <div class="theme-cards" id="sm-theme-cards">
         <div class="theme-card" data-theme-key="dark" onclick="setTheme('dark')">
           <span class="theme-dot" style="background:#e8150c"></span> Dark
@@ -1601,25 +1599,25 @@
 <div class="panel" id="p-logs">
   <div class="page">
     <div class="sec-hdr" style="margin-bottom:16px">
-      <h2>📋 Server Logs</h2>
+      <h2 data-i18n="server_logs">📋 Server Logs</h2>
       <div style="display:flex;align-items:center;gap:10px">
         <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;color:var(--muted)">
           <input type="checkbox" id="log-follow" checked style="accent-color:var(--red)"> Live Follow
         </label>
-        <button class="btn btn-gray btn-sm" onclick="loadLogs()">↻ Laden</button>
+        <button class="btn btn-gray btn-sm" onclick="loadLogs()" data-i18n="logs_reload">↻ <span data-i18n="load_btn">Laden</span></button>
       </div>
     </div>
 
     <!-- Filter Bar -->
     <div class="log-filter-bar">
       <div class="log-chips">
-        <button class="log-chip active" data-type="" onclick="_setLogType('')">Alle</button>
-        <button class="log-chip" data-type="connect"    onclick="_setLogType('connect')">🟢 Connect</button>
-        <button class="log-chip" data-type="disconnect" onclick="_setLogType('disconnect')">🔴 Disconnect</button>
-        <button class="log-chip" data-type="lap"        onclick="_setLogType('lap')">🏁 Lap</button>
-        <button class="log-chip" data-type="error"      onclick="_setLogType('error')">⚠ Error</button>
-        <button class="log-chip" data-type="warn"       onclick="_setLogType('warn')">⚡ Warn</button>
-        <button class="log-chip" data-type="system"     onclick="_setLogType('system')">⚙ System</button>
+        <button class="log-chip active" data-type="" onclick="_setLogType('')"><span data-i18n="all"><span data-i18n="all_label">Alle</span></span></button>
+        <button class="log-chip" data-type="connect"    onclick="_setLogType('connect')">🟢 <span data-i18n="connect">Connect</span></button>
+        <button class="log-chip" data-type="disconnect" onclick="_setLogType('disconnect')">🔴 <span data-i18n="disconnect">Disconnect</span></button>
+        <button class="log-chip" data-type="lap"        onclick="_setLogType('lap')">🏁 <span data-i18n="lap">Lap</span></button>
+        <button class="log-chip" data-type="error"      onclick="_setLogType('error')">⚠ <span data-i18n="error">Error</span></button>
+        <button class="log-chip" data-type="warn"       onclick="_setLogType('warn')">⚡ <span data-i18n="warn">Warn</span></button>
+        <button class="log-chip" data-type="system"     onclick="_setLogType('system')">⚙ <span data-i18n="system">System</span></button>
       </div>
       <input type="search" class="inp" id="log-search" placeholder="Suche…" oninput="_onLogSearch()" style="max-width:200px">
       <span id="log-count" style="font-size:11px;color:var(--muted);white-space:nowrap"></span>
@@ -1627,18 +1625,18 @@
 
     <!-- Log-Einträge -->
     <div class="log-container" id="log-container">
-      <div class="log-empty">Lade Logs…</div>
+      <div class="log-empty" data-i18n="logs_loading">Lade Logs…</div>
     </div>
 
     <!-- RCON Console -->
     <div class="card gap" style="margin-top:16px">
-      <div class="card-ttl">RCON Console</div>
+      <div class="card-ttl" data-i18n="logs_rcon_console">RCON Console</div>
       <div id="rcon-history" style="background:#080808;border:1px solid var(--border);border-radius:6px;padding:8px;font-family:monospace;font-size:11px;max-height:120px;overflow-y:auto;margin-bottom:6px;display:flex;flex-direction:column;gap:2px">
         <span style="color:var(--muted)" data-i18n="lbl_cmd_history">Befehlsverlauf…</span>
       </div>
       <div style="display:flex;gap:8px;align-items:center">
-        <input class="inp" id="rcon-inp" placeholder="RCON Befehl (z.B. /say Hallo)" style="flex:1;font-family:monospace" onkeydown="if(event.key==='Enter')sendRcon()">
-        <button class="btn btn-gray" onclick="sendRcon()">▶ Senden</button>
+        <input class="inp" id="rcon-inp" placeholder="RCON Befehl (z.B. /say Hallo)" data-i18n-placeholder="rcon_ph" style="flex:1;font-family:monospace" onkeydown="if(event.key==='Enter')sendRcon()">
+        <button class="btn btn-gray" onclick="sendRcon()" data-i18n="logs_btn_send">▶ Senden</button>
       </div>
     </div>
   </div>
@@ -1648,29 +1646,29 @@
 <div class="panel" id="p-help">
   <div class="sec-hdr"><h2>❓ <span data-i18n="sec_help_title">Hilfe & Einstellungs-Referenz</span></h2></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">⚙️ Server Allgemein <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">NAME</div><div class="help-val">Anzeigename des Servers im Content Manager und in der Serverliste.</div></div><div class="help-row"><div class="help-key">PASSWORD</div><div class="help-val">Passwort für Spieler zum Joinen. Leer lassen = kein Passwort.</div></div><div class="help-row"><div class="help-key">ADMIN_PASSWORD</div><div class="help-val">Passwort für Admin-Befehle im Spiel (/admin) und für RCON-Verbindungen.</div></div><div class="help-row"><div class="help-key">REGISTER_TO_LOBBY</div><div class="help-val">1 = Server erscheint in der öffentlichen Kunos-Serverliste weltweit. 0 = Nur über direkte IP erreichbar.</div></div><div class="help-row"><div class="help-key">SUN_ANGLE</div><div class="help-val">Tageszeit als Winkelgrad. 0° = Mitternacht, 48° ≈ Morgen, 180° = Mittag, 320° ≈ Abend.</div></div></div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')"><span data-i18n="help_sec_general">⚙️ Server Allgemein</span> <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">NAME</div><div class="help-val" data-i18n="help_name_desc">Anzeigename des Servers im Content Manager und in der Serverliste.</div></div><div class="help-row"><div class="help-key">PASSWORD</div><div class="help-val" data-i18n="help_pwd_desc">Passwort für Spieler zum Joinen. Leer lassen = kein Passwort.</div></div><div class="help-row"><div class="help-key">ADMIN_PASSWORD</div><div class="help-val" data-i18n="help_admin_pwd_desc">Passwort für Admin-Befehle im Spiel (/admin) und für RCON-Verbindungen.</div></div><div class="help-row"><div class="help-key">REGISTER_TO_LOBBY</div><div class="help-val" data-i18n="help_lobby_desc">1 = Server erscheint in der öffentlichen Kunos-Serverliste weltweit. 0 = Nur über direkte IP erreichbar.</div></div><div class="help-row"><div class="help-key">SUN_ANGLE</div><div class="help-val" data-i18n="help_sun_angle_desc">Tageszeit als Winkelgrad. 0° = Mitternacht, 48° ≈ Morgen, 180° = Mittag, 320° ≈ Abend.</div></div></div></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🔌 Ports & Verbindung <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">UDP_PORT / TCP_PORT</div><div class="help-val">Hauptport für Spiel-Verbindungen (Standard: 9600). Muss in der Firewall / Router-Portweiterleitung geöffnet sein.</div></div><div class="help-row"><div class="help-key">HTTP_PORT</div><div class="help-val">Port für den HTTP-Info-Endpunkt (Standard: 8081). Wird vom Content Manager für Serverdetails abgefragt.</div></div><div class="help-row"><div class="help-key">PICKUP_MODE_ENABLED</div><div class="help-val">1 = Spieler wählen ihr Auto selbst beim Joinen. 0 = Zugewiesene Slots (z.B. für Rennevents).</div></div><div class="help-row"><div class="help-key">LOOP_MODE</div><div class="help-val">1 = Server startet nach jeder Session automatisch neu (Trackday-Modus). 0 = Server wartet auf manuellen Neustart.</div></div><div class="help-row"><div class="help-key">CLIENT_SEND_INTERVAL_HZ</div><div class="help-val">Wie oft pro Sekunde der Server Positionsdaten sendet. Standard: 18 Hz. Höher = flüssiger aber mehr Netzwerklast.</div></div></div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')"><span data-i18n="help_sec_ports">🔌 Ports & Verbindung</span> <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">UDP_PORT / TCP_PORT</div><div class="help-val" data-i18n="help_udp_tcp_desc">Hauptport für Spiel-Verbindungen (Standard: 9600). Muss in der Firewall / Router-Portweiterleitung geöffnet sein.</div></div><div class="help-row"><div class="help-key">HTTP_PORT</div><div class="help-val" data-i18n="help_http_desc">Port für den HTTP-Info-Endpunkt (Standard: 8081). Wird vom Content Manager für Serverdetails abgefragt.</div></div><div class="help-row"><div class="help-key">PICKUP_MODE_ENABLED</div><div class="help-val" data-i18n="help_pickup_desc">1 = Spieler wählen ihr Auto selbst beim Joinen. 0 = Zugewiesene Slots (z.B. für Rennevents).</div></div><div class="help-row"><div class="help-key">LOOP_MODE</div><div class="help-val" data-i18n="help_loop_desc">1 = Server startet nach jeder Session automatisch neu (Trackday-Modus). 0 = Server wartet auf manuellen <span data-i18n="restart_q">Neustart</span>.</div></div><div class="help-row"><div class="help-key">CLIENT_SEND_INTERVAL_HZ</div><div class="help-val" data-i18n="help_send_hz_desc">Wie oft pro Sekunde der Server Positionsdaten sendet. Standard: 18 Hz. Höher = flüssiger aber mehr Netzwerklast.</div></div></div></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🛡️ Fahrhilfen & Regeln <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">ABS_ALLOWED</div><div class="help-val">Anti-Blockier-System erlauben. Empfehlung: 1 für öffentliche Server.</div></div><div class="help-row"><div class="help-key">TC_ALLOWED</div><div class="help-val">Traktionskontrolle erlauben.</div></div><div class="help-row"><div class="help-key">STABILITY_ALLOWED</div><div class="help-val">Elektronisches Stabilitätsprogramm (ESP). Für realistische Server oft deaktiviert.</div></div><div class="help-row"><div class="help-key">FUEL_RATE</div><div class="help-val">Kraftstoffverbrauch in %. 100 = realistisch, 0 = unendlich, 200 = doppelt so schnell leer.</div></div><div class="help-row"><div class="help-key">DAMAGE_MULTIPLIER</div><div class="help-val">Schadensrate. 0 = kein Schaden, 100 = realistisch, >100 = erhöhter Schaden.</div></div><div class="help-row"><div class="help-key">ALLOWED_TYRES_OUT</div><div class="help-val">Wie viele Reifen außerhalb der Strecke erlaubt sind. 2 = Standard, 4 = alle (kein Limit), 0 = strikt.</div></div><div class="help-row"><div class="help-key">LEGAL_TYRES</div><div class="help-val">Erlaubte Reifentypen als Kommaliste (z.B. "SV,SM"). Leer = alle Reifen erlaubt.</div></div></div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')"><span data-i18n="help_sec_rules">🛡️ Fahrhilfen & Regeln</span> <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">ABS_ALLOWED</div><div class="help-val" data-i18n="help_abs_desc">Anti-Blockier-<span data-i18n="system">System</span> erlauben. Empfehlung: 1 für öffentliche Server.</div></div><div class="help-row"><div class="help-key">TC_ALLOWED</div><div class="help-val" data-i18n="help_tc_desc">Traktionskontrolle erlauben.</div></div><div class="help-row"><div class="help-key">STABILITY_ALLOWED</div><div class="help-val" data-i18n="help_esp_desc">Elektronisches Stabilitätsprogramm (ESP). Für realistische Server oft deaktiviert.</div></div><div class="help-row"><div class="help-key">FUEL_RATE</div><div class="help-val" data-i18n="help_fuel_desc">Kraftstoffverbrauch in %. 100 = realistisch, 0 = unendlich, 200 = doppelt so schnell leer.</div></div><div class="help-row"><div class="help-key">DAMAGE_MULTIPLIER</div><div class="help-val" data-i18n="help_dmg_desc">Schadensrate. 0 = kein Schaden, 100 = realistisch, >100 = erhöhter Schaden.</div></div><div class="help-row"><div class="help-key">ALLOWED_TYRES_OUT</div><div class="help-val" data-i18n="help_tyres_out_desc">Wie viele Reifen außerhalb der Strecke erlaubt sind. 2 = Standard, 4 = alle (kein Limit), 0 = strikt.</div></div><div class="help-row"><div class="help-key">LEGAL_TYRES</div><div class="help-val" data-i18n="help_legal_tyres_desc">Erlaubte Reifentypen als Kommaliste (z.B. "SV,SM"). Leer = alle Reifen erlaubt.</div></div></div></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">📅 Sessions <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">PRACTICE TIME</div><div class="help-val">Dauer der Practice-Session in Minuten. 9999 = unbegrenzt (empfohlen für Trackdays).</div></div><div class="help-row"><div class="help-key">IS_OPEN</div><div class="help-val">1 = Spieler können jederzeit joinen. 0 = Kein Beitritt nach Session-Start.</div></div><div class="help-row"><div class="help-key">RACE LAPS</div><div class="help-val">Rundenanzahl für das Rennen. 0 = zeitbasiertes Rennen (dann TIME setzen).</div></div><div class="help-row"><div class="help-key">RACE_OVER_TIME</div><div class="help-val">Sekunden nach dem Zieleinlauf des ersten Fahrers bis die Session endet. Standard: 180s.</div></div><div class="help-row"><div class="help-key">WAIT_TIME</div><div class="help-val">Wartezeit in Sekunden vor Race-Start nach dem Ende des Qualifyings.</div></div></div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')"><span data-i18n="nav_sessions">📅 Sessions</span> <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">PRACTICE TIME</div><div class="help-val" data-i18n="help_practice_time_desc">Dauer der <span data-i18n="practice_header">Practice</span>-Session in Minuten. 9999 = unbegrenzt (empfohlen für Trackdays).</div></div><div class="help-row"><div class="help-key">IS_OPEN</div><div class="help-val" data-i18n="help_is_open_desc">1 = Spieler können jederzeit joinen. 0 = Kein Beitritt nach Session-Start.</div></div><div class="help-row"><div class="help-key">RACE LAPS</div><div class="help-val" data-i18n="help_race_laps_desc">Rundenanzahl für das Rennen. 0 = zeitbasiertes Rennen (dann TIME setzen).</div></div><div class="help-row"><div class="help-key">RACE_OVER_TIME</div><div class="help-val" data-i18n="help_race_over_desc">Sekunden nach dem Zieleinlauf des ersten Fahrers bis die Session endet. Standard: 180s.</div></div><div class="help-row"><div class="help-key">WAIT_TIME</div><div class="help-val" data-i18n="help_wait_time_desc">Wartezeit in Sekunden vor <span data-i18n="race_header">Race</span>-Start nach dem Ende des <span data-i18n="qualifying_header">Qualifying</span>s.</div></div></div></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🌤️ Wetter & Strecke <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">GRAPHICS (Wetter)</div><div class="help-val">Setzt das visuelle Wetter-Preset. Presets: 3_clear (sonnig), 2_light_clouds (leicht bewölkt), 7_heavy_clouds (stark bewölkt), 8_drizzle (Nieselregen), 11_practice_storm (Gewitter).</div></div><div class="help-row"><div class="help-key">BASE_TEMPERATURE_AMBIENT</div><div class="help-val">Lufttemperatur in °C. Beeinflusst Motortemperatur und Reifenverhalten.</div></div><div class="help-row"><div class="help-key">BASE_TEMPERATURE_ROAD</div><div class="help-val">Streckentemperatur in °C. Wärmer = mehr Grip bei Slicks, kälter = weniger.</div></div><div class="help-row"><div class="help-key">SESSION_START (Dynamic Track)</div><div class="help-val">Anfangsgripniveau in %. 95 = fast ideal, 80 = grüne Strecke. Steigt durch Runden.</div></div><div class="help-row"><div class="help-key">LAP_GAIN</div><div class="help-val">Wie stark der Grip pro Runde zunimmt. 132 = Standard-Nordschleife.</div></div></div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')"><span data-i18n="help_sec_weather">🌤️ Wetter & Strecke</span> <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">GRAPHICS (Wetter)</div><div class="help-val" data-i18n="help_graphics_desc">Setzt das visuelle Wetter-Preset. Presets: 3_clear (sonnig), 2_light_clouds (leicht bewölkt), 7_heavy_clouds (stark bewölkt), 8_drizzle (Nieselregen), 11_practice_storm (Gewitter).</div></div><div class="help-row"><div class="help-key">BASE_TEMPERATURE_AMBIENT</div><div class="help-val" data-i18n="help_amb_temp_desc">Lufttemperatur in °C. Beeinflusst Motortemperatur und Reifenverhalten.</div></div><div class="help-row"><div class="help-key">BASE_TEMPERATURE_ROAD</div><div class="help-val" data-i18n="help_road_temp_desc">Streckentemperatur in °C. Wärmer = mehr Grip bei Slicks, kälter = weniger.</div></div><div class="help-row"><div class="help-key">SESSION_START (Dynamic Track)</div><div class="help-val" data-i18n="help_dyn_start_desc">Anfangsgripniveau in %. 95 = fast ideal, 80 = grüne Strecke. Steigt durch Runden.</div></div><div class="help-row"><div class="help-key">LAP_GAIN</div><div class="help-val" data-i18n="help_lap_gain_desc">Wie stark der Grip pro Runde zunimmt. 132 = Standard-Nordschleife.</div></div></div></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🔧 AssettoServer (extra_cfg.yml) <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">EnableServerDetails</div><div class="help-val">Muss aktiviert sein damit Beschreibung, Logo und Details im Content Manager erscheinen.</div></div><div class="help-row"><div class="help-key">EnableAntiAfk</div><div class="help-val">Spieler die zu lange AFK sind werden automatisch gekickt.</div></div><div class="help-row"><div class="help-key">MaxPing</div><div class="help-val">Maximaler Ping in ms bevor ein Spieler automatisch gekickt wird. Standard: 500ms.</div></div><div class="help-row"><div class="help-key">EnableWeatherFx</div><div class="help-val">Aktiviert CSP WeatherFX für Regen und flüssige Wetterübergänge. Benötigt CSP 0.1.76+.</div></div><div class="help-row"><div class="help-key">MinimumCSPVersion</div><div class="help-val">Minimale CSP-Version zum Joinen (0 = kein Limit). Beispiel: 2144 für CSP 0.1.77.</div></div><div class="help-row"><div class="help-key">RconPort</div><div class="help-val">Port für RCON-Verbindungen. Standard: 9700. Wird auch vom Dashboard für Kick/Ban/Chat verwendet.</div></div></div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')"><span data-i18n="help_sec_assettoserver">🔧 AssettoServer (extra_cfg.yml)</span> <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">EnableServerDetails</div><div class="help-val" data-i18n="help_cm_details_desc">Muss aktiviert sein damit Beschreibung, Logo und Details im Content Manager erscheinen.</div></div><div class="help-row"><div class="help-key">EnableAntiAfk</div><div class="help-val" data-i18n="help_antiafk_desc">Spieler die zu lange AFK sind werden automatisch gekickt.</div></div><div class="help-row"><div class="help-key">MaxPing</div><div class="help-val" data-i18n="help_maxping_desc">Maximaler Ping in ms bevor ein Spieler automatisch gekickt wird. Standard: 500ms.</div></div><div class="help-row"><div class="help-key">EnableWeatherFx</div><div class="help-val" data-i18n="help_weatherfx_desc">Aktiviert CSP WeatherFX für Regen und flüssige Wetterübergänge. Benötigt CSP 0.1.76+.</div></div><div class="help-row"><div class="help-key">MinimumCSPVersion</div><div class="help-val" data-i18n="help_min_csp_desc">Minimale CSP-Version zum Joinen (0 = kein Limit). Beispiel: 2144 für CSP 0.1.77.</div></div><div class="help-row"><div class="help-key">RconPort</div><div class="help-val" data-i18n="help_rcon_port_desc">Port für RCON-Verbindungen. Standard: 9700. Wird auch vom Dashboard für Kick/Ban/Chat verwendet.</div></div></div></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">📜 RCON-Befehle <span>▾</span></div><div class="help-card-body">
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')"><span data-i18n="help_sec_rcon_cmds">📜 RCON-Befehle</span> <span>▾</span></div><div class="help-card-body">
     <p style="color:var(--muted);font-size:12px;margin-bottom:12px">RCON-Befehle können im Logs-Tab eingegeben werden. Admin-Passwort aus server_cfg.ini wird automatisch verwendet.</p>
-    <div class="help-row"><div class="help-key"><span class="help-cmd">/say &lt;text&gt;</span></div><div class="help-val">Nachricht an alle Spieler senden (erscheint im Spiel-Chat).</div></div>
-    <div class="help-row"><div class="help-key"><span class="help-cmd">/kick_id &lt;id&gt;</span></div><div class="help-val">Spieler mit Slot-ID kicken (ID sichtbar in Fahrer-Tab).</div></div>
-    <div class="help-row"><div class="help-key"><span class="help-cmd">/ban_id &lt;id&gt;</span></div><div class="help-val">Spieler bannen und kicken.</div></div>
-    <div class="help-row"><div class="help-key"><span class="help-cmd">/next_session</span></div><div class="help-val">Zur nächsten Session springen.</div></div>
-    <div class="help-row"><div class="help-key"><span class="help-cmd">/restart_session</span></div><div class="help-val">Aktuelle Session neu starten.</div></div>
-    <div class="help-row"><div class="help-key"><span class="help-cmd">/set_ballast &lt;id&gt; &lt;kg&gt;</span></div><div class="help-val">Ballast für einen Spieler live setzen.</div></div>
+    <div class="help-row"><div class="help-key"><span class="help-cmd">/say &lt;text&gt;</span></div><div class="help-val" data-i18n="help_cmd_say_desc">Nachricht an alle Spieler senden (erscheint im Spiel-Chat).</div></div>
+    <div class="help-row"><div class="help-key"><span class="help-cmd">/kick_id &lt;id&gt;</span></div><div class="help-val" data-i18n="help_cmd_kick_desc">Spieler mit Slot-ID kicken (ID sichtbar in Fahrer-Tab).</div></div>
+    <div class="help-row"><div class="help-key"><span class="help-cmd">/ban_id &lt;id&gt;</span></div><div class="help-val" data-i18n="help_cmd_ban_desc">Spieler bannen und kicken.</div></div>
+    <div class="help-row"><div class="help-key"><span class="help-cmd">/next_session</span></div><div class="help-val" data-i18n="help_cmd_next_desc">Zur nächsten Session springen.</div></div>
+    <div class="help-row"><div class="help-key"><span class="help-cmd">/restart_session</span></div><div class="help-val" data-i18n="help_cmd_restart_desc">Aktuelle Session neu starten.</div></div>
+    <div class="help-row"><div class="help-key"><span class="help-cmd">/set_ballast &lt;id&gt; &lt;kg&gt;</span></div><div class="help-val" data-i18n="help_cmd_ballast_desc">Ballast für einen Spieler live setzen.</div></div>
   </div></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🔔 Discord Webhook <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">Webhook URL</div><div class="help-val">In Discord: Server-Einstellungen → Integrationen → Webhooks → Neuen Webhook erstellen → URL kopieren.</div></div><div class="help-row"><div class="help-key">Benachrichtigungen</div><div class="help-val">Server-Absturz/Neustart: immer. Fahrer Join/Leave: optional aktivierbar.</div></div></div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')"><span data-i18n="help_sec_discord">🔔 Discord Webhook</span> <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">Webhook URL</div><div class="help-val" data-i18n="help_discord_setup">In Discord: Server-Einstellungen → Integrationen → Webhooks → Neuen Webhook erstellen → URL kopieren.</div></div><div class="help-row"><div class="help-key"><span data-i18n="notifications">Benachrichtigungen</span></div><div class="help-val" data-i18n="help_discord_events">Server-Absturz/<span data-i18n="restart_q">Neustart</span>: immer. Fahrer Join/Leave: optional aktivierbar.</div></div></div></div>
 </div>
 
 </div><!-- /page -->
@@ -1680,7 +1678,7 @@
 <!-- MODALS -->
 <div class="modal" id="up-modal">
   <div class="modal-box">
-    <div class="modal-ttl">Import: <span id="zip-name" style="color:var(--muted);font-weight:400"></span></div>
+    <div class="modal-ttl"><span data-i18n="import_q">Import</span>: <span id="zip-name" style="color:var(--muted);font-weight:400"></span></div>
     <div class="card-ttl" style="margin-bottom:6px" data-i18n="modal_cars_in_zip">Autos im ZIP</div>
     <input class="inp" id="zc-search" data-i18n-placeholder="ph_search" placeholder="Suchen..." oninput="filterZip('z-cars','zc-search')" style="margin-bottom:6px">
     <div class="clist gap" id="z-cars"></div>
@@ -1688,15 +1686,15 @@
     <input class="inp" id="zt-search" data-i18n-placeholder="ph_search" placeholder="Suchen..." oninput="filterZip('z-tracks','zt-search')" style="margin-bottom:6px">
     <div class="clist gap" id="z-tracks"></div>
     <div style="display:flex;gap:8px;margin-top:16px">
-      <button class="btn btn-green" onclick="doImport()" data-i18n="btn_import">✓ Importieren</button>
-      <button class="btn btn-gray" onclick="closeModal()" data-i18n="btn_cancel">Abbrechen</button>
+      <button class="btn btn-green" onclick="doImport()" data-i18n="btn_import">✓ <span data-i18n="import_q">Import</span>ieren</button>
+      <button class="btn btn-gray" onclick="closeModal()" data-i18n="btn_cancel"><span data-i18n="cancel_q">Abbrechen</span></button>
     </div>
   </div>
 </div>
 
 <div class="modal" id="folder-modal">
   <div class="modal-box" style="max-width:520px">
-    <div class="modal-ttl">📁 <span id="fm-type-label" data-i18n="lbl_car_type">Auto</span> erkannt</div>
+    <div class="modal-ttl">📁 <span id="fm-type-label" data-i18n="lbl_car_type"><span data-i18n="col_car">Auto</span></span> erkannt</div>
     <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:14px">
       <div style="font-size:11px;color:var(--muted);margin-bottom:6px" data-i18n="lbl_target_path">ZIEL-PFAD</div>
       <div style="font-size:13px;font-weight:600" id="fm-target-path">/content/cars/name/</div>
@@ -1714,7 +1712,7 @@
     </div>
     <div style="display:flex;gap:8px">
       <button class="btn btn-green" id="fm-confirm-btn" onclick="uploadFolder()" data-i18n="btn_confirm_upload">✓ Hochladen bestätigen</button>
-      <button class="btn btn-gray" onclick="closeFolderModal()" data-i18n="btn_cancel">Abbrechen</button>
+      <button class="btn btn-gray" onclick="closeFolderModal()" data-i18n="btn_cancel"><span data-i18n="cancel_q">Abbrechen</span></button>
     </div>
   </div>
 </div>
@@ -1756,7 +1754,7 @@ window.AC = {
 <!-- ══ RESTART SUMMARY MODAL ══════════════════════════════════════ -->
 <div class="modal" id="restart-modal">
   <div class="modal-box" style="max-width:440px">
-    <div class="modal-ttl">↻ Server-Neustart</div>
+    <div class="modal-ttl" data-i18n="modal_restart_title">↻ Server-<span data-i18n="restart_q">Neustart</span></div>
     <div style="color:var(--muted);font-size:12px;margin-bottom:10px" data-i18n="rm_subtitle">Folgende Einstellungen wurden gespeichert:</div>
     <ul id="restart-modal-items" style="list-style:none;padding:0;margin:0 0 14px;display:flex;flex-direction:column;gap:5px"></ul>
     <div id="restart-modal-status" style="font-size:13px;font-weight:600;margin-bottom:14px;padding:8px 10px;border-radius:6px;background:var(--bg)"></div>

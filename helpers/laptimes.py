@@ -5,7 +5,7 @@ import threading
 import time
 import urllib.request
 
-from constants import CHAT_NOTIFY_FILE, CUT_ACTIONS_FILE, SERVICE_NAME
+from constants import AC_HOST, CHAT_NOTIFY_FILE, CUT_ACTIONS_FILE, SERVICE_NAME
 from helpers.config_io import read_server_cfg
 from helpers.discord import (
     _load_discord_config, discord_embed, discord_notify,
@@ -301,7 +301,7 @@ def _parse_journal_block(lines: list, known_ts_set: set) -> list:
 def _preload_session_from_http():
     """Füllt _lt_session aus der AS HTTP API, falls acweb während einer Session neugestartet wurde."""
     try:
-        with urllib.request.urlopen("http://127.0.0.1:8081/api/details", timeout=3) as r:
+        with urllib.request.urlopen(f"http://{AC_HOST}:8081/api/details", timeout=3) as r:
             import json as _json
             data = _json.loads(r.read())
         cfg     = read_server_cfg()
@@ -344,16 +344,10 @@ def _preload_personal_bests():
 
 
 def _preload_journal_history():
-    """Importiert fehlende Runden aus den letzten 5000 Journal-Zeilen beim Start."""
+    """Importiert fehlende Runden aus den letzten 5000 Log-Zeilen beim Start."""
     _preload_session_from_http()
-    try:
-        r = subprocess.run(
-            ["journalctl", "-u", SERVICE_NAME, "-n", "5000", "--no-pager", "-o", "short-iso"],
-            capture_output=True, text=True, timeout=15,
-        )
-        lines = r.stdout.splitlines()
-    except Exception:
-        return
+    from helpers.system import read_server_logs
+    lines = read_server_logs(5000).splitlines()
     # Leeres known-Set: DB-UNIQUE-Index (driver, laptime, track) verhindert Duplikate via INSERT OR IGNORE
     new_entries = _parse_journal_block(lines, set())
     for entry in new_entries:
@@ -392,16 +386,9 @@ def _split_sender():
 
 
 def _laptime_monitor():
-    """Verfolgt journalctl live und persistiert neue Runden + Discord-Meldungen."""
-    try:
-        proc = subprocess.Popen(
-            ["journalctl", "-u", SERVICE_NAME, "-f", "-n", "0", "--no-pager", "-o", "cat"],
-            stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True,
-        )
-    except Exception:
-        return
-
-    for line in proc.stdout:
+    """Sigue los logs en vivo (Docker o journalctl) y persiste nuevas vueltas."""
+    from helpers.system import stream_server_logs
+    for line in stream_server_logs():
         line = line.strip()
 
         m = _RE_CONNECT.search(line)

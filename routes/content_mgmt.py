@@ -223,21 +223,14 @@ def delete_preset(name):
 @bp.route("/api/events")
 @login_required
 def api_events():
-    import subprocess, time as _time
+    import time as _time
     from helpers.laptimes import _RE_CONNECT, _RE_DISCONNECT, _RE_ISO_DATE, _RE_LOG_TIME, split_car_skin
-    from constants import SERVICE_NAME
+    from helpers.system import read_server_logs
     try:
         limit = min(int(request.args.get("limit", 500)), 2000)
     except (ValueError, TypeError):
         limit = 500
-    try:
-        r = subprocess.run(
-            ["journalctl", "-u", SERVICE_NAME, f"-n{limit * 4}", "--no-pager", "-o", "short-iso"],
-            capture_output=True, text=True, timeout=10,
-        )
-        lines = r.stdout.splitlines()
-    except Exception as e:
-        return jsonify({"ok": False, "events": [], "msg": str(e)})
+    lines = read_server_logs(limit * 4).splitlines()
 
     events   = []
     cur_date = _time.strftime("%Y-%m-%d")

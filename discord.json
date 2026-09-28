@@ -1,0 +1,7 @@
+{
+  "url": "",
+  "notify_crash": true,
+  "notify_join": true,
+  "notify_record": true,
+  "notify_pb": false
+}

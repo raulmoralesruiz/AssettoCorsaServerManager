@@ -12,3 +12,6 @@ itsdangerous==2.2.0
 
 # Systemmetriken (CPU, RAM, Netzwerk)
 psutil==7.2.2
+
+# Docker SDK (fase 2: control + logs del contenedor AC Server)
+docker==7.1.0

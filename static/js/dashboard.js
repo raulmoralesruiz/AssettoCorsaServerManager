@@ -1,4 +1,4 @@
-﻿// ═══ THEME ════════════════════════════════════════════════════════════════════
+// ═══ THEME ════════════════════════════════════════════════════════════════════
 function setTheme(name) {
   document.documentElement.setAttribute('data-theme', name);
   localStorage.setItem('acweb_theme', name);
@@ -90,10 +90,10 @@ function _closeRestartModal() { document.getElementById('restart-modal')?.classL
 
 // ═══ LANGUAGE SYSTEM ════════════════════════════════════════════════════
 
-let curLang = localStorage.getItem('acLang') || 'de';
+let curLang = localStorage.getItem('acLang') || 'es';
 
 function applyLang() {
-  const L = LANG[curLang] || LANG.de;
+  const L = LANG[curLang] || LANG.es;
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (L[key] !== undefined) el.textContent = L[key];
@@ -102,18 +102,25 @@ function applyLang() {
     const key = el.getAttribute('data-i18n-placeholder');
     if (L[key] !== undefined) el.placeholder = L[key];
   });
-  // Support for <option> elements with data-i18n
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const key = el.getAttribute('data-i18n-title');
+    if (L[key] !== undefined) el.title = L[key];
+  });
   document.querySelectorAll('option[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (L[key] !== undefined) el.textContent = L[key];
   });
   document.documentElement.lang = curLang;
   const btn = document.getElementById('lang-toggle');
-  if (btn) btn.textContent = curLang === 'de' ? 'EN' : 'DE';
+  if (btn) {
+    btn.textContent = '🌐 ' + curLang.toUpperCase();
+    btn.title = curLang === 'es' ? 'Idioma: Español (clic para cambiar)' : (curLang === 'en' ? 'Language: English (click to change)' : 'Sprache: Deutsch (Klicken zum Ändern)');
+  }
 }
 
 function toggleLang() {
-  curLang = curLang === 'de' ? 'en' : 'de';
+  const order = ['es', 'en', 'de'];
+  curLang = order[(order.indexOf(curLang) + 1) % order.length];
   localStorage.setItem('acLang', curLang);
   applyLang();
 }
@@ -146,7 +153,7 @@ function ctrl(action) {
   _ctrlLocked = true;
   apiFetch("/control/" + action, {method:"POST"})
     .then(r=>r.json())
-    .then(d => { toast(d.ok ? "✓ "+action : "✗ "+d.msg, d.ok?"ok":"err"); setTimeout(refreshLive,1500); })
+    .then(d => { toast(d.ok ? "✓ "+(d.msg||action) : "✗ "+d.msg, d.ok?"ok":"err"); setTimeout(refreshLive,1500); })
     .finally(() => setTimeout(() => { _ctrlLocked = false; }, 8000));
 }
 
@@ -196,17 +203,17 @@ const _WEATHER_ICONS = {
   '11_practice_storm':'⛈️',
 };
 const _WEATHER_NAMES = {
-  '1_heavy_clouds':  {de:'Stark bewölkt',   en:'Heavy Clouds'},
-  '2_light_clouds':  {de:'Leicht bewölkt',  en:'Light Clouds'},
-  '3_clear':         {de:'Klar',            en:'Clear'},
-  '4_mid_clear':     {de:'Überwieg. klar',  en:'Mostly Clear'},
-  '5_light_clouds':  {de:'Heiter',          en:'Partly Cloudy'},
-  '6_light_clouds':  {de:'Leicht bewölkt',  en:'Partly Cloudy'},
-  '7_heavy_clouds':  {de:'Bedeckt',         en:'Overcast'},
-  '8_drizzle':       {de:'Nieselregen',     en:'Drizzle'},
-  '9_light_drizzle': {de:'Leichter Regen',  en:'Light Rain'},
-  '10_drizzle_race': {de:'Regen',           en:'Rain'},
-  '11_practice_storm':{de:'Gewitter',       en:'Thunderstorm'},
+  '1_heavy_clouds':  {de:'Stark bewölkt',   en:'Heavy Clouds', es:'Muy nublado'},
+  '2_light_clouds':  {de:'Leicht bewölkt',  en:'Light Clouds', es:'Poco nublado'},
+  '3_clear':         {de:'Klar',            en:'Clear',        es:'Despejado'},
+  '4_mid_clear':     {de:'Überwieg. klar',  en:'Mostly Clear', es:'Mayormente despejado'},
+  '5_light_clouds':  {de:'Heiter',          en:'Partly Cloudy',es:'Parcialmente nublado'},
+  '6_light_clouds':  {de:'Leicht bewölkt',  en:'Partly Cloudy',es:'Parcialmente nublado'},
+  '7_heavy_clouds':  {de:'Bedeckt',         en:'Overcast',     es:'Cubierto'},
+  '8_drizzle':       {de:'Nieselregen',     en:'Drizzle',      es:'Llovizna'},
+  '9_light_drizzle': {de:'Leichter Regen',  en:'Light Rain',   es:'Lluvia ligera'},
+  '10_drizzle_race': {de:'Regen',           en:'Rain',         es:'Lluvia'},
+  '11_practice_storm':{de:'Gewitter',       en:'Thunderstorm', es:'Tormenta'},
 };
 function _weatherLabel(key) {
   const ico  = _WEATHER_ICONS[key] || '🌡️';
@@ -263,7 +270,7 @@ function updateDash(d) {
     dot.className = "status-dot " + (active ? "online" : d.status === "failed" ? "warn" : "offline");
   }
   if (state) {
-    state.textContent = active ? "Online" : (d.status === "failed" ? "Fehler" : "Offline");
+    state.textContent = active ? "Online" : (d.status === "failed" ? t("status_failed") : t("status_offline"));
   }
   if (track && d.info) {
     const layout = d.info.trackconfig ? ` · ${d.info.trackconfig}` : "";
@@ -338,7 +345,7 @@ function renderCards(id, drivers, showAct) {
         <div style="text-align:right"><div class="dc-laps">Rnd ${d.lapCount||0}</div>${gapTxt}</div>
       </div>
       <div class="sp-bar"><div class="sp-fill" style="width:${((d.spLine||0)*100).toFixed(1)}%"></div></div>
-      <div class="sp-txt">${((d.spLine||0)*100).toFixed(1)}% Strecke</div>
+      <div class="sp-txt">${((d.spLine||0)*100).toFixed(1)}% " + (typeof getText !== "undefined" ? getText("col_track") : "Strecke")</div>
       <div class="dc-stats">
         <div class="dc-st"><div class="dc-stv best-t">${fmt(d.bestLap)}</div><div class="dc-stl">Beste</div></div>
         <div class="dc-st"><div class="dc-stv">${fmt(d.lastLap)}</div><div class="dc-stl">Letzte</div></div>
@@ -354,7 +361,7 @@ function renderCards(id, drivers, showAct) {
 
 function updateLaps(d) {
   const tb = document.getElementById("lap-tbody");
-  if (!d.drivers?.length) { tb.innerHTML = `<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:48px">Keine Daten</td></tr>`; return; }
+  if (!d.drivers?.length) { tb.innerHTML = `<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:48px">${t("no_data")}</td></tr>`; return; }
   // Drivers kommen vom Backend bereits nach Race-Position sortiert (total_progress desc)
   tb.innerHTML = d.drivers.map((r, i) => {
     const pos  = r.race_pos || (i + 1);
@@ -421,7 +428,7 @@ function renderEvents() {
   if (!evs.length) {
     const msg = _allEvents.length === 0
       ? 'Keine Join/Leave-Events im Journal gefunden.<br><span style="font-size:11px">Tipp: Server muss laufen und Spieler müssen sich verbunden haben.</span>'
-      : 'Keine Events für diesen Filter gefunden.';
+      : t('ev_no_filter');
     log.innerHTML = `<div style="color:var(--muted);font-size:13px;text-align:center;padding:48px">${msg}</div>`;
     return;
   }
@@ -444,9 +451,9 @@ function loadEvents() {
     .then(d => {
       const cnt = document.getElementById('ev-count');
       if (!d.ok) {
-        if (cnt) cnt.textContent = '(Fehler)';
+        if (cnt) cnt.textContent = '(' + t('status_error') + ')';
         const log = document.getElementById('event-log');
-        if (log) log.innerHTML = `<div style="color:var(--red);font-size:13px;text-align:center;padding:48px">Fehler beim Laden: ${esc(d.msg||'unbekannt')}</div>`;
+        if (log) log.innerHTML = `<div style="color:var(--red);font-size:13px;text-align:center;padding:48px">${t('ev_load_error')} ${esc(d.msg||'')}</div>`;
         return;
       }
       _allEvents = d.events || [];
@@ -456,7 +463,7 @@ function loadEvents() {
       _renderDashEvents(_allEvents.slice(0, 10));
     }).catch(e => {
       const log = document.getElementById('event-log');
-      if (log) log.innerHTML = `<div style="color:var(--red);font-size:13px;text-align:center;padding:48px">Netzwerkfehler beim Laden der Events</div>`;
+      if (log) log.innerHTML = `<div style="color:var(--red);font-size:13px;text-align:center;padding:48px">${t('ev_network_error')}</div>`;
     });
 }
 
@@ -580,7 +587,7 @@ function _drawMapOnCanvas(c, data, mini) {
       if (!mini) {
         ctx.fillStyle='#555'; ctx.font='13px system-ui';
         ctx.textAlign='center'; ctx.textBaseline='middle';
-        ctx.fillText('Lade Strecke…', W/2, H/2);
+        ctx.fillText(t('loading_track'), W/2, H/2);
         loadMapImage();
       }
       return;
@@ -639,8 +646,8 @@ function drawMap(data) {
   const drivers = (data?.drivers||[]).filter(d => d.mapX != null && d.mapY != null);
   const hint = document.getElementById("map-hint");
   const cnt = document.getElementById("live-drv-count");
-  if (hint) hint.textContent = drivers.length ? `${drivers.length} Fahrer auf der Strecke` : t('map_no_drivers');
-  if (cnt) cnt.textContent = `${data?.drivers?.length||0} Fahrer`;
+  if (hint) hint.textContent = drivers.length ? `${drivers.length} ${t('drivers_on_track')}` : t('map_no_drivers');
+  if (cnt) cnt.textContent = `${data?.drivers?.length||0} " + (typeof getText !== "undefined" ? getText("col_driver") : "Fahrer")`;
 }
 
 
@@ -807,7 +814,7 @@ function saveSessions() {
   apiFetch("/save_session",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
     .then(r=>r.json()).then(d=>{
       toast(d.ok?t('t_saved'):'✗ '+d.msg,d.ok?'ok':'err');
-      if(d.ok&&autoRestart()) _showRestartModal(['🏃 Practice: '+data.practice_time+' min','🏁 Qualifying: '+data.qualify_time+' min','🚩 Race: '+data.race_laps+' Runden']);
+      if(d.ok&&autoRestart()) _showRestartModal(['🏃 Practice: '+data.practice_time+' min','🏁 Qualifying: '+data.qualify_time+' min','🚩 Race: '+data.race_laps+' Runden")']);
     });
 }
 
@@ -841,7 +848,7 @@ function insertWelcomeText(text) {
 }
 
 function insertWelcomeVar(key) {
-  const vals = { NAME: document.getElementById('sv-name')?.value || '[Servername]', TRACK: document.getElementById('s-track')?.options[document.getElementById('s-track')?.selectedIndex]?.text || '[Strecke]' };
+  const vals = { NAME: document.getElementById('sv-name')?.value || `[${t('lbl_name')}]`, TRACK: document.getElementById('s-track')?.options[document.getElementById('s-track')?.selectedIndex]?.text || `[${t('lbl_track')}]` };
   insertWelcomeText(vals[key] || key);
 }
 
@@ -893,7 +900,7 @@ function loadPresetList(){
   });
 }
 function savePreset(){const name=document.getElementById("preset-name").value.trim();if(!name){toast("Name eingeben","err");return;}apiFetch("/api/presets",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({name})}).then(r=>r.json()).then(d=>{toast(d.ok?"✓ "+d.msg:"✗ "+d.msg,d.ok?"ok":"err");if(d.ok){document.getElementById("preset-name").value="";loadPresetList();}});}
-function applyPreset(name){if(!confirm(`Preset "${name}" laden und Server neu starten?`))return;toast("Lade Preset...","info");apiFetch(`/api/presets/${encodeURIComponent(name)}/load`,{method:"POST"}).then(r=>r.json()).then(d=>{toast(d.ok?"✓ "+d.msg:"✗ "+d.msg,d.ok?"ok":"err");if(d.ok)setTimeout(refreshLive,3000);});}
+function applyPreset(name){if(!confirm(t("t_preset_load", name)))return;toast(t("loading_preset"),"info");apiFetch(`/api/presets/${encodeURIComponent(name)}/load`,{method:"POST"}).then(r=>r.json()).then(d=>{toast(d.ok?"✓ "+d.msg:"✗ "+d.msg,d.ok?"ok":"err");if(d.ok)setTimeout(refreshLive,3000);});}
 function removePreset(name){if(!confirm(`Preset "${name}" löschen?`))return;apiFetch(`/api/presets/${encodeURIComponent(name)}`,{method:"DELETE"}).then(r=>r.json()).then(d=>{toast(d.ok?t('t_deleted'):"✗ "+d.msg,d.ok?"ok":"err");loadPresetList();});}
 
 function fixMissingCarChecksum(carId){
@@ -901,13 +908,13 @@ function fixMissingCarChecksum(carId){
   apiFetch("/api/ignore_config_errors",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({key:"MissingCarChecksums",value:true})})
     .then(r=>r.json()).then(d=>{
       if(!d.ok){toast("✗ "+d.msg,"err");return;}
-      if(confirm("✓ Einstellung gespeichert. Server jetzt neu starten, damit es wirkt?")){
+      if(confirm(t("setting_saved_restart"))){
         apiFetch("/control/restart",{method:"POST"}).then(r=>r.json()).then(d2=>{
           toast(d2.ok?"✓ Server neu gestartet":"✗ "+d2.msg, d2.ok?"ok":"err");
           if(d2.ok) setTimeout(refreshLive,3000);
         });
       } else {
-        toast("Einstellung gespeichert – wirkt erst nach Serverneustart","ok");
+        toast(t("setting_saved_notice"),"ok");
       }
     });
 }
@@ -926,7 +933,7 @@ function sendChat() { _sendChatMsg(document.getElementById('dash-chat-inp') || d
 function sendChatFrom(id) { const el = document.getElementById(id); if (el) _sendChatMsg(el); }
 
 // ═══ LOGS + RCON ══════════════════════════════════════════════════════════
-function loadLogs(){apiFetch("/logs").then(r=>r.json()).then(d=>{const box=document.getElementById("logbox");box.innerHTML=d.logs.split("\n").map(l=>{const s=esc(l);if(/ERR|FAIL|error/i.test(l))return`<span style="color:#ff6b6b">${s}</span>`;if(/WRN|WARN/i.test(l))return`<span style="color:var(--yellow)">${s}</span>`;if(/INF\b|INFO/i.test(l))return`<span style="color:#74b9ff">${s}</span>`;return s;}).join("\n");box.scrollTop=box.scrollHeight;});}
+function loadLogs(){apiFetch("/logs").then(r=>r.json()).then(d=>{const box=document.getElementById("log-container");box.innerHTML=d.logs.split("\n").map(l=>{const s=esc(l);if(/ERR|FAIL|error/i.test(l))return`<span style="color:#ff6b6b">${s}</span>`;if(/WRN|WARN/i.test(l))return`<span style="color:var(--yellow)">${s}</span>`;if(/INF\b|INFO/i.test(l))return`<span style="color:#74b9ff">${s}</span>`;return s;}).join("<br>");box.scrollTop=box.scrollHeight;});}
 
 const _rconHistory = [];
 function sendRcon() {
@@ -966,7 +973,7 @@ function loadInstalledContent(){
     renderDiskUsage(du);
     renderContentLibrary();
   }).catch(()=>{
-    if(cGrid) cGrid.innerHTML = `<div class="cl-empty">Fehler beim Laden</div>`;
+    if(cGrid) cGrid.innerHTML = `<div class="cl-empty">${t("ev_load_error")}</div>`;
   });
 }
 
@@ -1019,11 +1026,11 @@ function renderContentLibrary(q=''){
 
   if(cGrid) cGrid.innerHTML = fcars.length
     ? fcars.map(c => carCard(c)).join('')
-    : `<div class="cl-empty">Keine Autos installiert</div>`;
+    : `<div class="cl-empty">${t("no_cars_installed")}</div>`;
 
   if(tGrid) tGrid.innerHTML = ftracks.length
     ? ftracks.map(tr => trackCard(tr)).join('')
-    : `<div class="cl-empty">Keine Strecken installiert</div>`;
+    : `<div class="cl-empty">${t("no_tracks_installed")}</div>`;
 }
 
 function carCard(c){
@@ -1037,7 +1044,7 @@ function carCard(c){
   const activeBadge = c.active ? `<span class="cl-badge cl-badge-active">● Aktiv</span>` : '';
   const skinsBadge = `<span class="cl-badge cl-badge-info">🎨 ${c.skin_count}</span>`;
   return `<div class="cl-card${activeCls}${selCls}" onclick="openCarDetail('${esc(c.id)}')" id="clcard-car-${esc(c.id)}">
-    <input type="checkbox" class="cl-cb" ${checked} onclick="event.stopPropagation();toggleClSelect('${esc(selKey)}',this)" title="Auswählen">
+    <input type="checkbox" class="cl-cb" ${checked} onclick="event.stopPropagation();toggleClSelect('${esc(selKey)}',this)" title="${t('select')}">
     <div class="cl-card-head">
       <img class="cl-thumb" src="/car_img/${esc(c.id)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
       <div class="cl-thumb-placeholder" style="display:none">🚗</div>
@@ -1067,7 +1074,7 @@ function trackCard(tr){
     : '';
   const meta = [tr.length, tr.pitboxes ? tr.pitboxes+' Boxen' : ''].filter(Boolean).join(' · ');
   return `<div class="cl-card${activeCls}${selCls}" onclick="openTrackDetail('${esc(tr.id)}')" id="clcard-track-${esc(tr.id)}">
-    <input type="checkbox" class="cl-cb" ${checked} onclick="event.stopPropagation();toggleClSelect('${esc(selKey)}',this)" title="Auswählen">
+    <input type="checkbox" class="cl-cb" ${checked} onclick="event.stopPropagation();toggleClSelect('${esc(selKey)}',this)" title="${t('select')}">
     <div class="cl-card-head">
       <img class="cl-thumb" src="/track_img/${esc(tr.id)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
       <div class="cl-thumb-placeholder" style="display:none">🏁</div>
@@ -1120,7 +1127,7 @@ function batchDelete(){
   });
   Promise.all(tasks).then(results => {
     const ok = results.filter(r=>r.ok).length;
-    toast(`✓ ${ok} von ${results.length} gelöscht`, ok===results.length ? 'ok' : 'err');
+    toast(t('deleted_count', ok, results.length), ok===results.length ? 'ok' : 'err');
     loadInstalledContent();
   }).catch(()=>toast('✗ Fehler','err'));
 }
@@ -1153,7 +1160,7 @@ function openTrackDetail(id){
 
 function openDetailModal(){
   _dmActiveTab = 0;
-  document.getElementById('dm-title').textContent  = 'Lade...';
+  document.getElementById('dm-title').textContent  = t('loading');
   document.getElementById('dm-brand').textContent  = '';
   document.getElementById('dm-badges').innerHTML   = '';
   document.getElementById('dm-tabs').innerHTML     = '';
@@ -1373,7 +1380,7 @@ function uploadZip(file){
   const xhr=new XMLHttpRequest();xhr.open("POST","/upload");
   xhr.upload.onprogress=e=>{if(!e.lengthComputable)return;const p=Math.round(e.loaded/e.total*100);bar.style.width=p+"%";pct.textContent=p+"%";};
   xhr.onload=()=>{
-    prog.style.display="none";let d;try{d=JSON.parse(xhr.responseText);}catch(e){toast("✗ Server Fehler","err");return;}
+    prog.style.display="none";let d;try{d=JSON.parse(xhr.responseText);}catch(e){toast("✗ " + t("server_error"),"err");return;}
     if(!d.ok){toast("✗ "+d.msg,"err");return;}
     currentZip=d.filename;document.getElementById("zip-name").textContent=d.filename;
     document.getElementById("z-cars").innerHTML=d.cars.length?d.cars.map(c=>`<div class="ci"><input type="checkbox" value="${esc(c)}" checked><img class="ci-img" src="/car_img/${esc(c)}" onerror="this.style.display='none'" alt=""><div class="ci-info"><span class="ci-name">${esc(c)}</span></div></div>`).join(""):`<div style="padding:8px;color:var(--muted)">${t('t_no_cars')}</div>`;
@@ -1570,7 +1577,7 @@ async function loadDriverStats() {
   const d = await apiFetch('/api/laptimes/stats').then(r=>r.json()).catch(()=>null);
   const tb = document.getElementById('stats-tbody');
   if (!d || !d.stats.length) {
-    tb.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px">Keine Daten</td></tr>`;
+    tb.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px">${t("no_data")}</td></tr>`;
     return;
   }
   tb.innerHTML = d.stats.map((s, i) => {
@@ -2095,7 +2102,7 @@ function loadResults() {
         </div>
         <div style="font-size:13px;font-weight:600;margin-bottom:2px">${esc(track)||'—'}</div>
         <div style="font-size:11px;color:var(--muted);display:flex;gap:12px">
-          <span>🏎 ${r.driver_count} Fahrer</span>
+          <span>🏎 ${r.driver_count} " + (typeof getText !== "undefined" ? getText("col_driver") : "Fahrer")</span>
           <span>📋 ${r.lap_count} Runden</span>
           ${r.winner && r.winner !== '?' ? `<span>🥇 ${esc(r.winner)}</span>` : ''}
         </div>
@@ -2446,20 +2453,20 @@ const _AC_NATION = {
   UKR:'UA',GBR:'GB',USA:'US',URY:'UY',VEN:'VE',VNM:'VN',
 };
 const _AC_NATION_NAME = {
-  ALB:'Albanien',AND:'Andorra',ARG:'Argentinien',ARM:'Armenien',AUS:'Australien',
-  AUT:'Österreich',AZE:'Aserbaidschan',BEL:'Belgien',BLR:'Weißrussland',
-  BIH:'Bosnien',BRA:'Brasilien',BGR:'Bulgarien',CAN:'Kanada',CHN:'China',
-  COL:'Kolumbien',HRV:'Kroatien',CYP:'Zypern',CZE:'Tschechien',DNK:'Dänemark',
-  ECU:'Ecuador',EGY:'Ägypten',EST:'Estland',FIN:'Finnland',FRA:'Frankreich',
-  GEO:'Georgien',DEU:'Deutschland',GRC:'Griechenland',HUN:'Ungarn',ISL:'Island',
-  IND:'Indien',IDN:'Indonesien',IRL:'Irland',ISR:'Israel',ITA:'Italien',
-  JPN:'Japan',KAZ:'Kasachstan',KOR:'Südkorea',LVA:'Lettland',LIE:'Liechtenstein',
-  LTU:'Litauen',LUX:'Luxemburg',MKD:'Nordmazedonien',MYS:'Malaysia',MLT:'Malta',
-  MEX:'Mexiko',MDA:'Moldawien',MCO:'Monaco',MNE:'Montenegro',NLD:'Niederlande',
-  NZL:'Neuseeland',NOR:'Norwegen',POL:'Polen',PRT:'Portugal',ROU:'Rumänien',
-  RUS:'Russland',SRB:'Serbien',SVK:'Slowakei',SVN:'Slowenien',ZAF:'Südafrika',
-  ESP:'Spanien',SWE:'Schweden',CHE:'Schweiz',TUR:'Türkei',UKR:'Ukraine',
-  GBR:'Großbritannien',USA:'USA',URY:'Uruguay',VEN:'Venezuela',VNM:'Vietnam',
+  ALB:'Albania',AND:'Andorra',ARG:'Argentina',ARM:'Armenia',AUS:'Australia',
+  AUT:'Austria',AZE:'Azerbaiyán',BEL:'Bélgica',BLR:'Bielorrusia',
+  BIH:'Bosnia',BRA:'Brasil',BGR:'Bulgaria',CAN:'Canadá',CHN:'China',
+  COL:'Colombia',HRV:'Croacia',CYP:'Chipre',CZE:'Chequia',DNK:'Dinamarca',
+  ECU:'Ecuador',EGY:'Egipto',EST:'Estonia',FIN:'Finlandia',FRA:'Francia',
+  GEO:'Georgia',DEU:'Alemania',GRC:'Grecia',HUN:'Hungría',ISL:'Islandia',
+  IND:'India',IDN:'Indonesia',IRL:'Irlanda',ISR:'Israel',ITA:'Italia',
+  JPN:'Japón',KAZ:'Kazajistán',KOR:'Corea del Sur',LVA:'Letonia',LIE:'Liechtenstein',
+  LTU:'Lituania',LUX:'Luxemburgo',MKD:'Macedonia del Norte',MYS:'Malasia',MLT:'Malta',
+  MEX:'México',MDA:'Moldavia',MCO:'Mónaco',MNE:'Montenegro',NLD:'Países Bajos',
+  NZL:'Nueva Zelanda',NOR:'Noruega',POL:'Polonia',PRT:'Portugal',ROU:'Rumanía',
+  RUS:'Rusia',SRB:'Serbia',SVK:'Eslovaquia',SVN:'Eslovenia',ZAF:'Sudáfrica',
+  ESP:'España',SWE:'Suecia',CHE:'Suiza',TUR:'Turquía',UKR:'Ucrania',
+  GBR:'Reino Unido',USA:'USA',URY:'Uruguay',VEN:'Venezuela',VNM:'Vietnam',
 };
 function nationFlag(code3) {
   const c3 = (code3 || '').toUpperCase();
@@ -2849,7 +2856,7 @@ let _elMaxClients = 0;
 
 function loadEntryList() {
   apiFetch('/api/entry_list').then(r => r.json()).then(d => {
-    if (!d.ok) { toast('Entry List Fehler: ' + d.msg, 'err'); return; }
+    if (!d.ok) { toast(t('entry_list_error') + ': ' + d.msg, 'err'); return; }
     _elSlots      = d.slots || [];
     _elCars       = d.cars  || [];
     _elMaxClients = d.max_clients || 0;
@@ -2985,7 +2992,8 @@ function _elBuildCard(slot, i) {
     '</div>' +
     '<div class="el-num-col"><label>Ballast kg</label><input class="inp num-inp" type="number" min="0" max="150" value="' + (slot.ballast || 0) + '" onchange="elUpd(' + i + ',\'ballast\',+this.value)" style="width:100%"></div>' +
     '<div class="el-num-col"><label>Restrictor %</label><input class="inp num-inp" type="number" min="0" max="400" value="' + (slot.restrictor || 0) + '" onchange="elUpd(' + i + ',\'restrictor\',+this.value)" style="width:100%"></div>' +
-    '<div class="el-driver-col"><label>Fahrername</label><input class="inp" type="text" value="' + esc(slot.drivername || '') + '" placeholder="leer = offen" onchange="elUpd(' + i + ',\'drivername\',this.value)" style="width:100%;font-size:11px"></div>' +
+    '<div class="el-num-col"><label>AI</label><select class="sel" onchange="elUpd(' + i + ',\'ai\',this.value)" style="width:100%;font-size:11px"><option value="" ' + (!slot.ai ? 'selected' : '') + '>-</option><option value="none" ' + (slot.ai === 'none' ? 'selected' : '') + '>none</option><option value="fixed" ' + (slot.ai === 'fixed' ? 'selected' : '') + '>fixed</option><option value="auto" ' + (slot.ai === 'auto' ? 'selected' : '') + '>auto</option></select></div>' +
+      '<div class="el-driver-col"><label>Fahrername</label><input class="inp" type="text" value="' + esc(slot.drivername || '') + '" placeholder="leer = offen" onchange="elUpd(' + i + ',\'drivername\',this.value)" style="width:100%;font-size:11px"></div>' +
     '<div class="el-guid-col"><label>Steam GUID</label><input class="inp" type="text" value="' + esc(slot.guid || '') + '" placeholder="leer = offen" onchange="elUpd(' + i + ',\'guid\',this.value)" style="width:100%;font-size:11px"></div>' +
     '<div class="el-slot-actions"><span class="el-slot-num">#' + (i + 1) + '</span>' +
       '<button class="btn btn-gray btn-sm" onclick="elDuplicateSlot(' + i + ')" title="Duplizieren">⊕</button>' +
@@ -3372,3 +3380,4 @@ function saveAiConfig() {
     })
     .catch(e => console.error('saveAiConfig:', e));
 }
+

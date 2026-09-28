@@ -1,4 +1,3 @@
-"""System-Hilfsfunktionen: systemctl, psutil, UDP-Listener, RCON, Chat, Uptime, Spline."""
 import functools
 import math
 import re
@@ -8,6 +7,7 @@ import subprocess
 import threading
 import time
 from datetime import datetime
+from pathlib import Path
 
 try:
     import psutil
@@ -15,8 +15,9 @@ try:
 except ImportError:
     HAS_PSUTIL = False
 
-from constants import CFG_DIR, RCON_PORT, SERVICE_NAME, TRACKS_DIR
+from constants import AC_HOST, CFG_DIR, RCON_PORT, SERVICE_NAME, TRACKS_DIR
 from helpers.config_io import read_extra_cfg, read_server_cfg
+from helpers import docker_api
 
 # ── UDP live position state ───────────────────────────────────────────────────
 _car_data: dict = {}
@@ -29,7 +30,7 @@ _udp_start_lock = threading.Lock()
 # ── Split-Zeit Tracking ───────────────────────────────────────────────────────
 import queue as _queue
 _split_queue:  _queue.Queue = _queue.Queue()
-_split_config: list         = []   # [{"pos": 0.33, "name": "Split 1"}, ...]
+_split_config: list         = []
 _split_lock                 = threading.Lock()
 
 def set_split_config(splits: list):
@@ -55,7 +56,7 @@ def _udp_listener():
         s.bind(("127.0.0.1", 12000))
     except Exception as e:
         _udp_err[0] = f"bind: {e}"
-        s.close()  # Bug fix: Socket bei Bind-Fehler schließen
+        s.close()
         return
     while True:
         try:
@@ -67,7 +68,7 @@ def _udp_listener():
             if pkt in (2, 53) and size >= 2:
                 cid = data[1]
                 with _udp_lock:
-                    entry = dict(_car_data.get(cid, {}))  # Bug fix: Kopie, nicht Referenz
+                    entry = dict(_car_data.get(cid, {}))
                 if size >= 33:
                     try:
                         sp = struct.unpack_from("<f", data, 29)[0]
@@ -75,17 +76,12 @@ def _udp_listener():
                             sp = round(sp, 4)
                             prev_sp = entry.get("spLine", -1.0)
                             now_t   = time.time()
-
-                            # Neue Runde: spLine springt von >0.85 auf <0.15
                             if prev_sp > 0.85 and sp < 0.15:
                                 entry["_lapStartTime"]    = now_t
                                 entry["_passedSplits"]    = set()
-                            # Erste Positionsmeldung für dieses Auto
                             if "_lapStartTime" not in entry:
                                 entry["_lapStartTime"]  = now_t
                                 entry["_passedSplits"]  = set()
-
-                            # Split-Überquerungen erkennen (nur vorwärts)
                             if prev_sp >= 0.0 and sp > prev_sp:
                                 with _split_lock:
                                     splits = list(_split_config)
@@ -101,7 +97,6 @@ def _udp_listener():
                                         })
                                         passed.add(spos)
                                 entry["_passedSplits"] = passed
-
                             entry["spLine"] = sp
                     except Exception:
                         pass
@@ -140,7 +135,7 @@ def _udp_listener():
 
 def ensure_udp():
     global _udp_ready
-    with _udp_start_lock:  # Bug fix: thread-sicherer Start, kein doppelter Listener
+    with _udp_start_lock:
         if not _udp_ready:
             _udp_ready = True
             threading.Thread(target=_udp_listener, daemon=True).start()
@@ -151,9 +146,9 @@ def get_car_data(car_id: int) -> dict:
         return dict(_car_data.get(car_id, {}))
 
 
-# ── systemctl helpers ─────────────────────────────────────────────────────────
-
 def run_systemctl(action: str) -> tuple[bool, str]:
+    if docker_api.available():
+        return docker_api.run_action(action)
     try:
         r = subprocess.run(
             ["systemctl", action, SERVICE_NAME],
@@ -163,13 +158,26 @@ def run_systemctl(action: str) -> tuple[bool, str]:
     except Exception as e:
         return False, str(e)
 
+def _ac_reachable() -> bool:
+    import socket
+    try:
+        s = socket.create_connection((AC_HOST, 8081), timeout=2)
+        s.close()
+        return True
+    except Exception:
+        return False
 
 def server_status() -> str:
-    r = subprocess.run(
-        ["systemctl", "is-active", SERVICE_NAME],
-        capture_output=True, text=True,
-    )
-    return r.stdout.strip()
+    if _ac_reachable():
+        return "active"
+    try:
+        r = subprocess.run(
+            ["systemctl", "is-active", SERVICE_NAME],
+            capture_output=True, text=True,
+        )
+        return r.stdout.strip()
+    except Exception:
+        return "inactive"
 
 
 def maybe_restart(data: dict):
@@ -177,26 +185,18 @@ def maybe_restart(data: dict):
         run_systemctl("restart")
 
 
-# ── AS HTTP API ───────────────────────────────────────────────────────────────
-
 def server_info():
-    """Liest /api/details vom AssettoServer. Gibt None zurück bei 5xx oder Timeout.
-    AS wirft NullReferenceException auf /api/details kurz nach dem Start —
-    das 500er wird hier still ignoriert statt im AS-Log zu landen (wir pollen sowieso alle 3s).
-    """
     import urllib.request
     import urllib.error
     import json
-    for url in ["http://127.0.0.1:8081/api/details", "http://127.0.0.1:8081/INFO"]:
+    for url in [f"http://{AC_HOST}:8081/api/details", f"http://{AC_HOST}:8081/INFO"]:
         try:
             with urllib.request.urlopen(url, timeout=2) as r:
                 if r.status == 200:
                     return json.loads(r.read())
         except urllib.error.HTTPError as e:
             if e.code < 500:
-                # 4xx weiterwerfen (unerwarteter Fehler)
                 pass
-            # 5xx (Server noch nicht bereit) → still ignorieren
         except Exception:
             pass
     return None
@@ -205,13 +205,11 @@ def server_info():
 def server_json():
     import urllib.request, json
     try:
-        with urllib.request.urlopen("http://127.0.0.1:8081/JSON|", timeout=2) as r:
+        with urllib.request.urlopen(f"http://{AC_HOST}:8081/JSON|", timeout=2) as r:
             return json.loads(r.read())
     except Exception:
         return None
 
-
-# ── System stats ──────────────────────────────────────────────────────────────
 
 _prev_net: dict = {"sent": 0, "recv": 0, "t": 0.0}
 
@@ -247,6 +245,8 @@ def get_local_ip() -> str:
 
 
 def get_uptime_string() -> str:
+    if docker_api.available():
+        return docker_api.uptime()
     try:
         r = subprocess.run(
             ["systemctl", "show", SERVICE_NAME, "--property=ActiveEnterTimestamp"],
@@ -277,8 +277,6 @@ def get_uptime_string() -> str:
         return "unknown"
 
 
-# ── Spline / map ──────────────────────────────────────────────────────────────
-
 @functools.lru_cache(maxsize=8)
 def load_spline_points(track: str, layout: str) -> tuple:
     ai_path = (
@@ -296,8 +294,6 @@ def load_spline_points(track: str, layout: str) -> tuple:
         count = struct.unpack_from("<i", data, 4)[0]
         if not (0 < count < 1_000_000):
             return ()
-        # AC fast_lane.ai v7: 8-Byte Header + 8 Bytes Vorlauf, dann count*20-Byte Einträge
-        # Jeder Eintrag: float x, float y_height, float z, float dist, int32 idx
         DATA_START = 16
         STRIDE     = 20
         pts = []
@@ -322,8 +318,6 @@ def load_spline_points(track: str, layout: str) -> tuple:
         return ()
 
 
-# ── RCON ──────────────────────────────────────────────────────────────────────
-
 def rcon_send(cmd: str) -> tuple[bool, str]:
     admin_pw = read_server_cfg().get("ADMIN_PASSWORD", "")
     try:
@@ -333,12 +327,10 @@ def rcon_send(cmd: str) -> tuple[bool, str]:
     try:
         s = _sock.socket(_sock.AF_INET, _sock.SOCK_STREAM)
         s.settimeout(3)
-        s.connect(("127.0.0.1", port))
-
+        s.connect((AC_HOST, port))
         def _pack(rid, rtype, body):
             b = body.encode("utf-8") + b"\x00\x00"
             return struct.pack("<iii", 4 + 4 + len(b), rid, rtype) + b
-
         def _recv():
             raw = s.recv(4)
             if len(raw) < 4:
@@ -351,7 +343,6 @@ def rcon_send(cmd: str) -> tuple[bool, str]:
                     break
                 d += chunk
             return d[8:].rstrip(b"\x00").decode("utf-8", errors="replace")
-
         s.sendall(_pack(1, 3, admin_pw)); _recv()
         s.sendall(_pack(2, 2, cmd)); resp = _recv()
         s.close()
@@ -359,8 +350,6 @@ def rcon_send(cmd: str) -> tuple[bool, str]:
     except Exception as e:
         return False, str(e)
 
-
-# ── Chat ──────────────────────────────────────────────────────────────────────
 
 def get_recent_chat(n: int = 40) -> list:
     try:
@@ -371,17 +360,14 @@ def get_recent_chat(n: int = 40) -> list:
         msgs = []
         for line in r.stdout.split("\n"):
             ts = line[1:9] if line.startswith("[") else ""
-            # Spieler-Chat: [HH:MM:SS INF] CHAT: Name: message
             if "CHAT:" in line:
-                # CSP-Interna (Protokoll-Daten) herausfiltern
-                if re.search(r'CHAT:.*\$CSP[0-9A-Z]', line):
+                if re.search(r'CHAT:.*\[0-9A-Z]', line):
                     continue
                 try:
                     text = line.split("CHAT: ", 1)[1].strip()
                     msgs.append({"time": ts, "text": text, "source": "player"})
                 except Exception:
                     pass
-            # Server-Nachrichten via RCON say / /say
             elif "RCON" in line and re.search(r'/?say (.+)', line, re.IGNORECASE):
                 try:
                     m = re.search(r'/?say (.+)', line, re.IGNORECASE)
@@ -390,8 +376,69 @@ def get_recent_chat(n: int = 40) -> list:
                         msgs.append({"time": ts, "text": f"(Server): {text}", "source": "server"})
                 except Exception:
                     pass
-        # Zeitlich sortieren (Timestamp-String reicht da gleicher Tag)
         msgs.sort(key=lambda x: x.get("time", ""))
         return msgs[-n:]
     except Exception:
         return []
+
+def read_server_logs(n: int = 300) -> str:
+    logs_dir = Path('/opt/assettoserver/logs')
+    try:
+        files = sorted(logs_dir.glob('log-*.txt'))
+        if not files:
+            import os
+            # Fallback debug directory contents
+            dir_contents = os.listdir('/opt/assettoserver/') if os.path.exists('/opt/assettoserver/') else 'Not found'
+            log_contents = os.listdir('/opt/assettoserver/logs') if os.path.exists('/opt/assettoserver/logs') else 'No logs dir'
+            return f"Error: No log files found. /opt/assettoserver: {dir_contents} | /opt/assettoserver/logs: {log_contents}"
+        with open(files[-1], 'r', encoding='utf-8', errors='replace') as f:
+            lines = f.read().splitlines()
+            return '\n'.join(lines[-n:])
+    except Exception as e:
+        import traceback
+        return f"Error reading logs: {e}\n{traceback.format_exc()}"
+
+def stream_server_logs():
+    import time
+    logs_dir = Path('/opt/assettoserver/logs')
+    
+    def get_latest():
+        try:
+            files = sorted(logs_dir.glob('log-*.txt'))
+            return files[-1] if files else None
+        except Exception:
+            return None
+
+    current = get_latest()
+    f = None
+    if current:
+        try:
+            f = open(current, 'r', encoding='utf-8', errors='replace')
+            f.seek(0, 2)
+        except Exception:
+            pass
+
+    while True:
+        if not f:
+            time.sleep(1)
+            new_current = get_latest()
+            if new_current:
+                current = new_current
+                try:
+                    f = open(current, 'r', encoding='utf-8', errors='replace')
+                    f.seek(0, 2)
+                except Exception:
+                    pass
+            continue
+            
+        line = f.readline()
+        if not line:
+            new_current = get_latest()
+            if new_current and new_current != current:
+                f.close()
+                f = None
+                continue
+            time.sleep(0.5)
+            continue
+            
+        yield line.rstrip('\n')

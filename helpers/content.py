@@ -233,7 +233,7 @@ def _empty_slot(index: int) -> dict:
     return {
         "index": index, "model": "", "skin": "", "ballast": 0,
         "restrictor": 0, "drivername": "", "team": "", "guid": "",
-        "spectator": 0,
+        "spectator": 0, "ai": "",
     }
 
 
@@ -263,6 +263,7 @@ def read_entry_list() -> list:
                 elif key == "TEAM":       current["team"]       = val
                 elif key == "GUID":       current["guid"]       = val
                 elif key == "SPECTATOR_MODE": current["spectator"] = int(val or 0)
+                elif key == "AI":         current["ai"]         = val
         if current is not None:
             slots.append(current)
     except Exception:
@@ -291,9 +292,12 @@ def write_entry_list_slots(slots: list) -> None:
                 f"TEAM={s.get('team', '')}",
                 f"GUID={s.get('guid', '')}",
                 f"BALLAST={int(s.get('ballast', 0))}",
-                f"RESTRICTOR={int(s.get('restrictor', 0))}",
-                "",
+                f"RESTRICTOR={int(s.get('restrictor', 0))}"
             ]
+            ai_val = s.get("ai", "")
+            if ai_val:
+                lines.append(f"AI={ai_val}")
+            lines.append("")
         (CFG_DIR / "entry_list.ini").write_text("\n".join(lines), encoding="utf-8")
     except Exception:
         logger.exception("write_entry_list_slots fehlgeschlagen (%d Slots)", len(slots))
@@ -532,3 +536,4 @@ def remove_guid(path: Path, guid: str) -> bool:
         write_guid_list(path, guids)
         return True
     return False
+
