@@ -13,8 +13,8 @@ AC_HOST      = os.environ.get("AC_HOST", "127.0.0.1")
 def _require_env(name: str) -> str:
     value = os.environ.get(name)
     if not value:
-        print(f"[FATAL] Umgebungsvariable {name} ist nicht gesetzt. "
-              f"Bitte .env befüllen und neu starten.", file=sys.stderr)
+        print(f"[FATAL] La variable de entorno {name} no está establecida. "
+              f"Completa .env y vuelve a iniciar.", file=sys.stderr)
         sys.exit(1)
     return value
 

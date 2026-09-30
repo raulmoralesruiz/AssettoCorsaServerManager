@@ -19,5 +19,5 @@ def api_analytics_driver():
     driver = request.args.get("name", "").strip()
     profile = driver_profile(driver) if driver else None
     if profile is None:
-        return jsonify({"ok": False, "msg": "Not found"}), 404
+        return jsonify({"ok": False, "msg": "No encontrado"}), 404
     return jsonify({"ok": True, "profile": profile})

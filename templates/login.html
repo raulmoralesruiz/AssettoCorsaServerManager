@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AC Server — Login</title>
+<title>AC Server — Acceso</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -38,7 +38,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <div class="box">
   <div class="logo">
     <div class="logo-mark">⚡ AC Server</div>
-    <div class="logo-sub">Dashboard Login</div>
+    <div class="logo-sub">Acceso al panel</div>
   </div>
 
   {% if error %}
@@ -48,22 +48,22 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <form method="POST" action="/login">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
     <div class="fg">
-      <label class="lbl" for="username">Username</label>
+      <label class="lbl" for="username">Usuario</label>
       <input class="inp" id="username" name="username" type="text"
              autocomplete="username" required autofocus
              placeholder="admin">
     </div>
     <div class="fg">
-      <label class="lbl" for="password">Password</label>
+      <label class="lbl" for="password">Contraseña</label>
       <input class="inp" id="password" name="password" type="password"
              autocomplete="current-password" required
              placeholder="••••••••">
     </div>
-    <button class="btn" type="submit">Sign In</button>
+    <button class="btn" type="submit">Entrar</button>
   </form>
 
   <div class="divider"></div>
-  <div class="footer">Assetto Corsa Server Dashboard</div>
+  <div class="footer">Panel del servidor de Assetto Corsa</div>
 </div>
 </body>
 </html>

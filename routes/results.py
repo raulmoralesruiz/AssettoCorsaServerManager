@@ -18,5 +18,5 @@ def api_results():
 def api_result_detail(filename):
     data = get_result(filename)
     if data is None:
-        return jsonify({"ok": False, "msg": "Not found"}), 404
+        return jsonify({"ok": False, "msg": "No encontrado"}), 404
     return jsonify({"ok": True, "result": data})

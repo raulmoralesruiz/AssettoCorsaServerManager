@@ -23,9 +23,9 @@ def get_whitelist():
 def add_whitelist():
     guid = (request.json or {}).get("guid", "").strip()
     if not guid:
-        return jsonify({"ok": False, "msg": "GUID required"}), 400
+        return jsonify({"ok": False, "msg": "GUID obligatoria"}), 400
     if not is_valid_guid(guid):
-        return jsonify({"ok": False, "msg": "Invalid GUID"}), 400
+        return jsonify({"ok": False, "msg": "GUID no válida"}), 400
     added = add_guid(WHITELIST_FILE, guid)
     return jsonify({"ok": True, "added": added})
 
@@ -35,7 +35,7 @@ def add_whitelist():
 @csrf_protect
 def del_whitelist(guid):
     removed = remove_guid(WHITELIST_FILE, guid)
-    return jsonify({"ok": removed, "msg": "Removed" if removed else "Not found"})
+    return jsonify({"ok": removed, "msg": "Eliminado" if removed else "No encontrado"})
 
 
 # ── Admins ────────────────────────────────────────────────────────────────────
@@ -52,9 +52,9 @@ def get_admins():
 def add_admin():
     guid = (request.json or {}).get("guid", "").strip()
     if not guid:
-        return jsonify({"ok": False, "msg": "GUID required"}), 400
+        return jsonify({"ok": False, "msg": "GUID obligatoria"}), 400
     if not is_valid_guid(guid):
-        return jsonify({"ok": False, "msg": "Invalid GUID"}), 400
+        return jsonify({"ok": False, "msg": "GUID no válida"}), 400
     added = add_guid(ADMINS_FILE, guid)
     return jsonify({"ok": True, "added": added})
 
@@ -64,7 +64,7 @@ def add_admin():
 @csrf_protect
 def del_admin(guid):
     removed = remove_guid(ADMINS_FILE, guid)
-    return jsonify({"ok": removed, "msg": "Removed" if removed else "Not found"})
+    return jsonify({"ok": removed, "msg": "Eliminado" if removed else "No encontrado"})
 
 
 # ── Blacklist ─────────────────────────────────────────────────────────────────
@@ -80,7 +80,7 @@ def get_blacklist():
 @csrf_protect
 def del_blacklist(guid):
     removed = remove_guid(BLACKLIST_FILE, guid)
-    return jsonify({"ok": removed, "msg": "Removed" if removed else "Not found"})
+    return jsonify({"ok": removed, "msg": "Eliminado" if removed else "No encontrado"})
 
 
 # ── Kick / Ban ────────────────────────────────────────────────────────────────
@@ -92,9 +92,9 @@ def del_blacklist(guid):
 def kick_player():
     car_id = (request.json or {}).get("car_id")
     if car_id is None:
-        return jsonify({"ok": False, "msg": "car_id missing"}), 400
+        return jsonify({"ok": False, "msg": "falta car_id"}), 400
     if not isinstance(car_id, int) or car_id < 0:
-        return jsonify({"ok": False, "msg": "car_id must be a non-negative integer"}), 400
+        return jsonify({"ok": False, "msg": "car_id debe ser un entero no negativo"}), 400
     ok, msg = rcon_send(f"/kick_id {car_id}")
     return jsonify({"ok": ok, "msg": msg})
 
@@ -109,10 +109,10 @@ def ban_player():
     name   = data.get("name", "unknown")
     car_id = data.get("car_id")
     if not guid:
-        return jsonify({"ok": False, "msg": "GUID missing"}), 400
+        return jsonify({"ok": False, "msg": "falta GUID"}), 400
     if not is_valid_guid(guid):
-        return jsonify({"ok": False, "msg": "Invalid GUID"}), 400
+        return jsonify({"ok": False, "msg": "GUID no válida"}), 400
     add_guid(BLACKLIST_FILE, guid)
     if car_id is not None and isinstance(car_id, int) and car_id >= 0:
         rcon_send(f"/kick_id {car_id}")
-    return jsonify({"ok": True, "msg": f"{name} banned"})
+    return jsonify({"ok": True, "msg": f"{name} baneado"})

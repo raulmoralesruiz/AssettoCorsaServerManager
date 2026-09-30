@@ -45,12 +45,12 @@ def telegram_notify(token: str, chat_id: str, message: str, raise_on_error: bool
     if not token or not chat_id or not message:
         logger.warning("telegram_notify: token/chat_id/message fehlt")
         if raise_on_error:
-            raise ValueError("token, chat_id und message sind erforderlich")
+            raise ValueError("token, chat_id y message son obligatorios")
         return
     if not _TOKEN_RE.match(str(token)) or not _CHAT_ID_RE.match(str(chat_id)):
         logger.warning("telegram_notify: ungültiges token- oder chat_id-Format")
         if raise_on_error:
-            raise ValueError("Ungültiges token- oder chat_id-Format")
+            raise ValueError("Formato de token o chat_id no válido")
         return
     try:
         url = f"https://api.telegram.org/bot{token}/sendMessage"
@@ -88,10 +88,10 @@ def _telegram_monitor():
                 _tg_last_status[0] = current
             if prev is not None and prev == "active" and current in ("failed", "inactive"):
                 telegram_notify(token, chat_id,
-                    f"🔴 Server `{SERVICE_NAME}` ist *offline* \\(Status: {current}\\)")
+                    f"🔴 Servidor `{SERVICE_NAME}` está *fuera de línea* \\(Estado: {current}\\)")
             elif prev is not None and prev in ("failed", "inactive") and current == "active":
                 telegram_notify(token, chat_id,
-                    f"🟢 Server `{SERVICE_NAME}` ist wieder *online*")
+                    f"🟢 Servidor `{SERVICE_NAME}` está de nuevo *en línea*")
         except Exception:
             logger.exception("_telegram_monitor: Fehler im Überwachungs-Loop")
 

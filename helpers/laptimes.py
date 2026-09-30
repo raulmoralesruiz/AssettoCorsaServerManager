@@ -515,7 +515,7 @@ def _laptime_monitor():
                                     car_id = _i
                                     break
                         if car_id is not None:
-                            tmpl = cut_cfg.get("kick_message", "Kick: Zu viele Cuts ({cuts} gesamt)")
+                            tmpl = cut_cfg.get("kick_message", "Kick: demasiados cuts ({cuts} en total)")
                             _rcon(f"/say {tmpl.replace('{cuts}', str(session_cuts))}")
                             _rcon(f"/kick_id {car_id}")
 

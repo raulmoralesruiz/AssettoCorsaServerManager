@@ -89,7 +89,7 @@ def api_laptimes_export():
 
     buf = io.StringIO()
     writer = csv.writer(buf)
-    writer.writerow(["Datum", "Fahrer", "GUID", "Auto", "Strecke", "Rundenzeit", "Rundenzeit_ms", "Cuts"])
+    writer.writerow(["Fecha", "Piloto", "GUID", "Auto", "Pista", "Tiempo de vuelta", "Tiempo_ms", "Cortes"])
     for e in entries:
         ms      = int(e.get("laptime", 0))
         mins    = ms // 60000

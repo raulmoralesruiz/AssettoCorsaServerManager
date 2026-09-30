@@ -46,7 +46,7 @@ def csrf_protect(f):
             expected = session.get("_csrf_token")
             if not token or not expected or not secrets.compare_digest(token, expected):
                 if request.is_json or request.path.startswith("/api/"):
-                    return jsonify({"ok": False, "msg": "CSRF token ungültig"}), 403
+                    return jsonify({"ok": False, "msg": "Token CSRF no válido"}), 403
                 return redirect(url_for("main.login"))
         return f(*args, **kwargs)
     return decorated
@@ -93,7 +93,7 @@ def api_rate_limit(max_calls: int = 30, window: int = 60):
             with _api_rate_lock:
                 times = [t for t in _api_rate_limit.get(key, []) if now - t < window]
                 if len(times) >= max_calls:
-                    resp = jsonify({"ok": False, "msg": f"Rate limit: max {max_calls} Requests/{window}s"})
+                    resp = jsonify({"ok": False, "msg": f"Límite de velocidad: máx. {max_calls} peticiones/{window}s"})
                     resp.headers["Retry-After"] = str(window)
                     return resp, 429
                 times.append(now)
@@ -116,7 +116,7 @@ def login_required(f):
                         "/save_session", "/save_weather",
                         "/save_dynamic_track",
                     ):
-                return jsonify({"ok": False, "msg": "Unauthorized"}), 401
+                return jsonify({"ok": False, "msg": "No autorizado"}), 401
             return redirect(url_for("main.login"))
         return f(*args, **kwargs)
     return decorated

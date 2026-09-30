@@ -89,7 +89,7 @@ def update_server_cfg(updates: dict) -> tuple[bool, str]:
     """
     cfg_path = CFG_DIR / "server_cfg.ini"
     if not cfg_path.exists():
-        return False, "server_cfg.ini not found"
+        return False, "server_cfg.ini no encontrado"
     with _cfg_lock:
         lines = cfg_path.read_text(encoding="utf-8").splitlines()
         new_lines = []
@@ -137,7 +137,7 @@ def update_server_cfg(updates: dict) -> tuple[bool, str]:
 
         _backup_cfg(cfg_path)
         _atomic_write(cfg_path, "\n".join(new_lines) + "\n")
-    return True, "Saved"
+    return True, "Guardado"
 
 
 def update_section_cfg(section_updates: dict) -> tuple[bool, str]:
@@ -146,7 +146,7 @@ def update_section_cfg(section_updates: dict) -> tuple[bool, str]:
     """
     cfg_path = CFG_DIR / "server_cfg.ini"
     if not cfg_path.exists():
-        return False, "server_cfg.ini not found"
+        return False, "server_cfg.ini no encontrado"
     with _cfg_lock:
         lines = cfg_path.read_text(encoding="utf-8").splitlines()
         new_lines, current_section = [], None
@@ -189,14 +189,14 @@ def update_section_cfg(section_updates: dict) -> tuple[bool, str]:
 
         _backup_cfg(cfg_path)
         _atomic_write(cfg_path, "\n".join(new_lines) + "\n")
-    return True, "Saved"
+    return True, "Guardado"
 
 
 def remove_cfg_section(section_name: str) -> tuple[bool, str]:
     """Entfernt eine Sektion vollständig aus server_cfg.ini."""
     cfg_path = CFG_DIR / "server_cfg.ini"
     if not cfg_path.exists():
-        return False, "server_cfg.ini not found"
+        return False, "server_cfg.ini no encontrado"
     with _cfg_lock:
         lines = cfg_path.read_text(encoding="utf-8").splitlines()
         new_lines, in_target = [], False
@@ -213,7 +213,7 @@ def remove_cfg_section(section_name: str) -> tuple[bool, str]:
             new_lines.pop()
         _backup_cfg(cfg_path)
         _atomic_write(cfg_path, "\n".join(new_lines) + "\n")
-    return True, f"[{section_name}] entfernt"
+    return True, f"[{section_name}] eliminada"
 
 
 # ── YAML helpers (extra_cfg.yml) ──────────────────────────────────────────────
@@ -276,7 +276,7 @@ def write_extra_cfg(updates: dict) -> tuple[bool, str]:
     Bug fix #6: Nutzt _yaml_lock gegen Race Conditions.
     """
     if not EXTRA_CFG_FILE.exists():
-        return False, "extra_cfg.yml not found"
+        return False, "extra_cfg.yml no encontrado"
     with _yaml_lock:
         lines = EXTRA_CFG_FILE.read_text(encoding="utf-8").splitlines()
         found_keys: set = set()
@@ -309,7 +309,7 @@ def write_extra_cfg(updates: dict) -> tuple[bool, str]:
 
         EXTRA_CFG_FILE.parent.mkdir(parents=True, exist_ok=True)
         EXTRA_CFG_FILE.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
-    return True, "Saved"
+    return True, "Guardado"
 
 
 def get_extra_cfg_description() -> str:
@@ -351,7 +351,7 @@ def read_ai_params() -> dict:
 def write_ai_params(updates: dict) -> tuple:
     """Schreibt nur 2-Space-Indent-Keys im AiParams-Block (lässt 4-Space-Keys unberührt)."""
     if not EXTRA_CFG_FILE.exists():
-        return False, "extra_cfg.yml not found"
+        return False, "extra_cfg.yml no encontrado"
     with _yaml_lock:
         lines = EXTRA_CFG_FILE.read_text(encoding="utf-8").splitlines()
         new_lines = []
@@ -402,4 +402,4 @@ def write_ai_params(updates: dict) -> tuple:
                     new_lines.append(f"  {key}: {_yaml_format_value(updates[key])}")
 
         EXTRA_CFG_FILE.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
-    return True, "AI params saved"
+    return True, "Parámetros de IA guardados"

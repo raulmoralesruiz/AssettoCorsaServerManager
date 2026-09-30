@@ -73,9 +73,9 @@ def save_entry_list():
     data  = request.json or {}
     raw   = data.get("slots", [])
     if not isinstance(raw, list):
-        return jsonify({"ok": False, "msg": "slots must be a list"}), 400
+        return jsonify({"ok": False, "msg": "slots debe ser una lista"}), 400
     if len(raw) > 200:
-        return jsonify({"ok": False, "msg": "Maximal 200 Slots erlaubt"}), 400
+        return jsonify({"ok": False, "msg": "Máximo 200 slots permitidos"}), 400
 
     slots = [_clamp_slot(s) for s in raw]
     write_entry_list_slots(slots)
@@ -90,7 +90,7 @@ def save_entry_list():
     if models:
         update_server_cfg({"CARS": ";".join(models)})
 
-    return jsonify({"ok": True, "msg": f"{len(slots)} Slots gespeichert", "total": len(slots)})
+    return jsonify({"ok": True, "msg": f"{len(slots)} slots guardados", "total": len(slots)})
 
 
 # ── GET /api/entry_list/export ────────────────────────────────────────────────
@@ -100,7 +100,7 @@ def save_entry_list():
 def export_entry_list():
     entry_path = CFG_DIR / "entry_list.ini"
     if not entry_path.exists():
-        return jsonify({"ok": False, "msg": "entry_list.ini nicht gefunden"}), 404
+        return jsonify({"ok": False, "msg": "entry_list.ini no encontrado"}), 404
     return send_file(
         str(entry_path), mimetype="text/plain",
         as_attachment=True, download_name="entry_list.ini",
@@ -146,7 +146,7 @@ def save_el_preset():
     name    = str(data.get("name", "")).strip()[:80]
     slots   = data.get("slots", [])
     if not name:
-        return jsonify({"ok": False, "msg": "Name erforderlich"}), 400
+        return jsonify({"ok": False, "msg": "Nombre obligatorio"}), 400
     presets = _load_el_presets()
     presets[name] = {
         "slots":   [_clamp_slot(s) for s in slots],
@@ -154,7 +154,7 @@ def save_el_preset():
         "count":   len(slots),
     }
     _save_el_presets(presets)
-    return jsonify({"ok": True, "msg": f"Preset \"{name}\" gespeichert"})
+    return jsonify({"ok": True, "msg": f"Preset \"{name}\" guardado"})
 
 
 # ── DELETE /api/entry_list_presets/<name> ─────────────────────────────────────
@@ -165,7 +165,7 @@ def save_el_preset():
 def delete_el_preset(name):
     presets = _load_el_presets()
     if name not in presets:
-        return jsonify({"ok": False, "msg": "Preset nicht gefunden"}), 404
+        return jsonify({"ok": False, "msg": "Preset no encontrado"}), 404
     del presets[name]
     _save_el_presets(presets)
     return jsonify({"ok": True})

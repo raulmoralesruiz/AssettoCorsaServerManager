@@ -46,7 +46,7 @@ def post_extra_cfg():
     data    = request.json or {}
     updates = {k: v for k, v in data.items() if k in EXTRA_CFG_KEYS}
     if not updates:
-        return jsonify({"ok": False, "msg": "No valid keys provided"}), 400
+        return jsonify({"ok": False, "msg": "No se proporcionaron claves válidas"}), 400
     ok, msg = write_extra_cfg(updates)
     return jsonify({"ok": ok, "msg": msg})
 
@@ -83,7 +83,7 @@ def set_discord():
     data = request.json or {}
     url  = data.get("url", "").strip()
     if url and not is_valid_webhook_url(url):
-        return jsonify({"ok": False, "msg": "Ungültige Discord-Webhook-URL"}), 400
+        return jsonify({"ok": False, "msg": "URL de webhook de Discord no válida"}), 400
     cfg  = _load_discord_config()
     cfg["url"]           = url
     cfg["notify_crash"]  = bool(data.get("notify_crash",  cfg.get("notify_crash",  True)))
@@ -102,14 +102,14 @@ def test_discord():
     from helpers.discord import _load_discord_url, discord_embed, _build, _COL_BLUE, SERVICE_NAME
     url = _load_discord_url()
     if not url:
-        return jsonify({"ok": False, "msg": "Keine Webhook URL konfiguriert"}), 400
+        return jsonify({"ok": False, "msg": "No hay URL de webhook configurada"}), 400
     try:
         embed = _build("🔔 Test-Embed", _COL_BLUE, fields=[
             {"name": "Service",  "value": f"`{SERVICE_NAME}`", "inline": True},
             {"name": "Status",   "value": "Verbindung OK ✓",  "inline": True},
         ])
         discord_embed(url, embed, raise_on_error=True)
-        return jsonify({"ok": True, "msg": "Test-Embed gesendet"})
+        return jsonify({"ok": True, "msg": "Embed de prueba enviado"})
     except Exception as e:
         return jsonify({"ok": False, "msg": str(e)}), 500
 
@@ -124,14 +124,14 @@ def discord_summary():
     import time as _time
     url = _load_discord_url()
     if not url:
-        return jsonify({"ok": False, "msg": "Keine Webhook URL konfiguriert"}), 400
+        return jsonify({"ok": False, "msg": "No hay URL de webhook configurada"}), 400
     today   = _time.strftime("%Y-%m-%d")
     entries = [e for e in load_laptimes() if e.get("ts", "").startswith(today)]
     cfg     = read_server_cfg()
     track   = cfg.get("TRACK", "")
     try:
         discord_embed(url, embed_summary(entries, track), raise_on_error=True)
-        return jsonify({"ok": True, "msg": f"Summary gesendet ({len(entries)} Runden heute)"})
+        return jsonify({"ok": True, "msg": f"Resumen enviado ({len(entries)} vueltas hoy)"})
     except Exception as e:
         return jsonify({"ok": False, "msg": str(e)}), 500
 
@@ -145,7 +145,7 @@ def api_chat_send():
     from helpers.system import rcon_send
     msg = (request.json or {}).get("message", "").strip()
     if not msg:
-        return jsonify({"ok": False, "msg": "Nachricht darf nicht leer sein"}), 400
+        return jsonify({"ok": False, "msg": "El mensaje no puede estar vacío"}), 400
     ok, resp = rcon_send(f"/say {msg}")
     return jsonify({"ok": ok, "response": resp})
 
@@ -167,7 +167,7 @@ def save_preset():
     data = request.json or {}
     name = (data.get("name") or "").strip()
     if not name:
-        return jsonify({"ok": False, "msg": "Name required"}), 400
+        return jsonify({"ok": False, "msg": "Nombre obligatorio"}), 400
     cfg     = read_server_cfg()
     presets = load_presets()
     presets[name] = {
@@ -179,7 +179,7 @@ def save_preset():
         "saved":        time.strftime("%d.%m.%Y %H:%M"),
     }
     save_presets(presets)
-    return jsonify({"ok": True, "msg": f"Preset '{name}' saved"})
+    return jsonify({"ok": True, "msg": f"Preset '{name}' guardado"})
 
 
 @bp.route("/api/presets/<name>/load", methods=["POST"])
@@ -190,7 +190,7 @@ def load_preset_route(name):
     from helpers.system import load_spline_points
     presets = load_presets()
     if name not in presets:
-        return jsonify({"ok": False, "msg": "Preset not found"}), 404
+        return jsonify({"ok": False, "msg": "Preset no encontrado"}), 404
     p = presets[name]
     updates = {}
     if p.get("track"):       updates["TRACK"]        = p["track"]
@@ -201,7 +201,7 @@ def load_preset_route(name):
     if ok:
         load_spline_points.cache_clear()
         run_systemctl("restart")
-        return jsonify({"ok": True, "msg": f"'{name}' loaded + server restarted"})
+        return jsonify({"ok": True, "msg": f"'{name}' cargado y servidor reiniciado"})
     return jsonify({"ok": False, "msg": msg}), 500
 
 
@@ -212,7 +212,7 @@ def delete_preset(name):
     from helpers.content import load_presets, save_presets
     presets = load_presets()
     if name not in presets:
-        return jsonify({"ok": False, "msg": "Not found"}), 404
+        return jsonify({"ok": False, "msg": "No encontrado"}), 404
     del presets[name]
     save_presets(presets)
     return jsonify({"ok": True})
@@ -286,9 +286,9 @@ def config_backup():
 def config_restore():
     f = request.files.get("backup")
     if not f:
-        return jsonify({"ok": False, "msg": "No file"}), 400
+        return jsonify({"ok": False, "msg": "No hay archivo"}), 400
     if not (f.filename or "").lower().endswith(".zip"):
-        return jsonify({"ok": False, "msg": "ZIP only"}), 400
+        return jsonify({"ok": False, "msg": "Solo ZIP"}), 400
     try:
         tmp = UPLOAD_TMP / secure_filename(f.filename or "backup.zip")
         f.save(str(tmp))
@@ -301,7 +301,7 @@ def config_restore():
                     dest.write_bytes(zf.read(name))
         tmp.unlink(missing_ok=True)
         run_systemctl("restart")
-        return jsonify({"ok": True, "msg": "Config restored and server restarted"})
+        return jsonify({"ok": True, "msg": "Configuración restaurada y servidor reiniciado"})
     except Exception as e:
         return jsonify({"ok": False, "msg": str(e)}), 500
 
@@ -314,10 +314,10 @@ def config_restore():
 @api_rate_limit(max_calls=10, window=60)
 def delete_content(ctype, name):
     if ctype not in ("car", "track"):
-        return jsonify({"ok": False, "msg": "type must be car or track"}), 400
+        return jsonify({"ok": False, "msg": "tipo debe ser car o track"}), 400
     target = CARS_DIR / name if ctype == "car" else TRACKS_DIR / name
     if not target.exists():
-        return jsonify({"ok": False, "msg": f"{name} not found"}), 404
+        return jsonify({"ok": False, "msg": f"{name} no encontrado"}), 404
     try:
         shutil.rmtree(str(target))
         if ctype == "car":
@@ -327,7 +327,7 @@ def delete_content(ctype, name):
             # Bug fix #8: tatsächliche Slot-Anzahl aus entry_list.ini lesen
             slots = get_current_slots_per_car(existing)
             regen_entry_list(existing, slots)
-        return jsonify({"ok": True, "msg": f"{name} deleted"})
+        return jsonify({"ok": True, "msg": f"{name} eliminado"})
     except Exception as e:
         return jsonify({"ok": False, "msg": str(e)}), 500
 
@@ -354,7 +354,7 @@ def content_detail(kind, name):
         return jsonify(get_car_detail(name, active_cars))
     if kind == "track":
         return jsonify(get_track_detail(name, active_track))
-    return jsonify({"ok": False, "msg": "kind must be car or track"}), 400
+    return jsonify({"ok": False, "msg": "kind debe ser car o track"}), 400
 
 
 @bp.route("/api/disk_usage")
@@ -384,16 +384,16 @@ def disk_usage():
 @api_rate_limit(max_calls=10, window=60)
 def upload_zip():
     if "file" not in request.files:
-        return jsonify({"ok": False, "msg": "No file"}), 400
+        return jsonify({"ok": False, "msg": "No hay archivo"}), 400
     f = request.files["file"]
     if not (f.filename or "").lower().endswith(".zip"):
-        return jsonify({"ok": False, "msg": "ZIP only"}), 400
+        return jsonify({"ok": False, "msg": "Solo ZIP"}), 400
     filename  = secure_filename(f.filename or "upload.zip")
     save_path = UPLOAD_TMP / filename
     f.save(save_path)
     items, err = analyze_zip(save_path)
     if err:
-        return jsonify({"ok": False, "msg": f"ZIP error: {err}"}), 400
+        return jsonify({"ok": False, "msg": f"Error ZIP: {err}"}), 400
     try:
         with zipfile.ZipFile(save_path) as zf:
             sample = zf.namelist()[:40]
@@ -413,10 +413,10 @@ def import_zip():
     sel_cars   = data.get("cars", [])
     sel_tracks = data.get("tracks", [])
     if not filename:
-        return jsonify({"ok": False, "msg": "No filename"}), 400
+        return jsonify({"ok": False, "msg": "Falta el nombre del archivo"}), 400
     zip_path = UPLOAD_TMP / secure_filename(filename)
     if not zip_path.exists():
-        return jsonify({"ok": False, "msg": "ZIP not found – re-upload"}), 404
+        return jsonify({"ok": False, "msg": "ZIP no encontrado, vuelve a subirlo"}), 404
     try:
         imported = extract_from_zip(zip_path, sel_cars, sel_tracks)
         zip_path.unlink(missing_ok=True)
@@ -446,9 +446,9 @@ def upload_file():
     rel_path     = request.form.get("rel_path", "").strip()
     f            = request.files.get("file")
     if content_type not in ("car", "track"):
-        return jsonify({"ok": False, "msg": "type must be car or track"}), 400
+        return jsonify({"ok": False, "msg": "tipo debe ser car o track"}), 400
     if not root_name or not rel_path or not f:
-        return jsonify({"ok": False, "msg": "missing fields"}), 400
+        return jsonify({"ok": False, "msg": "faltan campos"}), 400
     base_dir = CARS_DIR / root_name if content_type == "car" else TRACKS_DIR / root_name
     rel      = secure_filename_path(rel_path)
     tgt      = base_dir / rel
@@ -464,7 +464,7 @@ def upload_folder_done():
     content_type = request.json.get("type", "").strip() if request.json else ""
     root_name    = request.json.get("root_name", "").strip() if request.json else ""
     if content_type not in ("car", "track") or not root_name:
-        return jsonify({"ok": False, "msg": "missing fields"}), 400
+        return jsonify({"ok": False, "msg": "faltan campos"}), 400
     if content_type == "track":
         auto_add_track_params(root_name)
     else:
@@ -485,9 +485,9 @@ def upload_folder():
     root_name    = request.form.get("root_name", "").strip()
     files        = request.files.getlist("files")
     if content_type not in ("car", "track"):
-        return jsonify({"ok": False, "msg": "type must be car or track"}), 400
+        return jsonify({"ok": False, "msg": "tipo debe ser car o track"}), 400
     if not root_name:
-        return jsonify({"ok": False, "msg": "root_name required"}), 400
+        return jsonify({"ok": False, "msg": "root_name obligatorio"}), 400
     base_dir = CARS_DIR / root_name if content_type == "car" else TRACKS_DIR / root_name
     written  = 0
     for f in files:

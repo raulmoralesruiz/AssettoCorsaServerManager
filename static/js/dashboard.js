@@ -55,7 +55,7 @@ function _showRestartModal(lines) {
     ? lines.map(l => `<li style="font-size:12px;padding:5px 0;border-bottom:1px solid var(--border)">${esc(l)}</li>`).join('')
     : '<li style="color:var(--muted);font-size:12px">—</li>';
   const st = document.getElementById('restart-modal-status');
-  if (st) { st.textContent = '⧗ Server startet neu…'; st.style.color = 'var(--muted)'; }
+  if (st) { st.textContent = t('server_starting'); st.style.color = 'var(--muted)'; }
   const btn = document.getElementById('restart-modal-close');
   if (btn) btn.disabled = true;
   modal.classList.add('show');
@@ -65,7 +65,7 @@ function _pollRestart(n) {
   if (n > 40) {
     // Bug fix: Nach Timeout Modal freigeben statt User einzusperren
     const st = document.getElementById('restart-modal-status');
-    if (st) { st.textContent = '⚠ Timeout – Server antwortet nicht. Bitte manuell prüfen.'; st.style.color = 'var(--warn, #f59e0b)'; }
+    if (st) { st.textContent = t('server_timeout'); st.style.color = 'var(--warn, #f59e0b)'; }
     const btn = document.getElementById('restart-modal-close');
     if (btn) btn.disabled = false;
     return;
@@ -270,7 +270,7 @@ function updateDash(d) {
     dot.className = "status-dot " + (active ? "online" : d.status === "failed" ? "warn" : "offline");
   }
   if (state) {
-    state.textContent = active ? "Online" : (d.status === "failed" ? t("status_failed") : t("status_offline"));
+    state.textContent = active ? t("status_online") : (d.status === "failed" ? t("status_failed") : t("status_offline"));
   }
   if (track && d.info) {
     const layout = d.info.trackconfig ? ` · ${d.info.trackconfig}` : "";
@@ -309,7 +309,7 @@ function updateDash(d) {
 
   // ── Compat-IDs (hidden) ───────────────────────────────────────────────────
   const badge = document.getElementById("d-badge");
-  if (badge) { badge.textContent = active ? "Online" : d.status; badge.className = "bdg " + (active?"bdg-on":d.status==="failed"?"bdg-err":"bdg-off"); }
+  if (badge) { badge.textContent = active ? t("status_online") : d.status; badge.className = "bdg " + (active?"bdg-on":d.status==="failed"?"bdg-err":"bdg-off"); }
   const clEl = document.getElementById("d-cl"); if (clEl) clEl.textContent = d.info?.clients ?? d.drivers.length;
   const mclEl = document.getElementById("d-mcl"); if (mclEl) mclEl.textContent = d.info?.maxclients || "?";
   const ramDet = document.getElementById("d-ram-det");
@@ -345,11 +345,11 @@ function renderCards(id, drivers, showAct) {
         <div style="text-align:right"><div class="dc-laps">Rnd ${d.lapCount||0}</div>${gapTxt}</div>
       </div>
       <div class="sp-bar"><div class="sp-fill" style="width:${((d.spLine||0)*100).toFixed(1)}%"></div></div>
-      <div class="sp-txt">${((d.spLine||0)*100).toFixed(1)}% " + (typeof getText !== "undefined" ? getText("col_track") : "Strecke")</div>
+      <div class="sp-txt">${((d.spLine||0)*100).toFixed(1)}% ${t('col_track')}</div>
       <div class="dc-stats">
-        <div class="dc-st"><div class="dc-stv best-t">${fmt(d.bestLap)}</div><div class="dc-stl">Beste</div></div>
-        <div class="dc-st"><div class="dc-stv">${fmt(d.lastLap)}</div><div class="dc-stl">Letzte</div></div>
-        <div class="dc-st"><div class="dc-stv" id="ct-${d.id}">${fmt(d.lapTime)}</div><div class="dc-stl">Aktuell</div></div>
+        <div class="dc-st"><div class="dc-stv best-t">${fmt(d.bestLap)}</div><div class="dc-stl">${t('col_best')}</div></div>
+        <div class="dc-st"><div class="dc-stv">${fmt(d.lastLap)}</div><div class="dc-stl">${t('col_last')}</div></div>
+        <div class="dc-st"><div class="dc-stv" id="ct-${d.id}">${fmt(d.lapTime)}</div><div class="dc-stl">${t('current')}</div></div>
       </div>
       ${showAct ? `<div class="dc-acts">
         <button class="btn btn-danger btn-sm" onclick="kick(${d.id},'${escJs(d.name)}')">⊘ Kick</button>
@@ -427,7 +427,7 @@ function renderEvents() {
   if (cnt) cnt.textContent = evs.length ? `(${evs.length})` : '';
   if (!evs.length) {
     const msg = _allEvents.length === 0
-      ? 'Keine Join/Leave-Events im Journal gefunden.<br><span style="font-size:11px">Tipp: Server muss laufen und Spieler müssen sich verbunden haben.</span>'
+      ? t('ev_no_events') + '<br><span style="font-size:11px">' + t('ev_no_events_tip') + '</span>'
       : t('ev_no_filter');
     log.innerHTML = `<div style="color:var(--muted);font-size:13px;text-align:center;padding:48px">${msg}</div>`;
     return;
@@ -647,7 +647,7 @@ function drawMap(data) {
   const hint = document.getElementById("map-hint");
   const cnt = document.getElementById("live-drv-count");
   if (hint) hint.textContent = drivers.length ? `${drivers.length} ${t('drivers_on_track')}` : t('map_no_drivers');
-  if (cnt) cnt.textContent = `${data?.drivers?.length||0} " + (typeof getText !== "undefined" ? getText("col_driver") : "Fahrer")`;
+  if (cnt) cnt.textContent = `${data?.drivers?.length||0} ${t('col_driver')}`;
 }
 
 
@@ -666,14 +666,14 @@ function loadOverviewExtraCfg() {
       ? '<span style="color:var(--green)">✓ ' + t('lbl_on') + '</span>'
       : '<span style="color:var(--muted)">✗ ' + t('lbl_off') + '</span>';
     el.innerHTML = `<table class="itbl">
-      <tr><td style="color:var(--muted);font-size:10px" title="EnableServerDetails: CM-Beschreibung anzeigen">Server Details <span style="font-size:10px">(CM)</span></td><td>${bool(cfg.EnableServerDetails)}</td></tr>
+      <tr><td style="color:var(--muted);font-size:10px" title="${t('server_details_title')}">${t('server_details_label')}</td><td>${bool(cfg.EnableServerDetails)}</td></tr>
       <tr><td>Anti-AFK</td><td>${bool(cfg.EnableAntiAfk)}${cfg.MaxAfkTimeMinutes ? ' · '+cfg.MaxAfkTimeMinutes+'min' : ''}</td></tr>
-      <tr><td>Max Ping</td><td>${cfg.MaxPing || '—'}ms</td></tr>
+      <tr><td>Ping máx.</td><td>${cfg.MaxPing || '—'}ms</td></tr>
       <tr><td>WeatherFX (CSP)</td><td>${bool(cfg.EnableWeatherFx)}</td></tr>
-      <tr><td>Real Time</td><td>${bool(cfg.EnableRealTime)}</td></tr>
-      <tr><td>Client Messages</td><td>${bool(cfg.EnableClientMessages)}</td></tr>
-      <tr><td>Min CSP Version</td><td>${cfg.MinimumCSPVersion || '0'} <span style="color:var(--muted);font-size:10px">(0 = kein Limit)</span></td></tr>
-      <tr><td>RCON Port</td><td>${cfg.RconPort || '9700'}</td></tr>
+      <tr><td>Tiempo real</td><td>${bool(cfg.EnableRealTime)}</td></tr>
+      <tr><td>Mensajes del cliente</td><td>${bool(cfg.EnableClientMessages)}</td></tr>
+      <tr><td>Versión mínima CSP</td><td>${cfg.MinimumCSPVersion || '0'} <span style="color:var(--muted);font-size:10px">${t('no_limit_0')}</span></td></tr>
+      <tr><td>Puerto RCON</td><td>${cfg.RconPort || '9700'}</td></tr>
       ${cfg.UDPPluginAddress ? `<tr><td>UDP Plugin</td><td>${cfg.UDPPluginAddress}</td></tr>` : ''}
     </table>`;
     if (st) st.textContent = '✓';
@@ -695,7 +695,7 @@ function loadTrackPreview() {
   const infoUrl=layout?`/api/track_info/${track}/${layout}`:`/api/track_info/${track}`;
   apiFetch(infoUrl).then(r=>r.json()).then(d=>{
     document.getElementById("ti-length").textContent=d.length?d.length+"m":"";
-    document.getElementById("ti-pits").textContent=d.pitboxes?d.pitboxes+" pits":"";
+    document.getElementById("ti-pits").textContent=d.pitboxes?d.pitboxes+" boxes":"";
     document.getElementById("track-info-bar").style.display=(d.length||d.pitboxes)?"flex":"none";
   }).catch(()=>{});
 }
@@ -704,7 +704,7 @@ function updateLayouts() {
   const sel=document.getElementById("s-track"), opt=sel.options[sel.selectedIndex];
   const layouts=JSON.parse(opt.dataset.layouts||"[]");
   const lSel=document.getElementById("s-layout");
-  lSel.innerHTML='<option value="">(kein)</option>';
+  lSel.innerHTML='<option value="">' + t('none_option') + '</option>';
   layouts.forEach(l=>{const o=new Option(l,l);lSel.appendChild(o);});
   const cur=window.AC.trackLayout;
   if(cur&&[...lSel.options].some(o=>o.value===cur)) lSel.value=cur;
@@ -750,12 +750,12 @@ function getCarConfig() {
 
 // ═══ KICK / BAN ═══════════════════════════════════════════════════════════
 function kick(id, name) {
-  if (!confirm(`Kick ${name}?`)) return;
+  if (!confirm(t('confirm_kick').replace('{name}', esc(name)))) return;
   apiFetch("/api/kick",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({car_id:id})})
     .then(r=>r.json()).then(d=>toast(d.ok?"✓ "+name+" kicked":"✗ "+d.msg,d.ok?"ok":"err"));
 }
 function ban(id, guid, name) {
-  if (!confirm(`Ban ${name}? GUID: ${guid}`)) return;
+  if (!confirm(t('confirm_ban').replace('{name}', esc(name)).replace('{guid}', esc(guid)))) return;
   apiFetch("/api/ban",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({car_id:id,guid,name})})
     .then(r=>r.json()).then(d=>toast(d.ok?"✓ "+name+" banned":"✗ "+d.msg,d.ok?"ok":"err"));
 }
@@ -805,7 +805,7 @@ function saveAssists() {
   apiFetch("/save_assists",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
     .then(r=>r.json()).then(d=>{
       toast(d.ok?t('t_saved'):'✗ '+d.msg,d.ok?'ok':'err');
-      if(d.ok&&autoRestart()) _showRestartModal(['🛡️ ABS='+data.ABS_ALLOWED+' TC='+data.TC_ALLOWED+' ESP='+data.STABILITY_ALLOWED,'Schaden='+data.DAMAGE_MULTIPLIER+'% Reifenversch.='+data.TYRE_WEAR_RATE+'%']);
+      if(d.ok&&autoRestart()) _showRestartModal(['🛡️ ABS='+data.ABS_ALLOWED+' TC='+data.TC_ALLOWED+' ESP='+data.STABILITY_ALLOWED,'Daño='+data.DAMAGE_MULTIPLIER+'% Desgaste='+data.TYRE_WEAR_RATE+'%']);
     });
 }
 
@@ -814,7 +814,7 @@ function saveSessions() {
   apiFetch("/save_session",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
     .then(r=>r.json()).then(d=>{
       toast(d.ok?t('t_saved'):'✗ '+d.msg,d.ok?'ok':'err');
-      if(d.ok&&autoRestart()) _showRestartModal(['🏃 Practice: '+data.practice_time+' min','🏁 Qualifying: '+data.qualify_time+' min','🚩 Race: '+data.race_laps+' Runden")']);
+      if(d.ok&&autoRestart()) _showRestartModal(['🏃 '+t('practice')+': '+data.practice_time+' min','🏁 '+t('qualifying')+': '+data.qualify_time+' min','🚩 '+t('race')+': '+data.race_laps+' '+t('laps_label')]);
     });
 }
 
@@ -835,7 +835,7 @@ function saveDynamicTrack() {
 function updateWelcomePreview() {
   const txt = document.getElementById('welcome-msg').value;
   document.getElementById('welcome-preview').textContent = txt;
-  document.getElementById('welcome-chars').textContent = txt.length + ' Zeichen';
+  document.getElementById('welcome-chars').textContent = txt.length + ' caracteres';
 }
 
 function insertWelcomeText(text) {
@@ -859,7 +859,7 @@ async function loadServerProfile() {
     updateWelcomePreview();
     const desc = document.getElementById("server-desc");
     desc.value = d.description||"";
-    document.getElementById("server-desc-chars").textContent = desc.value.length+' Zeichen';
+    document.getElementById("server-desc-chars").textContent = desc.value.length+' caracteres';
   }catch(e){}
 }
 async function saveServerProfile(){
@@ -896,21 +896,21 @@ function loadPresetList(){
   apiFetch("/api/presets").then(r=>r.json()).then(presets=>{
     const el=document.getElementById("preset-list"),keys=Object.keys(presets);
     if(!keys.length){el.innerHTML=`<div style="color:var(--muted);font-size:13px">${t('t_no_presets')}</div>`;return;}
-    el.innerHTML=keys.map(name=>{const p=presets[name];return `<div class="preset-item"><div><div class="preset-name">${esc(name)}</div><div class="preset-info">${esc(p.track||"")}${p.layout?" / "+esc(p.layout):""} · ${esc(p.saved||"")}</div></div><div class="preset-acts"><button class="btn btn-green btn-sm" onclick="applyPreset('${esc(name)}')">▶ Load</button><button class="btn btn-danger btn-sm" onclick="removePreset('${esc(name)}')">✕</button></div></div>`;}).join("");
+    el.innerHTML=keys.map(name=>{const p=presets[name];return `<div class="preset-item"><div><div class="preset-name">${esc(name)}</div><div class="preset-info">${esc(p.track||"")}${p.layout?" / "+esc(p.layout):""} · ${esc(p.saved||"")}</div></div><div class="preset-acts"><button class="btn btn-green btn-sm" onclick="applyPreset('${esc(name)}')">▶ ${t('load_btn')}</button><button class="btn btn-danger btn-sm" onclick="removePreset('${esc(name)}')">✕</button></div></div>`;}).join("");
   });
 }
-function savePreset(){const name=document.getElementById("preset-name").value.trim();if(!name){toast("Name eingeben","err");return;}apiFetch("/api/presets",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({name})}).then(r=>r.json()).then(d=>{toast(d.ok?"✓ "+d.msg:"✗ "+d.msg,d.ok?"ok":"err");if(d.ok){document.getElementById("preset-name").value="";loadPresetList();}});}
+function savePreset(){const name=document.getElementById("preset-name").value.trim();if(!name){toast(t("name_required"),"err");return;}apiFetch("/api/presets",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({name})}).then(r=>r.json()).then(d=>{toast(d.ok?"✓ "+d.msg:"✗ "+d.msg,d.ok?"ok":"err");if(d.ok){document.getElementById("preset-name").value="";loadPresetList();}});}
 function applyPreset(name){if(!confirm(t("t_preset_load", name)))return;toast(t("loading_preset"),"info");apiFetch(`/api/presets/${encodeURIComponent(name)}/load`,{method:"POST"}).then(r=>r.json()).then(d=>{toast(d.ok?"✓ "+d.msg:"✗ "+d.msg,d.ok?"ok":"err");if(d.ok)setTimeout(refreshLive,3000);});}
-function removePreset(name){if(!confirm(`Preset "${name}" löschen?`))return;apiFetch(`/api/presets/${encodeURIComponent(name)}`,{method:"DELETE"}).then(r=>r.json()).then(d=>{toast(d.ok?t('t_deleted'):"✗ "+d.msg,d.ok?"ok":"err");loadPresetList();});}
+function removePreset(name){if(!confirm(t('confirm_delete_preset', name)))return;apiFetch(`/api/presets/${encodeURIComponent(name)}`,{method:"DELETE"}).then(r=>r.json()).then(d=>{toast(d.ok?t('t_deleted'):"✗ "+d.msg,d.ok?"ok":"err");loadPresetList();});}
 
 function fixMissingCarChecksum(carId){
-  if(!confirm(`Für "${carId}" fehlt die gepackte data.acd. Ohne sie startet der Server für dieses Auto nicht.\n\nSoll die Server-Einstellung "Fehlende Checksums ignorieren" aktiviert werden, damit der Server wieder startet?\n\nHinweis: Für dieses eine Auto entfällt dann die Anti-Cheat-Prüfung, bis du data.acd sauber nachreichst.`)) return;
+  if(!confirm(t('confirm_missing_acd', carId))) return;
   apiFetch("/api/ignore_config_errors",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({key:"MissingCarChecksums",value:true})})
     .then(r=>r.json()).then(d=>{
       if(!d.ok){toast("✗ "+d.msg,"err");return;}
       if(confirm(t("setting_saved_restart"))){
         apiFetch("/control/restart",{method:"POST"}).then(r=>r.json()).then(d2=>{
-          toast(d2.ok?"✓ Server neu gestartet":"✗ "+d2.msg, d2.ok?"ok":"err");
+          toast(d2.ok?t('server_restarted'):"✗ "+d2.msg, d2.ok?"ok":"err");
           if(d2.ok) setTimeout(refreshLive,3000);
         });
       } else {
@@ -986,7 +986,7 @@ function renderDiskUsage(du){
   document.getElementById('du-tracks').textContent = fmt(du.tracks_mb||0);
   const freeLabel = document.getElementById('du-free-lbl');
   const freeBar   = document.getElementById('du-free-bar');
-  if(freeLabel) freeLabel.textContent = du.free_gb + ' GB frei von ' + du.total_gb + ' GB';
+  if(freeLabel) freeLabel.textContent = du.free_gb + ' GB ' + t('free_of') + ' ' + du.total_gb + ' GB';
   if(freeBar && du.total_gb > 0){
     const usedPct = Math.round((1 - du.free_gb/du.total_gb)*100);
     freeBar.style.width = Math.min(usedPct,100)+'%';
@@ -1041,7 +1041,7 @@ function carCard(c){
   const validBadge = c.valid
     ? `<span class="cl-badge cl-badge-ok">✓ OK</span>`
     : `<span class="cl-badge cl-badge-warn">⚠ ${c.issues.length}</span>`;
-  const activeBadge = c.active ? `<span class="cl-badge cl-badge-active">● Aktiv</span>` : '';
+  const activeBadge = c.active ? `<span class="cl-badge cl-badge-active">● ${t('active_badge')}</span>` : '';
   const skinsBadge = `<span class="cl-badge cl-badge-info">🎨 ${c.skin_count}</span>`;
   return `<div class="cl-card${activeCls}${selCls}" onclick="openCarDetail('${esc(c.id)}')" id="clcard-car-${esc(c.id)}">
     <input type="checkbox" class="cl-cb" ${checked} onclick="event.stopPropagation();toggleClSelect('${esc(selKey)}',this)" title="${t('select')}">
@@ -1055,7 +1055,7 @@ function carCard(c){
     </div>
     <div class="cl-card-badges">${validBadge}${activeBadge}${skinsBadge}</div>
     <div class="cl-card-actions">
-      <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteContent('car','${esc(c.id)}')" title="Löschen">🗑</button>
+      <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteContent('car','${esc(c.id)}')" title="${t('delete_q')}">🗑</button>
     </div>
   </div>`;
 }
@@ -1068,7 +1068,7 @@ function trackCard(tr){
   const validBadge = tr.valid
     ? `<span class="cl-badge cl-badge-ok">✓ OK</span>`
     : `<span class="cl-badge cl-badge-warn">⚠ ${tr.issues.length}</span>`;
-  const activeBadge = tr.active ? `<span class="cl-badge cl-badge-active">● Aktiv</span>` : '';
+  const activeBadge = tr.active ? `<span class="cl-badge cl-badge-active">● ${t('active_badge')}</span>` : '';
   const layoutBadge = tr.layout_count > 1
     ? `<span class="cl-badge cl-badge-info">⊞ ${tr.layout_count}</span>`
     : '';
@@ -1085,7 +1085,7 @@ function trackCard(tr){
     </div>
     <div class="cl-card-badges">${validBadge}${activeBadge}${layoutBadge}</div>
     <div class="cl-card-actions">
-      <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteContent('track','${esc(tr.id)}')" title="Löschen">🗑</button>
+      <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteContent('track','${esc(tr.id)}')" title="${t('delete_q')}">🗑</button>
     </div>
   </div>`;
 }
@@ -1104,7 +1104,7 @@ function updateBatchBar(){
   if(!bar) return;
   if(_clSel.size > 0){
     bar.classList.add('show');
-    if(cnt) cnt.textContent = `${_clSel.size} ausgewählt`;
+    if(cnt) cnt.textContent = `${_clSel.size} ${t('selected')}`;
   } else {
     bar.classList.remove('show');
   }
@@ -1120,7 +1120,7 @@ function clearBatchSelection(){
 function batchDelete(){
   if(!_clSel.size) return;
   const names = [..._clSel].map(k => k.split(':')[1]).join(', ');
-  if(!confirm(`${_clSel.size} Einträge löschen?\n${names}\n\nDies kann nicht rückgängig gemacht werden!`)) return;
+  if(!confirm(t('entries_delete_confirm', _clSel.size) + '\n' + names + '\n\n' + t('cannot_undo'))) return;
   const tasks = [..._clSel].map(key => {
     const [type, name] = key.split(':');
     return apiFetch(`/api/delete_content/${type}/${encodeURIComponent(name)}`,{method:'DELETE'}).then(r=>r.json());
@@ -1129,16 +1129,16 @@ function batchDelete(){
     const ok = results.filter(r=>r.ok).length;
     toast(t('deleted_count', ok, results.length), ok===results.length ? 'ok' : 'err');
     loadInstalledContent();
-  }).catch(()=>toast('✗ Fehler','err'));
+  }).catch(()=>toast(t('error'),'err'));
 }
 
 function deleteContent(type,name){
-  if(!confirm(`"${name}" wirklich löschen?\n\nDies kann nicht rückgängig gemacht werden!`)) return;
+  if(!confirm(t('confirm_delete_item', name) + '\n\n' + t('cannot_undo'))) return;
   apiFetch(`/api/delete_content/${type}/${encodeURIComponent(name)}`,{method:'DELETE'})
     .then(r=>r.json()).then(d=>{
       toast(d.ok?`✓ ${d.msg}`:`✗ ${d.msg}`, d.ok?'ok':'err');
       if(d.ok) loadInstalledContent();
-    }).catch(()=>toast('✗ Fehler','err'));
+    }).catch(()=>toast(t('error'),'err'));
 }
 
 // ── Detail Modal ───────────────────────────────────────────────────────────
@@ -1186,25 +1186,25 @@ function renderCarDetail(d){
     `<img class="dm-hero-img" src="/car_img/${esc(d.id)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><div class="dm-hero-placeholder" style="display:none">🚗</div>`;
 
   const badges = [];
-  if(d.active)  badges.push(`<span class="cl-badge cl-badge-active">● Im Server aktiv</span>`);
-  if(d.valid)   badges.push(`<span class="cl-badge cl-badge-ok">✓ Valide</span>`);
-  else          badges.push(`<span class="cl-badge cl-badge-warn">⚠ ${d.issues.length} Problem(e)</span>`);
+  if(d.active)  badges.push(`<span class="cl-badge cl-badge-active">● ${t('active_on_server')}</span>`);
+  if(d.valid)   badges.push(`<span class="cl-badge cl-badge-ok">${t('valid_badge')}</span>`);
+  else          badges.push(`<span class="cl-badge cl-badge-warn">⚠ ${d.issues.length} ${t('issues_label')}</span>`);
   if(d.size_mb) badges.push(`<span class="cl-badge cl-badge-info">${d.size_mb} MB</span>`);
   document.getElementById('dm-badges').innerHTML = badges.join('');
 
   // Tabs
-  const tabLabels = ['Übersicht','Skins ('+d.skins.length+')','Validierung'];
+  const tabLabels = [t('overview_label'), t('skins_label') + ' (' + d.skins.length + ')', t('validation')];
   const tabsEl = document.getElementById('dm-tabs');
   tabsEl.innerHTML = tabLabels.map((lbl,i)=>`<button class="dm-tab${i===0?' active':''}" onclick="_dmTab(Array.from(this.parentElement.querySelectorAll('.dm-tab')),Array.from(document.getElementById('dm-panes').querySelectorAll('.dm-pane')),${i})">${lbl}</button>`).join('');
 
   // Overview pane
   const specItems = [
-    d.class     ? {v:d.class,     l:'Klasse'}    : null,
-    d.power     ? {v:d.power,     l:'Leistung'}  : null,
-    d.torque    ? {v:d.torque,    l:'Drehmoment'}: null,
-    d.weight    ? {v:d.weight,    l:'Gewicht'}   : null,
-    d.topspeed  ? {v:d.topspeed,  l:'Top Speed'} : null,
-    d.skins.length ? {v:d.skins.length, l:'Skins'} : null,
+    d.class     ? {v:d.class,     l:t('class_label')}    : null,
+    d.power     ? {v:d.power,     l:t('power_label')}  : null,
+    d.torque    ? {v:d.torque,    l:t('torque_label')} : null,
+    d.weight    ? {v:d.weight,    l:t('weight_label')}   : null,
+    d.topspeed  ? {v:d.topspeed,  l:t('top_speed')} : null,
+    d.skins.length ? {v:d.skins.length, l:t('skins_label')} : null,
   ].filter(Boolean);
   const specsHtml = specItems.length
     ? `<div class="dm-spec-grid">${specItems.map(s=>`<div class="dm-spec"><div class="dm-spec-val">${esc(String(s.v))}</div><div class="dm-spec-lbl">${s.l}</div></div>`).join('')}</div>`
@@ -1222,17 +1222,17 @@ function renderCarDetail(d){
         const img = s.has_livery ? `/skin_img/${esc(d.id)}/${esc(s.name)}` : '';
         return `<div class="skin-card">${img
           ? `<img class="skin-thumb" src="${img}" onerror="this.parentElement.style.display='none'" loading="lazy" alt="">`
-          : `<div class="skin-thumb" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:10px">No preview</div>`
+          : `<div class="skin-thumb" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:10px">${t('no_preview')}</div>`
         }<div class="skin-name" title="${esc(s.name)}">${esc(s.name)}</div></div>`;
       }).join('')}</div>`
-    : `<div style="color:var(--muted);font-size:13px">Keine Skins gefunden.</div>`;
+    : `<div style="color:var(--muted);font-size:13px">${t('no_skins_found')}</div>`;
 
   // Validation pane
   const valHtml = d.valid
-    ? `<div class="issue-row issue-ok">✓ Alle Pflichtdateien vorhanden</div>`
+    ? `<div class="issue-row issue-ok">${t('required_files_ok')}</div>`
     : d.issues.map(i=>{
-        const fixBtn = i.startsWith('data.acd fehlt')
-          ? `<button class="btn btn-gray btn-sm" style="margin-left:8px" onclick="fixMissingCarChecksum('${esc(d.id)}')">⚙ Server-Einstellung anpassen</button>`
+        const fixBtn = i.includes('data.acd')
+          ? `<button class="btn btn-gray btn-sm" style="margin-left:8px" onclick="fixMissingCarChecksum('${esc(d.id)}')">⚙ ${t('adjust_server_setting')}</button>`
           : '';
         return `<div class="issue-row issue-err">✗ ${esc(i)}${fixBtn}</div>`;
       }).join('');
@@ -1246,8 +1246,8 @@ function renderCarDetail(d){
   const inServer = d.active;
   document.getElementById('dm-actions').innerHTML =
     `<button class="btn ${inServer?'btn-gray':'btn-green'}" onclick="closeDetailModal()" style="display:none" id="dm-server-btn"></button>
-     <button class="btn btn-danger" onclick="closeDetailModal();deleteContent('car','${esc(d.id)}')">🗑 Löschen</button>
-     <button class="btn btn-gray" onclick="closeDetailModal()">Schließen</button>`;
+     <button class="btn btn-danger" onclick="closeDetailModal();deleteContent('car','${esc(d.id)}')">🗑 ${t('delete_q')}</button>
+     <button class="btn btn-gray" onclick="closeDetailModal()">${t('btn_close')}</button>`;
 }
 
 function renderTrackDetail(d){
@@ -1257,13 +1257,13 @@ function renderTrackDetail(d){
     `<img class="dm-hero-img" src="/track_img/${esc(d.id)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="" style="object-fit:contain"><div class="dm-hero-placeholder" style="display:none">🏁</div>`;
 
   const badges = [];
-  if(d.active)  badges.push(`<span class="cl-badge cl-badge-active">● Im Server aktiv</span>`);
-  if(d.valid)   badges.push(`<span class="cl-badge cl-badge-ok">✓ Valide</span>`);
-  else          badges.push(`<span class="cl-badge cl-badge-warn">⚠ ${d.issues.length} Problem(e)</span>`);
+  if(d.active)  badges.push(`<span class="cl-badge cl-badge-active">● ${t('active_on_server')}</span>`);
+  if(d.valid)   badges.push(`<span class="cl-badge cl-badge-ok">${t('valid_badge')}</span>`);
+  else          badges.push(`<span class="cl-badge cl-badge-warn">⚠ ${d.issues.length} ${t('issues_label')}</span>`);
   if(d.size_mb) badges.push(`<span class="cl-badge cl-badge-info">${d.size_mb} MB</span>`);
   document.getElementById('dm-badges').innerHTML = badges.join('');
 
-  const tabLabels = ['Layouts','Validierung'];
+  const tabLabels = ['Layouts','Validación'];
   const tabsEl = document.getElementById('dm-tabs');
   tabsEl.innerHTML = tabLabels.map((lbl,i)=>`<button class="dm-tab${i===0?' active':''}" onclick="_dmTab(Array.from(this.parentElement.querySelectorAll('.dm-tab')),Array.from(document.getElementById('dm-panes').querySelectorAll('.dm-pane')),${i})">${lbl}</button>`).join('');
 
@@ -1282,7 +1282,7 @@ function renderTrackDetail(d){
   }).join('')}</div>`;
 
   const valHtml = d.valid
-    ? `<div class="issue-row issue-ok">✓ Alle Pflichtdateien vorhanden</div>`
+    ? `<div class="issue-row issue-ok">${t('required_files_ok')}</div>`
     : d.issues.map(i=>`<div class="issue-row issue-err">✗ ${esc(i)}</div>`).join('');
 
   document.getElementById('dm-panes').innerHTML =
@@ -1290,8 +1290,8 @@ function renderTrackDetail(d){
      <div class="dm-pane"><div class="issue-list">${valHtml}</div></div>`;
 
   document.getElementById('dm-actions').innerHTML =
-    `<button class="btn btn-danger" onclick="closeDetailModal();deleteContent('track','${esc(d.id)}')">🗑 Löschen</button>
-     <button class="btn btn-gray" onclick="closeDetailModal()">Schließen</button>`;
+    `<button class="btn btn-danger" onclick="closeDetailModal();deleteContent('track','${esc(d.id)}')">🗑 ${t('delete_q')}</button>
+     <button class="btn btn-gray" onclick="closeDetailModal()">${t('btn_close')}</button>`;
 }
 
 // ═══ PLAYERS TAB ══════════════════════════════════════════════════════════
@@ -1311,14 +1311,14 @@ function addGuid(type){
   const cfg=GUID_ELEMS[type];
   const inp=document.getElementById(cfg.input);
   const guid=(inp?.value||"").trim();
-  if(!guid){toast("GUID eingeben","err");return;}
+  if(!guid){toast(t("enter_guid"),"err");return;}
   apiFetch(`/api/${type}`,{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({guid})})
-    .then(r=>r.json()).then(d=>{toast(d.ok?"✓ Hinzugefügt":"✗ "+d.msg,d.ok?"ok":"err");if(d.ok){inp.value="";loadGuidList(type);}});
+    .then(r=>r.json()).then(d=>{toast(d.ok?t("added_ok"):"✗ "+d.msg,d.ok?"ok":"err");if(d.ok){inp.value="";loadGuidList(type);}});
 }
 
 function removeGuid(type,guid){
   apiFetch(`/api/${type}/${encodeURIComponent(guid)}`,{method:"DELETE"})
-    .then(r=>r.json()).then(d=>{toast(d.ok?"✓ Entfernt":"✗ "+d.msg,d.ok?"ok":"err");if(d.ok)loadGuidList(type);});
+    .then(r=>r.json()).then(d=>{toast(d.ok?t('removed'):"✗ "+d.msg,d.ok?"ok":"err");if(d.ok)loadGuidList(type);});
 }
 
 // ═══ ADVANCED TAB ═════════════════════════════════════════════════════════
@@ -1352,7 +1352,7 @@ function saveExtraCfg(){
     .then(r=>r.json()).then(d=>{
       toast(d.ok?t('t_extra_cfg_saved'):'✗ '+d.msg,d.ok?'ok':'err');
       // Bug fix: erst Restart triggern (ctrl), DANN Modal anzeigen (nicht gleichzeitig)
-      if(d.ok&&autoRestart()) { ctrl('restart'); setTimeout(()=>_showRestartModal(['🔧 WeatherFX='+data.EnableWeatherFx+' AntiAFK='+data.EnableAntiAfk,'CSP min: '+data.MinimumCSPVersion+' | Max Ping: '+data.MaxPing+'ms']),500); }
+      if(d.ok&&autoRestart()) { ctrl('restart'); setTimeout(()=>_showRestartModal(['🔧 WeatherFX='+data.EnableWeatherFx+' AntiAFK='+data.EnableAntiAfk,t('csp_min_label')+' '+data.MinimumCSPVersion+' | '+t('max_ping_label')+' '+data.MaxPing+'ms']),500); }
     });
 }
 
@@ -1371,7 +1371,7 @@ async function restoreBackup(){
 }
 
 // ═══ ZIP UPLOAD ═══════════════════════════════════════════════════════════
-function handleDrop(event){const f=event.dataTransfer.files[0];if(!f)return;if(!f.name.toLowerCase().endsWith(".zip")){toast("✗ Nur ZIP Dateien","err");return;}uploadZip(f);}
+function handleDrop(event){const f=event.dataTransfer.files[0];if(!f)return;if(!f.name.toLowerCase().endsWith(".zip")){toast(t("zip_only"),"err");return;}uploadZip(f);}
 function uploadZip(file){
   if(!file)file=document.getElementById("zip-inp").files[0];if(!file)return;
   const fd=new FormData();fd.append("file",file);
@@ -1387,7 +1387,7 @@ function uploadZip(file){
     document.getElementById("z-tracks").innerHTML=d.tracks.length?d.tracks.map(t=>`<div class="ci"><input type="checkbox" value="${esc(t)}" checked><div class="ci-info"><span class="ci-name">${esc(t)}</span></div></div>`).join(""):`<div style="padding:8px;color:var(--muted)">${t('t_no_tracks')}</div>`;
     document.getElementById("up-modal").classList.add("show");document.getElementById("zip-inp").value="";
   };
-  xhr.onerror=()=>{prog.style.display="none";toast("✗ Upload fehlgeschlagen","err");};
+  xhr.onerror=()=>{prog.style.display="none";toast(t("upload_error"),"err");};
   xhr.send(fd);
 }
 function doImport(){
@@ -1396,7 +1396,7 @@ function doImport(){
   if(!cars.length&&!tracks.length){toast(t('t_nothing_selected'),"err");return;}
   toast(t('t_importing'),"info");
   apiFetch("/import_zip",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({filename:currentZip,cars,tracks})})
-    .then(r=>r.json()).then(d=>{if(d.ok){toast("✓ Importiert: "+d.imported.join(", "));closeModal();sessionStorage.setItem('_restoreNav',_currentNav);setTimeout(()=>location.reload(),2500);}else toast("✗ "+d.msg,"err");});
+    .then(r=>r.json()).then(d=>{if(d.ok){toast("✓ "+t("imported_prefix")+": "+d.imported.join(", "));closeModal();sessionStorage.setItem('_restoreNav',_currentNav);setTimeout(()=>location.reload(),2500);}else toast("✗ "+d.msg,"err");});
 }
 function closeModal(){document.getElementById("up-modal").classList.remove("show");}
 
@@ -1412,7 +1412,7 @@ let _folderType=null,_folderFiles=null;
 function setFolderType(type){_folderType=type;document.getElementById("type-car-btn").className="btn "+(type==="car"?"btn-red":"btn-gray");document.getElementById("type-track-btn").className="btn "+(type==="track"?"btn-red":"btn-gray");const dz=document.getElementById("folder-dz");dz.style.opacity="1";dz.style.pointerEvents="auto";document.getElementById("folder-dz-hint").textContent=type==="car"?t('t_folder_car'):t('t_folder_track');}
 function handleFolderDrop(event){if(!_folderType){toast(t('t_select_type'),"err");return;}const items=event.dataTransfer.items;if(!items)return;const allFiles=[];let pending=0;function traverse(entry,path){if(entry.isFile){pending++;entry.file(f=>{Object.defineProperty(f,"webkitRelativePath",{value:path+f.name});allFiles.push(f);if(--pending===0)showFolderModal(allFiles);});}else if(entry.isDirectory){const reader=entry.createReader();pending++;reader.readEntries(entries=>{pending--;entries.forEach(e=>traverse(e,path+entry.name+"/"));if(pending===0)showFolderModal(allFiles);});}}for(let i=0;i<items.length;i++){const entry=items[i].webkitGetAsEntry();if(entry)traverse(entry,"");}}
 function analyzeFolder(files){if(!_folderType){toast(t('t_select_type'),"err");return;}showFolderModal(Array.from(files));}
-function showFolderModal(files){if(!files.length)return;_folderFiles=files;const firstPath=files[0].webkitRelativePath||files[0].name;const rootName=firstPath.split("/")[0]||"content";document.getElementById("fm-type-label").textContent=_folderType==="car"?"Auto":"Strecke";document.getElementById("fm-root-name").value=rootName;updateFolderTarget();const dirs={};let rootFiles=0;files.forEach(f=>{const rel=(f.webkitRelativePath||f.name).split("/").slice(1).join("/");const parts=rel.split("/");if(parts.length===1){rootFiles++;return;}const dir=parts[0];dirs[dir]=(dirs[dir]||0)+1;});let html="";if(rootFiles>0)html+=`<div style="color:var(--muted)">📄 ${rootFiles} Datei(en) im Stammordner</div>`;Object.entries(dirs).sort().forEach(([d,n])=>{html+=`<div>📁 ${esc(d)}/ <span style="color:var(--muted)">(${n} Datei${n>1?"en":""})</span></div>`;});document.getElementById("fm-tree").innerHTML=html||"<div style='color:var(--muted)'>Keine Dateien</div>";document.getElementById("fm-upload-prog").style.display="none";document.getElementById("fm-confirm-btn").disabled=false;document.getElementById("folder-modal").classList.add("show");}
+function showFolderModal(files){if(!files.length)return;_folderFiles=files;const firstPath=files[0].webkitRelativePath||files[0].name;const rootName=firstPath.split("/")[0]||"content";document.getElementById("fm-type-label").textContent=_folderType==="car"?t('col_car'):t('col_track');document.getElementById("fm-root-name").value=rootName;updateFolderTarget();const dirs={};let rootFiles=0;files.forEach(f=>{const rel=(f.webkitRelativePath||f.name).split("/").slice(1).join("/");const parts=rel.split("/");if(parts.length===1){rootFiles++;return;}const dir=parts[0];dirs[dir]=(dirs[dir]||0)+1;});let html="";if(rootFiles>0)html+=`<div style="color:var(--muted)">📄 ${t('files_in_root', rootFiles)}</div>`;Object.entries(dirs).sort().forEach(([d,n])=>{html+=`<div>📁 ${esc(d)}/ <span style="color:var(--muted)">(${n} ${t('files_label')})</span></div>`;});document.getElementById("fm-tree").innerHTML=html||("<div style='color:var(--muted)'>" + t('no_files') + "</div>");document.getElementById("fm-upload-prog").style.display="none";document.getElementById("fm-confirm-btn").disabled=false;document.getElementById("folder-modal").classList.add("show");}
 function updateFolderTarget(){const name=document.getElementById("fm-root-name").value||"name";document.getElementById("fm-target-path").textContent=(_folderType==="car"?"/content/cars/":"/content/tracks/")+name+"/";}
 function closeFolderModal(){document.getElementById("folder-modal").classList.remove("show");document.getElementById("folder-inp").value="";}
 function uploadFolder(){
@@ -1422,7 +1422,7 @@ function uploadFolder(){
   prog.style.display="block";document.getElementById("fm-confirm-btn").disabled=true;
   let done=0,failed=[];
   function uploadOne(file){return new Promise(resolve=>{const rel=(file.webkitRelativePath||file.name).split("/").slice(1).join("/")||file.name;const fd=new FormData();fd.append("type",_folderType);fd.append("root_name",rootName);fd.append("rel_path",rel);fd.append("file",file);const xhr=new XMLHttpRequest();xhr.open("POST","/upload_file");xhr.setRequestHeader("X-CSRF-Token",_csrfToken);xhr.upload.onprogress=e=>{if(!e.lengthComputable)return;const overall=Math.round((done+e.loaded/e.total)/total*100);bar.style.width=overall+"%";pct.textContent=overall+"%";msg.textContent=`${done+1}/${total}: ${rel.split("/").pop()}`;};xhr.onload=()=>{done++;try{const d=JSON.parse(xhr.responseText);if(!d.ok)failed.push(rel);}catch(e){failed.push(rel);}bar.style.width=Math.round(done/total*100)+"%";pct.textContent=Math.round(done/total*100)+"%";resolve();};xhr.onerror=()=>{done++;failed.push(rel);resolve();};xhr.send(fd);});}
-  (async()=>{for(const f of files)await uploadOne(f);const doneResp=await apiFetch("/upload_folder_done",{method:"POST",body:JSON.stringify({type:_folderType,root_name:rootName})}).then(r=>r.json()).catch(()=>({ok:false}));prog.style.display="none";closeFolderModal();if(failed.length){toast(`⚠ ${failed.length} Datei(en) fehlgeschlagen`,"err");return;}if(confirm(`✓ ${rootName} importiert (${total} Dateien).\n\nServer jetzt neu starten?`)){apiFetch("/control/restart",{method:"POST"}).then(()=>toast("Server wird neu gestartet...","info"));}else{toast(`✓ ${esc(rootName)} importiert`,"ok");}sessionStorage.setItem('_restoreNav',_currentNav);setTimeout(()=>location.reload(),2500);})();
+  (async()=>{for(const f of files)await uploadOne(f);const doneResp=await apiFetch("/upload_folder_done",{method:"POST",body:JSON.stringify({type:_folderType,root_name:rootName})}).then(r=>r.json()).catch(()=>({ok:false}));prog.style.display="none";closeFolderModal();if(failed.length){toast(t('upload_failed', failed.length),"err");return;}if(confirm(t('imported', rootName, total) + '\n\n' + t('restart_now'))){apiFetch("/control/restart",{method:"POST"}).then(()=>toast(t("server_restarting"),"info"));}else{toast(t('imported_short', esc(rootName)),"ok");}sessionStorage.setItem('_restoreNav',_currentNav);setTimeout(()=>location.reload(),2500);})();
 }
 
 // ═══ UTILS ════════════════════════════════════════════════════════════════
@@ -1434,7 +1434,7 @@ function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").
 // (z.B. Fahrername/GUID vom AC-Client): HTML-Entities werden vom Browser vor der JS-Ausführung dekodiert,
 // daher reicht esc() dort allein nicht – Backslash/Single-Quote müssen zusätzlich JS-escaped werden.
 function escJs(s){return esc(String(s||"").replace(/\\/g,"\\\\").replace(/'/g,"\\'"));}
-function copy(text){navigator.clipboard.writeText(text).then(()=>toast("📋 Kopiert: "+text,"info"));}
+function copy(text){navigator.clipboard.writeText(text).then(()=>toast(t("copied")+" "+text,"info"));}
 function copyPub(){const ip=document.getElementById("pub-ip").textContent;if(ip&&ip!=="—")copy(ip+":9600");}
 
 // ═══ QUICK STATS ══════════════════════════════════════════════════════════
@@ -1467,7 +1467,7 @@ async function loadRecordFilters() {
   const fill = (id, items, allKey) => {
     const sel = document.getElementById(id);
     const cur = sel.value;
-    sel.innerHTML = `<option value="">${L[allKey] || 'Alle'}</option>` +
+    sel.innerHTML = `<option value="">${L[allKey] || t('all')}</option>` +
       items.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
     if (cur) sel.value = cur;
   };
@@ -1561,7 +1561,7 @@ function renderAllLapsPage() {
     html += `<button class="btn ${p===_allLapsPage?'btn-red':'btn-gray'} btn-sm" onclick="_allLapsPage=${p};renderAllLapsPage()">${p+1}</button>`;
   if (_allLapsPage < pages-1)
     html += `<button class="btn btn-gray btn-sm" onclick="_allLapsPage++;renderAllLapsPage()">›</button>`;
-  html += `<span style="font-size:11px;color:var(--muted)">Seite ${_allLapsPage+1}/${pages}</span>`;
+  html += `<span style="font-size:11px;color:var(--muted)">Página ${_allLapsPage+1}/${pages}</span>`;
   pag.innerHTML = html;
 }
 
@@ -1740,8 +1740,8 @@ async function loadDriverProfile() {
       data: {
         labels: allLaps.map(e => (e.ts||'').slice(0,16)),
         datasets: [
-          { label: 'Alle', data: allLaps.map(e => e.laptime/1000), borderColor: red+'66', backgroundColor: 'transparent', pointRadius: 4, pointHoverRadius: 6, pointBackgroundColor: allLaps.map(e => e.cuts>0 ? '#dc3545' : grn), tension: 0, borderWidth: 1.5 },
-          { label: 'Sauber', data: allLaps.map(e => e.cuts===0 ? e.laptime/1000 : null), borderColor: grn, backgroundColor: 'transparent', pointRadius: 0, tension: 0.3, borderWidth: 2, spanGaps: false },
+          { label: t('all'), data: allLaps.map(e => e.laptime/1000), borderColor: red+'66', backgroundColor: 'transparent', pointRadius: 4, pointHoverRadius: 6, pointBackgroundColor: allLaps.map(e => e.cuts>0 ? '#dc3545' : grn), tension: 0, borderWidth: 1.5 },
+          { label: t('col_clean'), data: allLaps.map(e => e.cuts===0 ? e.laptime/1000 : null), borderColor: grn, backgroundColor: 'transparent', pointRadius: 0, tension: 0.3, borderWidth: 2, spanGaps: false },
         ],
       },
       options: {
@@ -1768,7 +1768,7 @@ async function loadDriverProfile() {
     if (!ctx || !sorted.length) return;
     _profileCharts.tracks = new Chart(ctx, {
       type: 'bar',
-      data: { labels: sorted.map(x=>x[0]), datasets: [{ label: 'Bestzeit', data: sorted.map(x=>x[1]/1000), backgroundColor: _AN_PALETTE.slice(0,sorted.length).map(c=>c+'bb'), borderRadius: 4 }] },
+      data: { labels: sorted.map(x=>x[0]), datasets: [{ label: t('best_lap'), data: sorted.map(x=>x[1]/1000), backgroundColor: _AN_PALETTE.slice(0,sorted.length).map(c=>c+'bb'), borderRadius: 4 }] },
       options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => { const v=ctx.raw; const m=Math.floor(v/60),s=(v%60).toFixed(3).padStart(6,'0'); return ' '+m+':'+s; } } } }, scales: { x: { beginAtZero: true, ticks: { color: tc, callback: v => { const m=Math.floor(v/60); return m+':'+String(Math.floor(v%60)).padStart(2,'0'); } }, grid: { color: gc } }, y: { ticks: { color: tc, font: { size: 11 } } } } },
     });
   })();
@@ -1783,7 +1783,7 @@ async function loadDriverProfile() {
     _profileCharts.cars = new Chart(ctx, {
       type: 'doughnut',
       data: { labels: sorted.map(x=>x[0]), datasets: [{ data: sorted.map(x=>x[1]), backgroundColor: _AN_PALETTE.slice(0,sorted.length), borderColor: bg2, borderWidth: 3, hoverOffset: 6 }] },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 }, padding: 10, color: tc } }, tooltip: { callbacks: { label: ctx => ' '+ctx.label+': '+ctx.parsed+' Runden' } } } },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 }, padding: 10, color: tc } }, tooltip: { callbacks: { label: ctx => ' '+ctx.label+': '+ctx.parsed+' '+t('laps_label') } } } },
     });
   })();
 }
@@ -1808,14 +1808,14 @@ async function loadAnalyticsCharts(force) {
     laps.forEach(e => { const day=(e.ts||'').slice(0,10); if (day in counts) counts[day]++; });
     const vals=Object.values(counts);
     const ctx=document.getElementById('an-chart-activity'); if (!ctx) return;
-    _anCharts.activity = new Chart(ctx, { type:'bar', data:{ labels, datasets:[{ label:'Runden', data:vals, backgroundColor:vals.map(v=>v>0?red+'bb':'rgba(128,128,128,0.1)'), borderRadius:4 }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ x:{ grid:{ display:false }, ticks:{ maxRotation:45, font:{ size:10 }, color:tc } }, y:{ beginAtZero:true, ticks:{ precision:0, color:tc }, grid:{ color:gc } } } } });
+    _anCharts.activity = new Chart(ctx, { type:'bar', data:{ labels, datasets:[{ label:t('laps_label'), data:vals, backgroundColor:vals.map(v=>v>0?red+'bb':'rgba(128,128,128,0.1)'), borderRadius:4 }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ x:{ grid:{ display:false }, ticks:{ maxRotation:45, font:{ size:10 }, color:tc } }, y:{ beginAtZero:true, ticks:{ precision:0, color:tc }, grid:{ color:gc } } } } });
   })();
   (function() {
     if (_anCharts.tracks) return;
     const counts={}; laps.forEach(e => { if (e.track) counts[e.track]=(counts[e.track]||0)+1; });
     const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,10);
     const ctx=document.getElementById('an-chart-tracks'); if (!ctx) return;
-    _anCharts.tracks = new Chart(ctx, { type:'bar', data:{ labels:sorted.map(x=>x[0]), datasets:[{ label:'Runden', data:sorted.map(x=>x[1]), backgroundColor:_AN_PALETTE.slice(0,sorted.length).map(c=>c+'bb'), borderRadius:4 }] }, options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ x:{ beginAtZero:true, ticks:{ precision:0, color:tc }, grid:{ color:gc } }, y:{ ticks:{ color:tc, font:{ size:11 } } } } } });
+    _anCharts.tracks = new Chart(ctx, { type:'bar', data:{ labels:sorted.map(x=>x[0]), datasets:[{ label:t('laps_label'), data:sorted.map(x=>x[1]), backgroundColor:_AN_PALETTE.slice(0,sorted.length).map(c=>c+'bb'), borderRadius:4 }] }, options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ x:{ beginAtZero:true, ticks:{ precision:0, color:tc }, grid:{ color:gc } }, y:{ ticks:{ color:tc, font:{ size:11 } } } } } });
   })();
   (function() {
     if (_anCharts.cars) return;
@@ -1830,7 +1830,7 @@ async function loadAnalyticsCharts(force) {
     const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,15);
     const max=sorted.length?sorted[0][1]:1;
     const ctx=document.getElementById('an-chart-drivers'); if (!ctx) return;
-    _anCharts.drivers = new Chart(ctx, { type:'bar', data:{ labels:sorted.map(x=>x[0]), datasets:[{ label:'Runden', data:sorted.map(x=>x[1]), backgroundColor:sorted.map(x=>{ const p=x[1]/max; return p>=0.8?red:p>=0.5?'#ff6b35':'rgba(128,128,128,0.15)'; }), borderRadius:4 }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ x:{ grid:{ display:false }, ticks:{ font:{ size:11 }, color:tc } }, y:{ beginAtZero:true, ticks:{ precision:0, color:tc }, grid:{ color:gc } } } } });
+    _anCharts.drivers = new Chart(ctx, { type:'bar', data:{ labels:sorted.map(x=>x[0]), datasets:[{ label:t('laps_label'), data:sorted.map(x=>x[1]), backgroundColor:sorted.map(x=>{ const p=x[1]/max; return p>=0.8?red:p>=0.5?'#ff6b35':'rgba(128,128,128,0.15)'; }), borderRadius:4 }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ x:{ grid:{ display:false }, ticks:{ font:{ size:11 }, color:tc } }, y:{ beginAtZero:true, ticks:{ precision:0, color:tc }, grid:{ color:gc } } } } });
   })();
 }
 
@@ -1860,7 +1860,7 @@ function testDiscord(){
     .then(r=>r.json()).then(d=>toast(d.ok?'✓ '+d.msg:'✗ '+d.msg,d.ok?'ok':'err'));
 }
 function sendDiscordSummary(){
-  toast('📊 Sende Summary…','info');
+  toast(t('sending_summary'),'info');
   apiFetch('/api/discord/summary',{method:'POST'})
     .then(r=>r.json()).then(d=>toast(d.ok?'✓ '+d.msg:'✗ '+d.msg,d.ok?'ok':'err'));
 }
@@ -1892,7 +1892,7 @@ function loadChampionships() {
           <div style="font-size:14px;font-weight:700">🏆 ${esc(c.name)}</div>
           <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteChampionship('${esc(c.id)}','${esc(c.name)}')">✕</button>
         </div>
-        <div style="font-size:11px;color:var(--muted);margin-top:3px">${c.rounds} Runden · ${t('champ_created')}: ${esc(c.created||'')}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px">${c.rounds} ${t('laps_label')} · ${t('champ_created')}: ${esc(c.created||'')}</div>
       </div>`).join('');
   });
 }
@@ -1901,7 +1901,7 @@ function createChampionship() {
   const name = document.getElementById('champ-name').value.trim();
   if (!name) { toast(t('t_enter_name'), 'err'); return; }
   const rawPts = document.getElementById('champ-points').value.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
-  if (!rawPts.length) { toast('Ungültiges Punkte-Schema', 'err'); return; }
+  if (!rawPts.length) { toast(t('invalid_points_schema'), 'err'); return; }
   apiFetch('/api/championships', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({name, points: rawPts})})
     .then(r=>r.json()).then(d=>{
       toast(d.ok ? '✓ ' + name + ' erstellt' : '✗ '+d.msg, d.ok?'ok':'err');
@@ -1910,7 +1910,7 @@ function createChampionship() {
 }
 
 function deleteChampionship(id, name) {
-  if (!confirm(`Meisterschaft "${name}" löschen?`)) return;
+  if (!confirm(t('confirm_delete_championship').replace('{name}', esc(name)))) return;
   apiFetch(`/api/championships/${id}`, {method:'DELETE'})
     .then(r=>r.json()).then(d=>{ toast(d.ok?t('t_deleted'):'✗ '+d.msg,d.ok?'ok':'err'); if(d.ok) loadChampionships(); });
 }
@@ -1953,7 +1953,7 @@ function loadChampStandings(cid) {
     const existingRounds = new Set(c.rounds || []);
     const availableResults = (rd.results || []).filter(r => !existingRounds.has(r.filename));
     const addOptions = availableResults.map(r => {
-      const label = `${r.type} · ${r.track}${r.config?'/'+r.config:''} · ${r.date?.slice(0,10)||''}`;
+      const label = `${_TYPE_LABEL[r.type] || r.type} · ${r.track}${r.config?'/'+r.config:''} · ${r.date?.slice(0,10)||''}`;
       return `<option value="${esc(r.filename)}">${esc(label)}</option>`;
     }).join('');
 
@@ -1971,7 +1971,7 @@ function loadChampStandings(cid) {
       <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px">${t('champ_standings')}</div>
       <div class="tbl-wrap" style="margin-bottom:16px">
         <table>
-          <thead><tr><th>${t('col_pos')}</th><th>${t('col_driver')}</th><th>Pts</th>${rHeaders}<th>🏆</th><th>🥉</th><th>Gap</th></tr></thead>
+          <thead><tr><th>${t('col_pos')}</th><th>${t('col_driver')}</th><th>Pts</th>${rHeaders}<th>🏆</th><th>🥉</th><th>Dif.</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>` : `<div style="color:var(--muted);font-size:13px;margin-bottom:16px">${t('champ_no_rounds_yet')}</div>`}
@@ -1992,7 +1992,7 @@ function addChampRound(cid) {
   const sel = document.getElementById('champ-add-round-sel');
   if (!sel?.value) return;
   apiFetch(`/api/championships/${cid}/rounds`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({filename: sel.value})})
-    .then(r=>r.json()).then(d=>{ toast(d.ok?'✓ Runde hinzugefügt':'✗ '+d.msg, d.ok?'ok':'err'); if(d.ok) loadChampStandings(cid); });
+    .then(r=>r.json()).then(d=>{ toast(d.ok?t('lap_added'):'✗ '+d.msg, d.ok?'ok':'err'); if(d.ok) loadChampStandings(cid); });
 }
 
 function removeChampRound(cid, filename) {
@@ -2029,7 +2029,7 @@ function loadScheduledEvents() {
           <div>
             <div style="font-size:13px;font-weight:700">${esc(e.name)} ${badge}</div>
             <div style="font-size:11px;color:var(--muted);margin-top:2px">📅 ${esc(e.datetime)} · ${actionLbl}</div>
-            ${done && e.executed_at ? `<div style="font-size:10px;color:var(--muted)">Ausgeführt: ${esc(e.executed_at)}</div>` : ''}
+            ${done && e.executed_at ? `<div style="font-size:10px;color:var(--muted)">${t('executed_at')} ${esc(e.executed_at)}</div>` : ''}
           </div>
           <div style="display:flex;gap:4px;flex-shrink:0">
             ${done ? `<button class="btn btn-gray btn-sm" onclick="resetScheduledEvent('${esc(e.id)}')">↻</button>` : ''}
@@ -2074,12 +2074,12 @@ function deleteScheduledEvent(id) {
 
 function resetScheduledEvent(id) {
   apiFetch(`/api/scheduled_events/${id}/reset`, {method:'POST'})
-    .then(r=>r.json()).then(d=>{ toast(d.ok?'✓ Zurückgesetzt':'✗ '+d.msg, d.ok?'ok':'err'); if(d.ok) loadScheduledEvents(); });
+    .then(r=>r.json()).then(d=>{ toast(d.ok?t('reset_ok'):'✗ '+d.msg, d.ok?'ok':'err'); if(d.ok) loadScheduledEvents(); });
 }
 
 // ═══ RESULTS ══════════════════════════════════════════════════════════════
 const _TYPE_COLOR = { RACE: 'var(--red)', QUALIFY: '#3498db', PRACTICE: '#27ae60' };
-const _TYPE_LABEL = { RACE: '🏆 Race', QUALIFY: '⏱ Quali', PRACTICE: '🔄 Practice' };
+const _TYPE_LABEL = { RACE: `🏆 ${t('race')}`, QUALIFY: `⏱ ${t('qualifying')}`, PRACTICE: `🔄 ${t('practice')}` };
 
 function loadResults() {
   document.getElementById('results-list').innerHTML =
@@ -2102,8 +2102,8 @@ function loadResults() {
         </div>
         <div style="font-size:13px;font-weight:600;margin-bottom:2px">${esc(track)||'—'}</div>
         <div style="font-size:11px;color:var(--muted);display:flex;gap:12px">
-          <span>🏎 ${r.driver_count} " + (typeof getText !== "undefined" ? getText("col_driver") : "Fahrer")</span>
-          <span>📋 ${r.lap_count} Runden</span>
+          <span>🏎 ${r.driver_count} ${t('col_driver')}</span>
+          <span>📋 ${r.lap_count} ${t('laps_label')}</span>
           ${r.winner && r.winner !== '?' ? `<span>🥇 ${esc(r.winner)}</span>` : ''}
         </div>
       </div>`;
@@ -2168,7 +2168,7 @@ function showResult(filename) {
         <table>
           <thead><tr>
             <th>${t('col_pos')}</th><th>${t('col_driver')}</th><th>${t('col_vehicle')}</th>
-            <th>${t('col_best')}</th><th>${t('res_total_time')}</th><th>Gap</th><th>Ballast</th>
+            <th>${t('col_best')}</th><th>${t('res_total_time')}</th><th>Dif.</th><th>Lastre</th>
           </tr></thead>
           <tbody>${rows}</tbody>
         </table>
@@ -2390,7 +2390,7 @@ function loadCutActions() {
     document.getElementById('ca-warn-per-lap').value = d.warn_cuts_per_lap ?? 2;
     document.getElementById('ca-warn-msg').value     = d.warn_message || '⚠️ {driver}: {cuts} Cuts!';
     document.getElementById('ca-kick-session').value = d.kick_session_cuts ?? 0;
-    document.getElementById('ca-kick-msg').value     = d.kick_message || 'Kick: Zu viele Cuts ({cuts} gesamt)';
+    document.getElementById('ca-kick-msg').value     = d.kick_message || t('kick_too_many_cuts');
   }).catch(()=>{});
 }
 function saveCutActions() {
@@ -2545,11 +2545,11 @@ function updateServerMonitor(d) {
   if (!wrap) return;
   const drivers = (d.drivers || []).filter(drv => drv.name);
   if (!drivers.length) {
-    wrap.innerHTML = '<div style="color:var(--muted);font-size:13px">Keine Fahrer verbunden.</div>';
+    wrap.innerHTML = '<div style="color:var(--muted);font-size:13px">' + t('sm_no_drivers') + '</div>';
     return;
   }
   wrap.innerHTML = `<table class="nation-table">
-    <thead><tr><th>Flag</th><th>Fahrer</th><th>Herkunft</th><th>Auto</th></tr></thead>
+    <thead><tr><th>${t('flag_label')}</th><th>${t('col_driver')}</th><th>${t('origin')}</th><th>${t('col_car')}</th></tr></thead>
     <tbody>${drivers.map(drv => {
       const flag = nationFlag(drv.nation);
       const name = nationName(drv.nation);
@@ -2864,7 +2864,7 @@ function loadEntryList() {
     _elSel.clear();
     _elPopulateQACar();
     elRender();
-  }).catch(() => toast('Entry List laden fehlgeschlagen', 'err'));
+  }).catch(() => toast(t('entry_list_load_failed'), 'err'));
 }
 
 // -- Quick-Add car dropdown ---------------------------------------------------
@@ -2973,7 +2973,7 @@ function _elBuildCard(slot, i) {
   const skinThumbSrc = (slot.model && slot.skin)
     ? '/skin_img/' + encodeURIComponent(slot.model) + '/' + encodeURIComponent(slot.skin) : '';
 
-  const carOptions = ['<option value="">— Auto w\xe4hlen —</option>']
+    const carOptions = ['<option value="">' + t('choose_car') + '</option>']
     .concat(_elCars.map(c => '<option value="' + esc(c) + '"' + (c === slot.model ? ' selected' : '') + '>' + esc(c) + '</option>'))
     .join('');
 
@@ -2990,14 +2990,14 @@ function _elBuildCard(slot, i) {
         '<option value="' + esc(slot.skin || '') + '">' + esc(slot.skin || '— l\xe4dt… —') + '</option>' +
       '</select>' +
     '</div>' +
-    '<div class="el-num-col"><label>Ballast kg</label><input class="inp num-inp" type="number" min="0" max="150" value="' + (slot.ballast || 0) + '" onchange="elUpd(' + i + ',\'ballast\',+this.value)" style="width:100%"></div>' +
-    '<div class="el-num-col"><label>Restrictor %</label><input class="inp num-inp" type="number" min="0" max="400" value="' + (slot.restrictor || 0) + '" onchange="elUpd(' + i + ',\'restrictor\',+this.value)" style="width:100%"></div>' +
-    '<div class="el-num-col"><label>AI</label><select class="sel" onchange="elUpd(' + i + ',\'ai\',this.value)" style="width:100%;font-size:11px"><option value="" ' + (!slot.ai ? 'selected' : '') + '>-</option><option value="none" ' + (slot.ai === 'none' ? 'selected' : '') + '>none</option><option value="fixed" ' + (slot.ai === 'fixed' ? 'selected' : '') + '>fixed</option><option value="auto" ' + (slot.ai === 'auto' ? 'selected' : '') + '>auto</option></select></div>' +
-      '<div class="el-driver-col"><label>Fahrername</label><input class="inp" type="text" value="' + esc(slot.drivername || '') + '" placeholder="leer = offen" onchange="elUpd(' + i + ',\'drivername\',this.value)" style="width:100%;font-size:11px"></div>' +
-    '<div class="el-guid-col"><label>Steam GUID</label><input class="inp" type="text" value="' + esc(slot.guid || '') + '" placeholder="leer = offen" onchange="elUpd(' + i + ',\'guid\',this.value)" style="width:100%;font-size:11px"></div>' +
+    '<div class="el-num-col"><label>' + t('lbl_ballast_kg') + '</label><input class="inp num-inp" type="number" min="0" max="150" value="' + (slot.ballast || 0) + '" onchange="elUpd(' + i + ',\'ballast\',+this.value)" style="width:100%"></div>' +
+    '<div class="el-num-col"><label>' + t('lbl_restrictor_pct') + '</label><input class="inp num-inp" type="number" min="0" max="400" value="' + (slot.restrictor || 0) + '" onchange="elUpd(' + i + ',\'restrictor\',+this.value)" style="width:100%"></div>' +
+    '<div class="el-num-col"><label>' + t('lbl_ai') + '</label><select class="sel" onchange="elUpd(' + i + ',\'ai\',this.value)" style="width:100%;font-size:11px"><option value="" ' + (!slot.ai ? 'selected' : '') + '>-</option><option value="none" ' + (slot.ai === 'none' ? 'selected' : '') + '>' + t('ai_none') + '</option><option value="fixed" ' + (slot.ai === 'fixed' ? 'selected' : '') + '>' + t('ai_fixed') + '</option><option value="auto" ' + (slot.ai === 'auto' ? 'selected' : '') + '>' + t('ai_auto') + '</option></select></div>' +
+      '<div class="el-driver-col"><label>' + t('driver_name') + '</label><input class="inp" type="text" value="' + esc(slot.drivername || '') + '" placeholder="' + t('slot_open') + '" onchange="elUpd(' + i + ',\'drivername\',this.value)" style="width:100%;font-size:11px"></div>' +
+    '<div class="el-guid-col"><label>' + t('lbl_steam_guid') + '</label><input class="inp" type="text" value="' + esc(slot.guid || '') + '" placeholder="' + t('slot_open') + '" onchange="elUpd(' + i + ',\'guid\',this.value)" style="width:100%;font-size:11px"></div>' +
     '<div class="el-slot-actions"><span class="el-slot-num">#' + (i + 1) + '</span>' +
-      '<button class="btn btn-gray btn-sm" onclick="elDuplicateSlot(' + i + ')" title="Duplizieren">⊕</button>' +
-      '<button class="btn btn-gray btn-sm" onclick="elDeleteSlot(' + i + ')" title="L\xf6schen">🗑</button>' +
+      '<button class="btn btn-gray btn-sm" onclick="elDuplicateSlot(' + i + ')" title="' + t('duplicate') + '">⊕</button>' +
+      '<button class="btn btn-gray btn-sm" onclick="elDeleteSlot(' + i + ')" title="' + t('delete_q') + '">🗑</button>' +
     '</div>';
   return div;
 }
@@ -3121,7 +3121,7 @@ function elMultiApply() {
 }
 
 function elMultiDelete() {
-  if (!confirm(_elSel.size + ' Slot(s) wirklich l\xf6schen?')) return;
+  if (!confirm(t('confirm_delete_slots', _elSel.size))) return;
   _elSlots = _elSlots.filter((_, i) => !_elSel.has(i));
   _elSel.clear();
   elRender();
@@ -3144,14 +3144,14 @@ function elValidate() {
   });
   Object.keys(guidCount).forEach(g => {
     if (guidCount[g].length > 1)
-      errors.push('Doppelte GUID "' + g + '" in Slots: ' + guidCount[g].map(x => x + 1).join(', '));
+      errors.push(t('duplicate_guid', g, guidCount[g].map(x => x + 1).join(', ')));
   });
 
   const emptyModel = _elSlots.filter(s => !s.model).length;
-  if (emptyModel) warnings.push(emptyModel + ' Slot(s) ohne Auto-Auswahl');
+  if (emptyModel) warnings.push(t('slots_no_car', emptyModel));
 
   if (_elMaxClients > 0 && _elSlots.length > _elMaxClients) {
-    warnings.push(_elSlots.length + ' Slots aber MAX_CLIENTS=' + _elMaxClients + ' — wird beim Speichern angepasst');
+    warnings.push(t('slots_max_clients', _elSlots.length, _elMaxClients));
   }
 
   if (!banner) return;
@@ -3178,7 +3178,7 @@ function elSave() {
   }).then(r => r.json()).then(d => {
     toast(d.ok ? '✓ ' + d.msg : '✗ ' + d.msg, d.ok ? 'ok' : 'err');
     if (d.ok) { _elMaxClients = d.total || _elMaxClients; elValidate(); }
-  }).catch(() => toast('Speichern fehlgeschlagen', 'err'));
+  }).catch(() => toast(t('save_failed'), 'err'));
 }
 
 // -- Import INI ---------------------------------------------------------------
@@ -3194,12 +3194,12 @@ function elImportFile(input) {
   const reader = new FileReader();
   reader.onload = e => {
     const slots = _elParseIni(e.target.result);
-    if (!slots.length) { toast('Keine Slots in der Datei gefunden', 'err'); return; }
-    if (!confirm(slots.length + ' Slots importieren? Aktuelle Liste wird ersetzt.')) return;
+    if (!slots.length) { toast(t('no_slots_file'), 'err'); return; }
+    if (!confirm(t('import_slots_confirm', slots.length))) return;
     _elSlots = slots;
     _elSel.clear();
     elRender();
-    toast('✓ ' + slots.length + ' Slots importiert', 'ok');
+    toast(t('slots_imported', slots.length), 'ok');
   };
   reader.readAsText(file, 'utf-8');
   input.value = '';
@@ -3237,10 +3237,10 @@ function elLoadElPresets() {
   apiFetch('/api/entry_list_presets').then(r => r.json()).then(d => {
     const sel = document.getElementById('el-preset-sel');
     if (!sel) return;
-    let opts = '<option value="">Preset laden…</option>';
+    let opts = '<option value="">' + t('load_preset') + '</option>';
     Object.keys(d.presets || {}).forEach(name => {
       const p = d.presets[name];
-      opts += '<option value="' + esc(name) + '">' + esc(name) + ' (' + p.count + ' Slots, ' + p.saved + ')</option>';
+      opts += '<option value="' + esc(name) + '">' + esc(name) + ' (' + p.count + ' ' + t('slots_label') + ', ' + p.saved + ')</option>';
     });
     sel.innerHTML = opts;
   }).catch(() => {});
@@ -3251,17 +3251,17 @@ function elLoadPreset() {
   if (!name) return;
   apiFetch('/api/entry_list_presets').then(r => r.json()).then(d => {
     const preset = (d.presets || {})[name];
-    if (!preset) { toast('Preset nicht gefunden', 'err'); return; }
-    if (!confirm('Preset "' + name + '" laden? Aktuelle Liste wird ersetzt.')) return;
+    if (!preset) { toast(t('preset_not_found'), 'err'); return; }
+    if (!confirm(t('load_preset_confirm', name))) return;
     _elSlots = preset.slots || [];
     _elSel.clear();
     elRender();
-    toast('✓ Preset "' + name + '" geladen', 'ok');
+    toast(t('preset_loaded', name), 'ok');
   });
 }
 
 function elSavePreset() {
-  const name = prompt('Preset-Name:');
+  const name = prompt(t('preset_name_prompt'));
   if (!name) return;
   apiFetch('/api/entry_list_presets', {
     method: 'POST',
@@ -3372,7 +3372,7 @@ function saveAiConfig() {
     .then(d => {
       const msg = document.getElementById('ai-saved-msg');
       if (msg) {
-        msg.textContent = d.ok ? t('ai_saved') : '✗ ' + (d.msg || 'Fehler');
+        msg.textContent = d.ok ? t('ai_saved') : '✗ ' + (d.msg || t('error'));
         msg.style.color = d.ok ? 'var(--green)' : 'var(--red)';
         msg.style.display = 'inline';
         setTimeout(() => { msg.style.display = 'none'; }, 3000);

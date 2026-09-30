@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
-<html lang="de">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AC Server Dashboard</title>
+<title>Panel de AC Server</title>
 <link rel="stylesheet" href="/static/css/dashboard.css">
 </head>
 <body>
@@ -33,40 +33,40 @@
   <div class="sb-ctrl">
     <button class="btn btn-green btn-sm" onclick="ctrl('start')">▶</button>
     <button class="btn btn-gray btn-sm" onclick="ctrl('stop')">■</button>
-    <button class="btn btn-gray btn-sm" onclick="ctrl('restart')" data-i18n="btn_restart">↻ Neustart</button>
+    <button class="btn btn-gray btn-sm" onclick="ctrl('restart')" data-i18n="btn_restart">↻ Reiniciar</button>
   </div>
   <div class="sb-restart">
-    <label><input type="checkbox" id="auto-restart" style="accent-color:var(--red)"> <span data-i18n="sb_auto_restart">Nach Speichern neu starten</span></label>
+    <label><input type="checkbox" id="auto-restart" style="accent-color:var(--red)"> <span data-i18n="sb_auto_restart">Reiniciar tras guardar</span></label>
   </div>
 
   <!-- Navigation -->
-  <div class="nav-sep" data-i18n="nav_sec_live">Live</div>
-  <div class="nav-item active" data-nav="dashboard" onclick="navTo('dashboard')"><span class="nav-icon">🏠</span> <span data-i18n="nav_dashboard">Dashboard</span></div>
-  <div class="nav-item" data-nav="drivers" onclick="navTo('drivers')"><span class="nav-icon">🚗</span> <span data-i18n="nav_drivers">Live Fahrer</span></div>
-  <div class="nav-item" data-nav="laps" onclick="navTo('laps')"><span class="nav-icon">⏱️</span> <span data-i18n="nav_laps">Live Zeiten</span></div>
-  <div class="nav-item" data-nav="records" onclick="navTo('records')"><span class="nav-icon">🏆</span> <span data-i18n="nav_records">Rekorde</span></div>
+  <div class="nav-sep" data-i18n="nav_sec_live">En vivo</div>
+  <div class="nav-item active" data-nav="dashboard" onclick="navTo('dashboard')"><span class="nav-icon">🏠</span> <span data-i18n="nav_dashboard">Panel</span></div>
+  <div class="nav-item" data-nav="drivers" onclick="navTo('drivers')"><span class="nav-icon">🚗</span> <span data-i18n="nav_drivers">Pilotos en vivo</span></div>
+  <div class="nav-item" data-nav="laps" onclick="navTo('laps')"><span class="nav-icon">⏱️</span> <span data-i18n="nav_laps">Tiempo en vivo</span></div>
+  <div class="nav-item" data-nav="records" onclick="navTo('records')"><span class="nav-icon">🏆</span> <span data-i18n="nav_records">Récords</span></div>
   <div class="nav-item" data-nav="events" onclick="navTo('events')"><span class="nav-icon">📋</span> Events</div>
 
-  <div class="nav-sep" data-i18n="nav_sec_settings">Einstellungen</div>
-  <div class="nav-item" data-nav="settings-overview" onclick="navTo('settings-overview')"><span class="nav-icon">&#x1F4CA;</span> <span data-i18n="nav_overview">&#220;bersicht</span></div>
-  <div class="nav-item" data-nav="settings-server" onclick="navTo('settings-server')"><span class="nav-icon">⚙️</span> <span data-i18n="nav_server">Server</span></div>
-  <div class="nav-item" data-nav="settings-track" onclick="navTo('settings-track')"><span class="nav-icon">🗺️</span> <span data-i18n="nav_track">Strecke & Autos</span></div>
-  <div class="nav-item" data-nav="settings-assists" onclick="navTo('settings-assists')"><span class="nav-icon">🛡️</span> <span data-i18n="nav_assists">Fahrhilfen</span></div>
-  <div class="nav-item" data-nav="settings-sessions" onclick="navTo('settings-sessions')"><span class="nav-icon">📅</span> <span data-i18n="nav_sessions">Sessions</span></div>
-  <div class="nav-item" data-nav="settings-weather" onclick="navTo('settings-weather')"><span class="nav-icon">🌤️</span> <span data-i18n="nav_weather">Wetter</span></div>
-  <div class="nav-item" data-nav="settings-profile" onclick="navTo('settings-profile')"><span class="nav-icon">🎨</span> <span data-i18n="nav_profile">Serverprofil</span></div>
+  <div class="nav-sep" data-i18n="nav_sec_settings">Ajustes</div>
+  <div class="nav-item" data-nav="settings-overview" onclick="navTo('settings-overview')"><span class="nav-icon">&#x1F4CA;</span> <span data-i18n="nav_overview">Resumen</span></div>
+  <div class="nav-item" data-nav="settings-server" onclick="navTo('settings-server')"><span class="nav-icon">⚙️</span> <span data-i18n="nav_server">Servidor</span></div>
+  <div class="nav-item" data-nav="settings-track" onclick="navTo('settings-track')"><span class="nav-icon">🗺️</span> <span data-i18n="nav_track">Pista y autos</span></div>
+  <div class="nav-item" data-nav="settings-assists" onclick="navTo('settings-assists')"><span class="nav-icon">🛡️</span> <span data-i18n="nav_assists">Asistencias</span></div>
+  <div class="nav-item" data-nav="settings-sessions" onclick="navTo('settings-sessions')"><span class="nav-icon">📅</span> <span data-i18n="nav_sessions">Sesiones</span></div>
+  <div class="nav-item" data-nav="settings-weather" onclick="navTo('settings-weather')"><span class="nav-icon">🌤️</span> <span data-i18n="nav_weather">Clima</span></div>
+  <div class="nav-item" data-nav="settings-profile" onclick="navTo('settings-profile')"><span class="nav-icon">🎨</span> <span data-i18n="nav_profile">Perfil del servidor</span></div>
 
-  <div class="nav-sep" data-i18n="nav_sec_tools">Tools</div>
-  <div class="nav-item" data-nav="content" onclick="navTo('content')"><span class="nav-icon">📦</span> <span data-i18n="nav_content">Inhalte</span></div>
-  <div class="nav-item" data-nav="players" onclick="navTo('players')"><span class="nav-icon">👥</span> <span data-i18n="nav_players">Spieler</span></div>
-  <div class="nav-item" data-nav="advanced" onclick="navTo('advanced')"><span class="nav-icon">🔧</span> <span data-i18n="nav_advanced">Erweitert</span></div>
-  <div class="nav-item" data-nav="logs" onclick="navTo('logs')"><span class="nav-icon">📜</span> <span data-i18n="nav_logs">Logs</span></div>
-  <div class="nav-item" data-nav="help" onclick="navTo('help')"><span class="nav-icon">❓</span> <span data-i18n="nav_help">Hilfe</span></div>
+  <div class="nav-sep" data-i18n="nav_sec_tools">Herramientas</div>
+  <div class="nav-item" data-nav="content" onclick="navTo('content')"><span class="nav-icon">📦</span> <span data-i18n="nav_content">Contenido</span></div>
+  <div class="nav-item" data-nav="players" onclick="navTo('players')"><span class="nav-icon">👥</span> <span data-i18n="nav_players">Jugadores</span></div>
+  <div class="nav-item" data-nav="advanced" onclick="navTo('advanced')"><span class="nav-icon">🔧</span> <span data-i18n="nav_advanced">Avanzado</span></div>
+  <div class="nav-item" data-nav="logs" onclick="navTo('logs')"><span class="nav-icon">📜</span> <span data-i18n="nav_logs">Registros</span></div>
+  <div class="nav-item" data-nav="help" onclick="navTo('help')"><span class="nav-icon">❓</span> <span data-i18n="nav_help">Ayuda</span></div>
 
   <!-- Bottom: Lang + Logout -->
   <div class="sb-bottom">
     <button class="lang-btn btn btn-gray btn-sm" id="lang-toggle" onclick="toggleLang()" style="flex:1">EN</button>
-    <a href="/logout" class="btn btn-gray btn-sm" style="flex:1;justify-content:center" data-i18n="btn_logout">Abmelden</a>
+    <a href="/logout" class="btn btn-gray btn-sm" style="flex:1;justify-content:center" data-i18n="btn_logout">Cerrar sesión</a>
   </div>
 </nav>
 
@@ -79,17 +79,17 @@
   <!-- Quick Stats Bar -->
   <div style="display:flex;gap:10px;margin-bottom:14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;flex-wrap:wrap">
     <div style="display:flex;align-items:center;gap:8px;font-size:12px">
-      <span style="color:var(--muted)" data-i18n="qs_laps_today">Runden heute:</span>
+      <span style="color:var(--muted)" data-i18n="qs_laps_today">Vueltas hoy:</span>
       <strong id="qs-laps">—</strong>
     </div>
     <div style="width:1px;background:var(--border)"></div>
     <div style="display:flex;align-items:center;gap:8px;font-size:12px">
-      <span style="color:var(--muted)" data-i18n="qs_drivers_today">Fahrer heute:</span>
+      <span style="color:var(--muted)" data-i18n="qs_drivers_today">Pilotos hoy:</span>
       <strong id="qs-drivers">—</strong>
     </div>
     <div style="width:1px;background:var(--border)"></div>
     <div style="display:flex;align-items:center;gap:8px;font-size:12px">
-      <span style="color:var(--muted)" data-i18n="qs_best_today">Beste heute:</span>
+      <span style="color:var(--muted)" data-i18n="qs_best_today">Mejor hoy:</span>
       <strong id="qs-best" class="best-t">—</strong>
       <span id="qs-best-driver" style="color:var(--muted);font-size:11px"></span>
     </div>
@@ -97,14 +97,14 @@
 
   <div class="g4 gap">
     <div class="card">
-      <div class="card-ttl" data-i18n="status">Status</div>
+      <div class="card-ttl" data-i18n="status">Estado</div>
       <div class="stat-val"><span id="d-badge" class="bdg">—</span></div>
       <div class="stat-sub" id="d-up" style="margin-top:8px">—</div>
     </div>
     <div class="card">
-      <div class="card-ttl" data-i18n="players_online">Spieler Online</div>
+      <div class="card-ttl" data-i18n="players_online">Jugadores en línea</div>
       <div class="stat-val"><span id="d-cl">0</span><span style="font-size:16px;color:var(--muted)"> / <span id="d-mcl">{{ cfg.get('MAX_CLIENTS','8') }}</span></span></div>
-      <div class="stat-sub" data-i18n="active_connections">Aktive Verbindungen</div>
+      <div class="stat-sub" data-i18n="active_connections">Conexiones activas</div>
     </div>
     <div class="card">
       <div class="card-ttl">CPU</div>
@@ -121,57 +121,57 @@
 
   <div class="g2 gap">
     <div class="card">
-      <div class="card-ttl" data-i18n="server_info">Server Info</div>
+      <div class="card-ttl" data-i18n="server_info">Info del servidor</div>
       <table class="itbl">
-        <tr><td data-i18n="lbl_name">Name</td><td id="i-name">{{ info.name if info else '—' }}</td></tr>
-        <tr><td data-i18n="lbl_track">Strecke</td><td id="i-track">{{ info.track if info else cfg.get('TRACK','—') }}</td></tr>
-        <tr><td data-i18n="lbl_layout">Layout</td><td id="i-layout">{{ cfg.get('TRACK_LAYOUT','—') or '—' }}</td></tr>
-        <tr><td data-i18n="lbl_session">Session</td><td id="i-sess">Practice</td></tr>
-        <tr><td data-i18n="lbl_password">Passwort</td><td>{{ '🔒 Ja' if cfg.get('PASSWORD') else '🔓 Keins' }}</td></tr>
-        <tr><td data-i18n="lbl_max_clients">Max Spieler</td><td>{{ cfg.get('MAX_CLIENTS','—') }}</td></tr>
-        <tr><td data-i18n="lbl_tcp_port">TCP/UDP Port</td><td>{{ cfg.get('TCP_PORT','9600') }}</td></tr>
-        <tr><td data-i18n="lbl_http_port">HTTP Port</td><td>{{ cfg.get('HTTP_PORT','8081') }}</td></tr>
-        <tr><td data-i18n="lbl_uptime">Uptime</td><td id="i-uptime">—</td></tr>
+        <tr><td data-i18n="lbl_name">Nombre</td><td id="i-name">{{ info.name if info else '—' }}</td></tr>
+        <tr><td data-i18n="lbl_track">Pista</td><td id="i-track">{{ info.track if info else cfg.get('TRACK','—') }}</td></tr>
+        <tr><td data-i18n="lbl_layout">Trazado</td><td id="i-layout">{{ cfg.get('TRACK_LAYOUT','—') or '—' }}</td></tr>
+        <tr><td data-i18n="lbl_session">Sesión</td><td id="i-sess">Practice</td></tr>
+        <tr><td data-i18n="lbl_password">Contraseña</td><td>{{ '🔒 Ja' if cfg.get('PASSWORD') else '🔓 Keins' }}</td></tr>
+        <tr><td data-i18n="lbl_max_clients">Máx. jugadores</td><td>{{ cfg.get('MAX_CLIENTS','—') }}</td></tr>
+        <tr><td data-i18n="lbl_tcp_port">Puerto TCP/UDP</td><td>{{ cfg.get('TCP_PORT','9600') }}</td></tr>
+        <tr><td data-i18n="lbl_http_port">Puerto HTTP</td><td>{{ cfg.get('HTTP_PORT','8081') }}</td></tr>
+        <tr><td data-i18n="lbl_uptime">Tiempo activo</td><td id="i-uptime">—</td></tr>
       </table>
     </div>
     <div class="card">
-      <div class="card-ttl" data-i18n="network">Netzwerk</div>
+      <div class="card-ttl" data-i18n="network">Red</div>
       <table class="itbl">
         <tr>
-          <td data-i18n="lbl_local_ip">Lokale IP</td>
+          <td data-i18n="lbl_local_ip">IP local</td>
           <td><div class="ip-row">
             <span class="ip-val">{{ local_ip }}</span>
             <span class="cp-btn" onclick="copy('{{ local_ip }}:9600')">📋</span>
           </div></td>
         </tr>
         <tr>
-          <td data-i18n="lbl_public_ip">Öffentliche IP</td>
+          <td data-i18n="lbl_public_ip">IP pública</td>
           <td><div class="ip-row">
             <span class="ip-val" id="pub-ip">{{ info.ip if info else '—' }}</span>
             <span class="cp-btn" onclick="copyPub()">📋</span>
           </div></td>
         </tr>
-        <tr><td data-i18n="lbl_invite">Invite Link</td><td><a id="inv-link" href="#" style="color:var(--red);font-size:12px" target="_blank" data-i18n="lbl_open_cm">In CM öffnen ↗</a></td></tr>
-        <tr><td data-i18n="lbl_lobby">Lobby</td><td>{{ 'Öffentlich' if cfg.get('REGISTER_TO_LOBBY')=='1' else 'Privat (LAN)' }}</td></tr>
-        <tr><td>ABS</td><td>{{ 'Erlaubt' if cfg.get('ABS_ALLOWED','1')=='1' else 'Deaktiviert' }}</td></tr>
-        <tr><td data-i18n="lbl_damage">Schadensrate</td><td>{{ cfg.get('DAMAGE_MULTIPLIER','100') }}%</td></tr>
+        <tr><td data-i18n="lbl_invite">Enlace de invitación</td><td><a id="inv-link" href="#" style="color:var(--red);font-size:12px" target="_blank" data-i18n="lbl_open_cm">Abrir en CM ↗</a></td></tr>
+        <tr><td data-i18n="lbl_lobby">Lobby</td><td>{{ 'Pública' if cfg.get('REGISTER_TO_LOBBY')=='1' else 'Privada (LAN)' }}</td></tr>
+        <tr><td>ABS</td><td>{{ 'Permitido' if cfg.get('ABS_ALLOWED','1')=='1' else 'Desactivado' }}</td></tr>
+        <tr><td data-i18n="lbl_damage">Tasa de daño</td><td>{{ cfg.get('DAMAGE_MULTIPLIER','100') }}%</td></tr>
       </table>
     </div>
   </div>
 
   <div class="g2 gap">
     <div class="card">
-      <div class="sh"><div class="sh-t" data-i18n="active_drivers">Aktive Fahrer</div><div class="dot pulse on" style="width:6px;height:6px"></div></div>
-      <div class="dg" id="d-drivers"><div class="empty"><div class="empty-ico">🏁</div><div data-i18n="no_drivers">Keine Fahrer verbunden</div></div></div>
+      <div class="sh"><div class="sh-t" data-i18n="active_drivers">Pilotos activos</div><div class="dot pulse on" style="width:6px;height:6px"></div></div>
+      <div class="dg" id="d-drivers"><div class="empty"><div class="empty-ico">🏁</div><div data-i18n="no_drivers">Sin pilotos conectados</div></div></div>
     </div>
     <div class="card">
-      <div class="sh"><div class="sh-t">💬 <span data-i18n="chat">Server Chat</span></div><div class="dot pulse on" style="width:6px;height:6px"></div></div>
+      <div class="sh"><div class="sh-t">💬 <span data-i18n="chat">Chat del servidor</span></div><div class="dot pulse on" style="width:6px;height:6px"></div></div>
       <div id="dash-chat-box" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;max-height:180px;overflow-y:auto;font-size:12px;display:flex;flex-direction:column;gap:4px">
-        <div style="color:var(--muted)" data-i18n="waiting_chat">Warte auf Chat...</div>
+        <div style="color:var(--muted)" data-i18n="waiting_chat">Esperando chat...</div>
       </div>
       <div style="display:flex;gap:6px;margin-top:8px">
-        <input class="inp" id="chat-send-inp" data-i18n-placeholder="chat_ph" placeholder="Nachricht an alle senden..." style="flex:1;font-size:12px" onkeydown="if(event.key==='Enter')sendChat()">
-        <button class="btn btn-red btn-sm" onclick="sendChat()" data-i18n="btn_send">Senden</button>
+        <input class="inp" id="chat-send-inp" data-i18n-placeholder="chat_ph" placeholder="Enviar mensaje a todos..." style="flex:1;font-size:12px" onkeydown="if(event.key==='Enter')sendChat()">
+        <button class="btn btn-red btn-sm" onclick="sendChat()" data-i18n="btn_send">Enviar</button>
       </div>
     </div>
   </div>
@@ -188,13 +188,13 @@
 
   <div class="card">
     <div class="sh">
-      <div class="sh-t" data-i18n="presets">Strecken-Presets</div>
+      <div class="sh-t" data-i18n="presets">Presets de pista</div>
       <button class="btn btn-gray btn-sm" onclick="loadPresetList()">↻</button>
     </div>
-    <div class="preset-list" id="preset-list"><div style="color:var(--muted);font-size:13px" data-i18n="loading">Lade...</div></div>
+    <div class="preset-list" id="preset-list"><div style="color:var(--muted);font-size:13px" data-i18n="loading">Cargando...</div></div>
     <div style="display:flex;gap:8px;margin-top:12px">
-      <input class="inp" id="preset-name" data-i18n-placeholder="preset_name_ph" placeholder="Preset-Name (z.B. Nordschleife Tourist)" style="flex:1">
-      <button class="btn btn-red" onclick="savePreset()" data-i18n="save_preset">💾 Aktuell speichern</button>
+      <input class="inp" id="preset-name" data-i18n-placeholder="preset_name_ph" placeholder="Nombre del preset (ej. Nordschleife Turista)" style="flex:1">
+      <button class="btn btn-red" onclick="savePreset()" data-i18n="save_preset">💾 Guardar actual</button>
     </div>
   </div>
 </div>
@@ -203,19 +203,19 @@
 <div class="panel" id="p-drivers">
   <div class="g2 gap">
     <div class="card">
-      <div class="sh"><div class="sh-t" data-i18n="live_drivers">Live Fahrer</div><div class="dot pulse on" style="width:6px;height:6px"></div></div>
-      <div class="dg" id="f-drivers"><div class="empty"><div class="empty-ico">🏎️</div><div data-i18n="waiting_drivers">Warte auf Fahrer...</div></div></div>
+      <div class="sh"><div class="sh-t" data-i18n="live_drivers">Pilotos en vivo</div><div class="dot pulse on" style="width:6px;height:6px"></div></div>
+      <div class="dg" id="f-drivers"><div class="empty"><div class="empty-ico">🏎️</div><div data-i18n="waiting_drivers">Esperando pilotos...</div></div></div>
     </div>
     <div class="card">
-      <div class="sh-t" style="margin-bottom:12px" data-i18n="track_positions">Track Positionen</div>
+      <div class="sh-t" style="margin-bottom:12px" data-i18n="track_positions">Posiciones en pista</div>
       <div class="map-wrap"><canvas id="map-canvas" width="560" height="380"></canvas></div>
-      <div class="map-hint" id="map-hint" data-i18n="loading_map">Lade Streckenübersicht...</div>
+      <div class="map-hint" id="map-hint" data-i18n="loading_map">Cargando vista de la pista...</div>
     </div>
   </div>
   <div class="card">
-    <div class="sh"><div class="sh-t">💬 <span data-i18n="chat">Server Chat</span></div></div>
+    <div class="sh"><div class="sh-t">💬 <span data-i18n="chat">Chat del servidor</span></div></div>
     <div id="chat-box" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;max-height:260px;overflow-y:auto;font-size:13px;display:flex;flex-direction:column;gap:4px">
-      <div style="color:var(--muted)" data-i18n="waiting_chat">Warte auf Chat...</div>
+      <div style="color:var(--muted)" data-i18n="waiting_chat">Esperando chat...</div>
     </div>
   </div>
 </div>
@@ -224,17 +224,17 @@
 <div class="panel" id="p-laps">
   <div class="card">
     <div class="sh">
-      <div class="sh-t" data-i18n="lap_times">Rundenzeiten</div>
+      <div class="sh-t" data-i18n="lap_times">Tiempos de vuelta</div>
       <button class="btn btn-gray btn-sm" onclick="refreshLive()">↻</button>
     </div>
     <div class="tbl-wrap">
       <table>
         <thead><tr>
-          <th data-i18n="col_pos">Pos.</th><th data-i18n="col_driver">Fahrer</th><th data-i18n="col_vehicle">Fahrzeug</th>
-          <th data-i18n="col_laps">Runden</th><th data-i18n="col_best">Beste</th><th data-i18n="col_last">Letzte</th><th data-i18n="col_current">Aktuell</th>
+          <th data-i18n="col_pos">Pos.</th><th data-i18n="col_driver">Piloto</th><th data-i18n="col_vehicle">Vehículo</th>
+          <th data-i18n="col_laps">Vueltas</th><th data-i18n="col_best">Mejor</th><th data-i18n="col_last">Última</th><th data-i18n="col_current">Actual</th>
         </tr></thead>
         <tbody id="lap-tbody">
-          <tr><td colspan="7" style="text-align:center;color:var(--muted);padding:48px" data-i18n="no_data">Keine Daten – warte auf Fahrer</td></tr>
+          <tr><td colspan="7" style="text-align:center;color:var(--muted);padding:48px" data-i18n="no_data">Sin datos – esperando pilotos</td></tr>
         </tbody>
       </table>
     </div>
@@ -246,17 +246,17 @@
   <!-- Bestzeiten -->
   <div class="card gap">
     <div class="sh">
-      <div class="sh-t">🏆 <span data-i18n="best_laps">Bestzeiten (pro Fahrer &amp; Strecke)</span></div>
+      <div class="sh-t">🏆 <span data-i18n="best_laps">Mejores tiempos (por piloto y pista)</span></div>
       <button class="btn btn-gray btn-sm" onclick="loadBestLaps()">↻</button>
     </div>
     <div class="tbl-wrap">
       <table id="best-table">
         <thead><tr>
-          <th data-i18n="col_pos">Pos.</th><th data-i18n="col_driver">Fahrer</th><th data-i18n="col_car">Auto</th><th data-i18n="col_track">Strecke</th>
-          <th data-i18n="col_best">Bestzeit</th><th data-i18n="col_cuts">Cuts</th><th data-i18n="col_date">Datum</th>
+          <th data-i18n="col_pos">Pos.</th><th data-i18n="col_driver">Piloto</th><th data-i18n="col_car">Auto</th><th data-i18n="col_track">Pista</th>
+          <th data-i18n="col_best">Mejor</th><th data-i18n="col_cuts">Cortes</th><th data-i18n="col_date">Fecha</th>
         </tr></thead>
         <tbody id="best-tbody">
-          <tr><td colspan="7" style="text-align:center;color:var(--muted);padding:32px" data-i18n="loading">Lade...</td></tr>
+          <tr><td colspan="7" style="text-align:center;color:var(--muted);padding:32px" data-i18n="loading">Cargando...</td></tr>
         </tbody>
       </table>
     </div>
@@ -265,32 +265,32 @@
   <!-- Alle Rundenzeiten mit Filter -->
   <div class="card">
     <div class="sh">
-      <div class="sh-t">📋 <span data-i18n="all_laps">Alle Rundenzeiten</span></div>
+      <div class="sh-t">📋 <span data-i18n="all_laps">Todos los tiempos de vuelta</span></div>
       <div style="display:flex;gap:8px;align-items:center">
         <span id="rec-count" style="font-size:11px;color:var(--muted)"></span>
         <a id="rec-export-btn" href="/api/laptimes/export" class="btn btn-blue btn-sm">⬇ CSV</a>
-        <button class="btn btn-danger btn-sm" onclick="clearLaptimes()" data-i18n="clear_all">🗑 Alles löschen</button>
+        <button class="btn btn-danger btn-sm" onclick="clearLaptimes()" data-i18n="clear_all">🗑 Borrar todo</button>
       </div>
     </div>
 
     <!-- Filter -->
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
       <div>
-        <label class="lbl" data-i18n="col_driver">Fahrer</label>
+        <label class="lbl" data-i18n="col_driver">Piloto</label>
         <select class="sel" id="rec-filter-driver" onchange="loadAllLaps()">
-          <option value="" data-i18n="all_drivers">Alle Fahrer</option>
+          <option value="" data-i18n="all_drivers">Todos los pilotos</option>
         </select>
       </div>
       <div>
-        <label class="lbl" data-i18n="col_track">Strecke</label>
+        <label class="lbl" data-i18n="col_track">Pista</label>
         <select class="sel" id="rec-filter-track" onchange="loadAllLaps()">
-          <option value="" data-i18n="all_tracks">Alle Strecken</option>
+          <option value="" data-i18n="all_tracks">Todas las pistas</option>
         </select>
       </div>
       <div>
         <label class="lbl" data-i18n="col_car">Auto</label>
         <select class="sel" id="rec-filter-car" onchange="loadAllLaps()">
-          <option value="" data-i18n="all_cars">Alle Autos</option>
+          <option value="" data-i18n="all_cars">Todos los autos</option>
         </select>
       </div>
     </div>
@@ -298,11 +298,11 @@
     <div class="tbl-wrap">
       <table>
         <thead><tr>
-          <th data-i18n="col_pos">Pos.</th><th data-i18n="col_driver">Fahrer</th><th>GUID</th><th data-i18n="col_car">Auto</th><th data-i18n="col_track">Strecke</th>
-          <th data-i18n="col_time">Zeit</th><th data-i18n="col_cuts">Cuts</th><th data-i18n="col_date">Datum</th>
+          <th data-i18n="col_pos">Pos.</th><th data-i18n="col_driver">Piloto</th><th>GUID</th><th data-i18n="col_car">Auto</th><th data-i18n="col_track">Pista</th>
+          <th data-i18n="col_time">Tiempo</th><th data-i18n="col_cuts">Cortes</th><th data-i18n="col_date">Fecha</th>
         </tr></thead>
         <tbody id="all-tbody">
-          <tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px" data-i18n="loading">Lade...</td></tr>
+          <tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px" data-i18n="loading">Cargando...</td></tr>
         </tbody>
       </table>
     </div>
@@ -313,21 +313,21 @@
   <!-- Fahrer Statistiken -->
   <div class="card">
     <div class="sh">
-      <div class="sh-t" data-i18n="driver_stats">Fahrer Statistiken</div>
+      <div class="sh-t" data-i18n="driver_stats">Estadísticas de pilotos</div>
       <button class="btn btn-gray btn-sm" onclick="loadDriverStats()">↻</button>
     </div>
     <div class="tbl-wrap">
       <table>
         <thead><tr>
-          <th data-i18n="col_driver">Fahrer</th>
-          <th data-i18n="stat_total_laps">Runden gesamt</th>
-          <th data-i18n="stat_clean_laps">Saubere Runden</th>
-          <th data-i18n="stat_best">Beste Zeit</th>
-          <th data-i18n="col_track">Beste Strecke</th>
-          <th data-i18n="col_car">Bestes Auto</th>
+          <th data-i18n="col_driver">Piloto</th>
+          <th data-i18n="stat_total_laps">Vueltas totales</th>
+          <th data-i18n="stat_clean_laps">Vueltas limpias</th>
+          <th data-i18n="stat_best">Mejor tiempo</th>
+          <th data-i18n="col_track">Pista</th>
+          <th data-i18n="col_car">Auto</th>
         </tr></thead>
         <tbody id="stats-tbody">
-          <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px" data-i18n="loading">Lade...</td></tr>
+          <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px" data-i18n="loading">Cargando...</td></tr>
         </tbody>
       </table>
     </div>
@@ -338,7 +338,7 @@
 <div class="panel" id="p-events">
   <div class="card">
     <div class="sh">
-      <div class="sh-t">📋 Server Events <span id="ev-count" style="color:var(--muted);font-weight:400;font-size:12px"></span></div>
+      <div class="sh-t">📋 Eventos del servidor <span id="ev-count" style="color:var(--muted);font-weight:400;font-size:12px"></span></div>
       <div style="display:flex;gap:8px;align-items:center">
         <label style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);cursor:pointer">
           <input type="checkbox" id="ev-auto" checked style="accent-color:var(--red)"> Auto
@@ -348,14 +348,14 @@
     </div>
     <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
       <select class="inp" id="ev-filter" style="max-width:160px;font-size:12px" onchange="renderEvents()">
-        <option value="" data-i18n="ev_all">Alle Events</option>
-        <option value="join" data-i18n="ev_joins">Nur Beitritte</option>
-        <option value="leave" data-i18n="ev_leaves">Nur Abgänge</option>
+        <option value="" data-i18n="ev_all">Todos los eventos</option>
+        <option value="join" data-i18n="ev_joins">Solo entradas</option>
+        <option value="leave" data-i18n="ev_leaves">Solo salidas</option>
       </select>
-      <input class="inp" id="ev-search" data-i18n-placeholder="ev_driver_ph" placeholder="Fahrer filtern..." style="max-width:200px;font-size:12px" oninput="renderEvents()">
+      <input class="inp" id="ev-search" data-i18n-placeholder="ev_driver_ph" placeholder="Filtrar piloto..." style="max-width:200px;font-size:12px" oninput="renderEvents()">
     </div>
     <div id="event-log" style="max-height:620px;overflow-y:auto;display:flex;flex-direction:column;gap:3px">
-      <div style="color:var(--muted);font-size:13px;text-align:center;padding:48px" data-i18n="ev_loading">Lade Events...</div>
+      <div style="color:var(--muted);font-size:13px;text-align:center;padding:48px" data-i18n="ev_loading">Cargando eventos...</div>
     </div>
     <div id="ev-status" style="margin-top:8px;font-size:11px;color:var(--muted);text-align:right"></div>
   </div>
@@ -365,31 +365,31 @@
 <!-- ══ SETTINGS: ÜBERSICHT ═════════════════════════════════════════════════ -->
 <div class="panel" id="p-settings-overview">
   <div class="sec-hdr">
-    <div><h2>&#x1F4CA; <span data-i18n="nav_overview">&#220;bersicht</span></h2><div class="sec-sub" data-i18n="ov_subtitle">Alle aktuellen Server-Einstellungen</div></div>
+    <div><h2>&#x1F4CA; <span data-i18n="nav_overview">Resumen</span></h2><div class="sec-sub" data-i18n="ov_subtitle">Todos los ajustes actuales del servidor de un vistazo</div></div>
     <button class="btn btn-gray btn-sm" onclick="loadOverviewExtraCfg()">&#8635; extra_cfg</button>
   </div>
 
   <div class="g2 gap" style="margin-bottom:16px">
     <div class="card">
-      <div class="card-ttl">&#x2699;&#xFE0F; <span data-i18n="nav_server">Server</span></div>
+      <div class="card-ttl">&#x2699;&#xFE0F; <span data-i18n="nav_server">Servidor</span></div>
       <table class="itbl" style="margin-top:10px">
-        <tr><td data-i18n="lbl_name">Name</td><td><strong>{{ cfg.get('NAME','&#x2014;') }}</strong></td></tr>
-        <tr><td data-i18n="lbl_password">Passwort</td><td>{{ '&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;' if cfg.get('PASSWORD') else '&#x2014; (kein)' }}</td></tr>
-        <tr><td data-i18n="lbl_tcp_port">TCP/UDP Port</td><td>{{ cfg.get('UDP_PORT','&#x2014;') }}</td></tr>
-        <tr><td data-i18n="lbl_http_port">HTTP Port</td><td>{{ cfg.get('HTTP_PORT','&#x2014;') }}</td></tr>
-        <tr><td data-i18n="lbl_max_clients">Max Spieler</td><td>{{ cfg.get('MAX_CLIENTS','&#x2014;') }}</td></tr>
+        <tr><td data-i18n="lbl_name">Nombre</td><td><strong>{{ cfg.get('NAME','&#x2014;') }}</strong></td></tr>
+        <tr><td data-i18n="lbl_password">Contraseña</td><td>{{ '&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;' if cfg.get('PASSWORD') else '&#x2014; (kein)' }}</td></tr>
+        <tr><td data-i18n="lbl_tcp_port">Puerto TCP/UDP</td><td>{{ cfg.get('UDP_PORT','&#x2014;') }}</td></tr>
+        <tr><td data-i18n="lbl_http_port">Puerto HTTP</td><td>{{ cfg.get('HTTP_PORT','&#x2014;') }}</td></tr>
+        <tr><td data-i18n="lbl_max_clients">Máx. jugadores</td><td>{{ cfg.get('MAX_CLIENTS','&#x2014;') }}</td></tr>
         <tr><td>Sun Angle</td><td>{{ cfg.get('SUN_ANGLE','48') }}&#176;</td></tr>
         <tr><td>Pickup Mode</td><td>{% if cfg.get('PICKUP_MODE_ENABLED','1')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
         <tr><td>Loop Mode</td><td>{% if cfg.get('LOOP_MODE','1')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
-        <tr><td data-i18n="tog_public_lobby">&#214;ff. Lobby</td><td>{% if cfg.get('REGISTER_TO_LOBBY')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
+        <tr><td data-i18n="tog_public_lobby">Lobby pública</td><td>{% if cfg.get('REGISTER_TO_LOBBY')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
       </table>
     </div>
     <div class="card">
-      <div class="card-ttl">&#x1F5FA;&#xFE0F; <span data-i18n="nav_track">Strecke &amp; Autos</span></div>
+      <div class="card-ttl">&#x1F5FA;&#xFE0F; <span data-i18n="nav_track">Pista y autos</span></div>
       <table class="itbl" style="margin-top:10px">
-        <tr><td data-i18n="lbl_track">Strecke</td><td><strong>{{ track_ui.get(cfg.get('TRACK',''),{}).get('name', cfg.get('TRACK','&#x2014;')) }}</strong></td></tr>
-        <tr><td data-i18n="lbl_layout">Layout</td><td>{{ cfg.get('TRACK_LAYOUT','') or '&#x2014;' }}</td></tr>
-        <tr><td data-i18n="lbl_max_clients">Max Slots</td><td>{{ cfg.get('MAX_CLIENTS','&#x2014;') }}</td></tr>
+        <tr><td data-i18n="lbl_track">Pista</td><td><strong>{{ track_ui.get(cfg.get('TRACK',''),{}).get('name', cfg.get('TRACK','&#x2014;')) }}</strong></td></tr>
+        <tr><td data-i18n="lbl_layout">Trazado</td><td>{{ cfg.get('TRACK_LAYOUT','') or '&#x2014;' }}</td></tr>
+        <tr><td data-i18n="lbl_max_clients">Máx. jugadores</td><td>{{ cfg.get('MAX_CLIENTS','&#x2014;') }}</td></tr>
       </table>
       <div style="margin-top:10px">
         <div style="font-size:10px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase" data-i18n="lbl_cars_section">Autos</div>
@@ -410,55 +410,55 @@
 
   <div class="g2 gap" style="margin-bottom:16px">
     <div class="card">
-      <div class="card-ttl">&#x1F6E1;&#xFE0F; <span data-i18n="nav_assists">Fahrhilfen</span></div>
+      <div class="card-ttl">&#x1F6E1;&#xFE0F; <span data-i18n="nav_assists">Asistencias</span></div>
       <table class="itbl" style="margin-top:10px">
         <tr><td>ABS</td><td>{% if cfg.get('ABS_ALLOWED','1')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
         <tr><td>TC</td><td>{% if cfg.get('TC_ALLOWED','1')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
-        <tr><td data-i18n="tog_esp">ESP</td><td>{% if cfg.get('STABILITY_ALLOWED','0')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
-        <tr><td data-i18n="tog_autoclutch">Auto-Kupplung</td><td>{% if cfg.get('AUTOCLUTCH_ALLOWED','0')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
-        <tr><td data-i18n="tog_blanket">Reifenw&#228;rmer</td><td>{% if cfg.get('TYRE_BLANKETS_ALLOWED','0')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
-        <tr><td data-i18n="lbl_fuel_rate">Kraftstoff</td><td>{{ cfg.get('FUEL_RATE','100') }}%</td></tr>
-        <tr><td data-i18n="lbl_dmg_rate">Schaden</td><td>{{ cfg.get('DAMAGE_MULTIPLIER','100') }}%</td></tr>
-        <tr><td data-i18n="lbl_tyre_wear">Reifenversch.</td><td>{{ cfg.get('TYRE_WEAR_RATE','100') }}%</td></tr>
+        <tr><td data-i18n="tog_esp">Control de estabilidad (ESP)</td><td>{% if cfg.get('STABILITY_ALLOWED','0')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
+        <tr><td data-i18n="tog_autoclutch">Embrague automático</td><td>{% if cfg.get('AUTOCLUTCH_ALLOWED','0')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
+        <tr><td data-i18n="tog_blanket">Calefactor de neumáticos</td><td>{% if cfg.get('TYRE_BLANKETS_ALLOWED','0')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
+        <tr><td data-i18n="lbl_fuel_rate">Consumo de combustible %</td><td>{{ cfg.get('FUEL_RATE','100') }}%</td></tr>
+        <tr><td data-i18n="lbl_dmg_rate">Tasa de daño %</td><td>{{ cfg.get('DAMAGE_MULTIPLIER','100') }}%</td></tr>
+        <tr><td data-i18n="lbl_tyre_wear">Desgaste de neumáticos %</td><td>{{ cfg.get('TYRE_WEAR_RATE','100') }}%</td></tr>
       </table>
     </div>
     <div class="card">
-      <div class="card-ttl">&#x1F4C5; <span data-i18n="nav_sessions">Sessions</span></div>
+      <div class="card-ttl">&#x1F4C5; <span data-i18n="nav_sessions">Sesiones</span></div>
       <table class="itbl" style="margin-top:10px">
         <tr><td colspan="2" style="color:var(--muted);font-size:10px;text-transform:uppercase;padding-bottom:4px">&#x1F3C3; Practice</td></tr>
-        <tr><td data-i18n="lbl_duration_min">Dauer</td><td>{{ prac.get('TIME','9999') }} min</td></tr>
-        <tr><td data-i18n="lbl_open">Offen</td><td>{% if prac.get('IS_OPEN','1')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
+        <tr><td data-i18n="lbl_duration_min">Duración (min)</td><td>{{ prac.get('TIME','9999') }} min</td></tr>
+        <tr><td data-i18n="lbl_open">Abierto</td><td>{% if prac.get('IS_OPEN','1')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
         <tr><td colspan="2" style="color:var(--muted);font-size:10px;text-transform:uppercase;padding:8px 0 4px">&#x1F3CE; Qualifying</td></tr>
-        <tr><td data-i18n="lbl_duration_min">Dauer</td><td>{{ qual.get('TIME','0') }} min</td></tr>
-        <tr><td data-i18n="lbl_open">Offen</td><td>{% if qual.get('IS_OPEN','0')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
+        <tr><td data-i18n="lbl_duration_min">Duración (min)</td><td>{{ qual.get('TIME','0') }} min</td></tr>
+        <tr><td data-i18n="lbl_open">Abierto</td><td>{% if qual.get('IS_OPEN','0')=='1' %}<span style="color:var(--green)">&#10003;</span>{% else %}<span style="color:var(--muted)">&#10005;</span>{% endif %}</td></tr>
         <tr><td colspan="2" style="color:var(--muted);font-size:10px;text-transform:uppercase;padding:8px 0 4px">&#x1F3C1; Race</td></tr>
-        <tr><td data-i18n="lbl_laps_0time">Runden</td><td>{{ race.get('LAPS','0') }}</td></tr>
-        <tr><td data-i18n="lbl_wait_time">Wartezeit</td><td>{{ race.get('WAIT_TIME','0') }}s</td></tr>
+        <tr><td data-i18n="lbl_laps_0time">Vueltas (0=por tiempo)</td><td>{{ race.get('LAPS','0') }}</td></tr>
+        <tr><td data-i18n="lbl_wait_time">Tiempo de espera (s)</td><td>{{ race.get('WAIT_TIME','0') }}s</td></tr>
       </table>
     </div>
   </div>
 
   <div class="g2 gap" style="margin-bottom:16px">
     <div class="card">
-      <div class="card-ttl">&#x1F324;&#xFE0F; <span data-i18n="nav_weather">Wetter</span></div>
+      <div class="card-ttl">&#x1F324;&#xFE0F; <span data-i18n="nav_weather">Clima</span></div>
       <table class="itbl" style="margin-top:10px">
-        <tr><td colspan="2" style="color:var(--muted);font-size:10px;text-transform:uppercase;padding-bottom:4px" data-i18n="card_weather_1">Slot 1</td></tr>
+        <tr><td colspan="2" style="color:var(--muted);font-size:10px;text-transform:uppercase;padding-bottom:4px" data-i18n="card_weather_1">Clima Slot 1</td></tr>
         <tr><td>Preset</td><td>{{ w0.get('GRAPHICS','3_clear') }}</td></tr>
-        <tr><td>Ambient</td><td>{{ w0.get('BASE_TEMPERATURE_AMBIENT','18') }}&#176;C</td></tr>
-        <tr><td data-i18n="lbl_road_temp">Stra&#223;e</td><td>{{ w0.get('BASE_TEMPERATURE_ROAD','8') }}&#176;C</td></tr>
-        <tr><td colspan="2" style="color:var(--muted);font-size:10px;text-transform:uppercase;padding:8px 0 4px" data-i18n="card_weather_2">Slot 2</td></tr>
+        <tr><td>Ambiente</td><td>{{ w0.get('BASE_TEMPERATURE_AMBIENT','18') }}&#176;C</td></tr>
+        <tr><td data-i18n="lbl_road_temp">Asfalto °C</td><td>{{ w0.get('BASE_TEMPERATURE_ROAD','8') }}&#176;C</td></tr>
+        <tr><td colspan="2" style="color:var(--muted);font-size:10px;text-transform:uppercase;padding:8px 0 4px" data-i18n="card_weather_2">Clima Slot 2</td></tr>
         <tr><td>Preset</td><td>{{ w1.get('GRAPHICS','7_heavy_clouds') }}</td></tr>
-        <tr><td>Ambient</td><td>{{ w1.get('BASE_TEMPERATURE_AMBIENT','15') }}&#176;C</td></tr>
-        <tr><td data-i18n="lbl_road_temp">Stra&#223;e</td><td>{{ w1.get('BASE_TEMPERATURE_ROAD','-1') }}&#176;C</td></tr>
+        <tr><td>Ambiente</td><td>{{ w1.get('BASE_TEMPERATURE_AMBIENT','15') }}&#176;C</td></tr>
+        <tr><td data-i18n="lbl_road_temp">Asfalto °C</td><td>{{ w1.get('BASE_TEMPERATURE_ROAD','-1') }}&#176;C</td></tr>
       </table>
     </div>
     <div class="card">
-      <div class="card-ttl">&#x1F6E3;&#xFE0F; <span data-i18n="card_dynamic_track">Dynamische Strecke</span></div>
+      <div class="card-ttl">&#x1F6E3;&#xFE0F; <span data-i18n="card_dynamic_track">Pista dinámica</span></div>
       <table class="itbl" style="margin-top:10px">
-        <tr><td>Start Grip</td><td>{{ dt.get('SESSION_START','95') }}%</td></tr>
-        <tr><td data-i18n="lbl_randomness">Zuf&#228;lligkeit</td><td>{{ dt.get('RANDOMNESS','1') }}</td></tr>
-        <tr><td>Transfer</td><td>{{ dt.get('SESSION_TRANSFER','80') }}%</td></tr>
-        <tr><td data-i18n="lbl_lap_gain">Runden-Gewinn</td><td>{{ dt.get('LAP_GAIN','132') }}</td></tr>
+        <tr><td>Agarre inicial</td><td>{{ dt.get('SESSION_START','95') }}%</td></tr>
+        <tr><td data-i18n="lbl_randomness">Aleatoriedad</td><td>{{ dt.get('RANDOMNESS','1') }}</td></tr>
+        <tr><td>Transferencia</td><td>{{ dt.get('SESSION_TRANSFER','80') }}%</td></tr>
+        <tr><td data-i18n="lbl_lap_gain">Ganancia de vuelta</td><td>{{ dt.get('LAP_GAIN','132') }}</td></tr>
       </table>
     </div>
   </div>
@@ -467,62 +467,62 @@
     <div class="card-ttl">&#x1F527; AssettoServer (extra_cfg.yml)
       <span style="font-size:10px;color:var(--muted);font-weight:400;margin-left:8px" id="ov-extra-status"></span>
     </div>
-    <div id="ov-extra-content" style="margin-top:10px;color:var(--muted);font-size:12px" data-i18n="loading">Lade...</div>
+    <div id="ov-extra-content" style="margin-top:10px;color:var(--muted);font-size:12px" data-i18n="loading">Cargando...</div>
   </div>
 </div>
 
 <div class="panel" id="p-settings-server">
-  <div class="sec-hdr"><h2>⚙️ <span data-i18n="nav_server">Server</span></h2></div>
+  <div class="sec-hdr"><h2>⚙️ <span data-i18n="nav_server">Servidor</span></h2></div>
   <div class="g2 gap">
     <div class="card">
-      <div class="card-ttl" data-i18n="card_general">Allgemein</div>
-      <div class="fg"><label class="lbl">Server Name</label><input class="inp" id="sv-name" value="{{ cfg.get('NAME','') }}"></div>
-      <div class="fg"><label class="lbl" data-i18n="lbl_server_password">Server Passwort</label><input class="inp" id="sv-pass" type="password" placeholder="({{ 'gesetzt' if cfg.get('PASSWORD') else 'keins' }})"></div>
-      <div class="fg"><label class="lbl" data-i18n="lbl_admin_password">Admin Passwort</label><input class="inp" id="sv-adminpass" type="password" placeholder="({{ 'gesetzt' if cfg.get('ADMIN_PASSWORD') else 'keins' }})"></div>
-      <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_public_lobby">Öffentliche Lobby</div><div class="tog-desc" data-i18n="tog_public_lobby_desc">Im Kunos-Lobby registrieren (weltweit sichtbar)</div></div><label class="tog"><input type="checkbox" id="sv-lobby" {% if cfg.get('REGISTER_TO_LOBBY')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
+      <div class="card-ttl" data-i18n="card_general">General</div>
+      <div class="fg"><label class="lbl">Nombre del servidor</label><input class="inp" id="sv-name" value="{{ cfg.get('NAME','') }}"></div>
+      <div class="fg"><label class="lbl" data-i18n="lbl_server_password">Contraseña del servidor</label><input class="inp" id="sv-pass" type="password" placeholder="({{ 'gesetzt' if cfg.get('PASSWORD') else 'keins' }})"></div>
+      <div class="fg"><label class="lbl" data-i18n="lbl_admin_password">Contraseña de admin</label><input class="inp" id="sv-adminpass" type="password" placeholder="({{ 'gesetzt' if cfg.get('ADMIN_PASSWORD') else 'keins' }})"></div>
+      <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_public_lobby">Lobby pública</div><div class="tog-desc" data-i18n="tog_public_lobby_desc">Registrar en la lobby de Kunos (visible mundialmente)</div></div><label class="tog"><input type="checkbox" id="sv-lobby" {% if cfg.get('REGISTER_TO_LOBBY')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
       <div class="fg" style="margin-top:10px">
-        <label class="lbl"><span data-i18n="lbl_daytime">Tageszeit</span> (Sun Angle: <span id="sun-val">{{ cfg.get('SUN_ANGLE','48') }}</span>°)</label>
+        <label class="lbl"><span data-i18n="lbl_daytime">Hora del día</span> (Sun Angle: <span id="sun-val">{{ cfg.get('SUN_ANGLE','48') }}</span>°)</label>
         <div class="slider-row"><span style="font-size:11px;color:var(--muted)">🌅</span><input type="range" id="sv-sun" min="0" max="360" value="{{ cfg.get('SUN_ANGLE','48') }}" oninput="document.getElementById('sun-val').textContent=this.value"><span style="font-size:11px;color:var(--muted)">🌙</span></div>
         <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:8px">
-          <button class="btn btn-gray btn-sm" onclick="setSunAngle(316)">🌙 <span data-i18n="sun_night">Nacht</span></button>
-          <button class="btn btn-gray btn-sm" onclick="setSunAngle(40)">🌅 <span data-i18n="sun_dawn">Morgenröte</span></button>
-          <button class="btn btn-gray btn-sm" onclick="setSunAngle(75)">☀️ <span data-i18n="sun_morning">Morgen</span></button>
-          <button class="btn btn-gray btn-sm" onclick="setSunAngle(166)">🌞 <span data-i18n="sun_noon">Mittag</span></button>
-          <button class="btn btn-gray btn-sm" onclick="setSunAngle(230)">🌇 <span data-i18n="sun_afternoon">Abend</span></button>
-          <button class="btn btn-gray btn-sm" onclick="setSunAngle(285)">🌆 <span data-i18n="sun_sunset">Sonnenuntergang</span></button>
-          <button class="btn btn-gray btn-sm" onclick="setSunAngle(308)">🌃 <span data-i18n="sun_dusk">Dämmerung</span></button>
+          <button class="btn btn-gray btn-sm" onclick="setSunAngle(316)">🌙 <span data-i18n="sun_night">Noche</span></button>
+          <button class="btn btn-gray btn-sm" onclick="setSunAngle(40)">🌅 <span data-i18n="sun_dawn">Amanecer</span></button>
+          <button class="btn btn-gray btn-sm" onclick="setSunAngle(75)">☀️ <span data-i18n="sun_morning">Mañana</span></button>
+          <button class="btn btn-gray btn-sm" onclick="setSunAngle(166)">🌞 <span data-i18n="sun_noon">Mediodía</span></button>
+          <button class="btn btn-gray btn-sm" onclick="setSunAngle(230)">🌇 <span data-i18n="sun_afternoon">Tarde</span></button>
+          <button class="btn btn-gray btn-sm" onclick="setSunAngle(285)">🌆 <span data-i18n="sun_sunset">Atardecer</span></button>
+          <button class="btn btn-gray btn-sm" onclick="setSunAngle(308)">🌃 <span data-i18n="sun_dusk">Anochecer</span></button>
         </div>
       </div>
     </div>
     <div class="card">
-      <div class="card-ttl" data-i18n="card_ports_mode">Ports & Modus</div>
-      <div class="num-row"><span class="tog-lbl">UDP / TCP Port</span><input class="inp num-inp" type="number" id="sv-udp" min="1024" max="65535" value="{{ cfg.get('UDP_PORT','9600') }}"></div>
-      <div class="num-row"><span class="tog-lbl">HTTP Port</span><input class="inp num-inp" type="number" id="sv-http" min="1024" max="65535" value="{{ cfg.get('HTTP_PORT','8081') }}"></div>
-      <div class="tog-row"><div><div class="tog-lbl">Pickup Mode</div><div class="tog-desc" data-i18n="tog_pickup_desc">Spieler wählen ihr Auto selbst</div></div><label class="tog"><input type="checkbox" id="sv-pickup" {% if cfg.get('PICKUP_MODE_ENABLED','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
-      <div class="tog-row"><div><div class="tog-lbl">Loop Mode</div><div class="tog-desc" data-i18n="tog_loop_desc">Automatischer Session-Neustart</div></div><label class="tog"><input type="checkbox" id="sv-loop" {% if cfg.get('LOOP_MODE','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
-      <div class="tog-row"><div><div class="tog-lbl">Blacklist Mode</div><div class="tog-desc" data-i18n="tog_blacklist_desc">Gebannte Spieler werden abgelehnt</div></div><label class="tog"><input type="checkbox" id="sv-blacklist" {% if cfg.get('BLACKLIST_MODE','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
-      <div class="num-row"><div><span class="tog-lbl" data-i18n="lbl_kick_quorum">Kick-Quorum %</span><div style="font-size:10px;color:var(--muted)" data-i18n="lbl_kick_quorum_desc">Mindest-% für Kick-Vote</div></div><input class="inp num-inp" type="number" id="sv-kickq" min="0" max="100" value="{{ cfg.get('KICK_QUORUM','85') }}"></div>
-      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_vote_quorum">Voting-Quorum %</span><input class="inp num-inp" type="number" id="sv-voteq" min="0" max="100" value="{{ cfg.get('VOTING_QUORUM','80') }}"></div>
-      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_vote_duration">Vote-Dauer (s)</span><input class="inp num-inp" type="number" id="sv-vdur" min="5" max="120" value="{{ cfg.get('VOTE_DURATION','20') }}"></div>
-      <div class="num-row"><div><span class="tog-lbl">Race Over Time (s)</span><div style="font-size:10px;color:var(--muted)" data-i18n="lbl_race_over_desc">Zeit nach Sieger bis Session endet</div></div><input class="inp num-inp" type="number" id="sv-raceover" min="0" max="3600" value="{{ cfg.get('RACE_OVER_TIME','180') }}"></div>
-      <div class="num-row"><div><span class="tog-lbl">Client Send Rate (Hz)</span><div style="font-size:10px;color:var(--muted)" data-i18n="lbl_hz_desc">Standard: 18</div></div><input class="inp num-inp" type="number" id="sv-hz" min="1" max="60" value="{{ cfg.get('CLIENT_SEND_INTERVAL_HZ','18') }}"></div>
-      <div class="fg" style="margin-top:8px"><label class="lbl">Legal Tyres <span style="font-weight:400;color:var(--muted)" data-i18n="lbl_tyres_hint">(leer = alle erlaubt)</span></label><input class="inp" id="sv-tyres" placeholder="z.B. SV,SM,HR" value="{{ cfg.get('LEGAL_TYRES','') }}"></div>
+      <div class="card-ttl" data-i18n="card_ports_mode">Puertos y modo</div>
+      <div class="num-row"><span class="tog-lbl">Puerto UDP / TCP</span><input class="inp num-inp" type="number" id="sv-udp" min="1024" max="65535" value="{{ cfg.get('UDP_PORT','9600') }}"></div>
+      <div class="num-row"><span class="tog-lbl">Puerto HTTP</span><input class="inp num-inp" type="number" id="sv-http" min="1024" max="65535" value="{{ cfg.get('HTTP_PORT','8081') }}"></div>
+      <div class="tog-row"><div><div class="tog-lbl">Pickup Mode</div><div class="tog-desc" data-i18n="tog_pickup_desc">Los jugadores eligen su propio auto</div></div><label class="tog"><input type="checkbox" id="sv-pickup" {% if cfg.get('PICKUP_MODE_ENABLED','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
+      <div class="tog-row"><div><div class="tog-lbl">Loop Mode</div><div class="tog-desc" data-i18n="tog_loop_desc">Reinicio automático de sesión</div></div><label class="tog"><input type="checkbox" id="sv-loop" {% if cfg.get('LOOP_MODE','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
+      <div class="tog-row"><div><div class="tog-lbl">Blacklist Mode</div><div class="tog-desc" data-i18n="tog_blacklist_desc">Se rechazan los jugadores baneados</div></div><label class="tog"><input type="checkbox" id="sv-blacklist" {% if cfg.get('BLACKLIST_MODE','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
+      <div class="num-row"><div><span class="tog-lbl" data-i18n="lbl_kick_quorum">Quórum de kick %</span><div style="font-size:10px;color:var(--muted)" data-i18n="lbl_kick_quorum_desc">% mínimo para la votación de kick</div></div><input class="inp num-inp" type="number" id="sv-kickq" min="0" max="100" value="{{ cfg.get('KICK_QUORUM','85') }}"></div>
+      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_vote_quorum">Quórum de votación %</span><input class="inp num-inp" type="number" id="sv-voteq" min="0" max="100" value="{{ cfg.get('VOTING_QUORUM','80') }}"></div>
+      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_vote_duration">Duración de votación (s)</span><input class="inp num-inp" type="number" id="sv-vdur" min="5" max="120" value="{{ cfg.get('VOTE_DURATION','20') }}"></div>
+      <div class="num-row"><div><span class="tog-lbl">Tiempo fin de carrera (s)</span><div style="font-size:10px;color:var(--muted)" data-i18n="lbl_race_over_desc">Tiempo tras el ganador hasta que termina la sesión</div></div><input class="inp num-inp" type="number" id="sv-raceover" min="0" max="3600" value="{{ cfg.get('RACE_OVER_TIME','180') }}"></div>
+      <div class="num-row"><div><span class="tog-lbl">Frecuencia de envío (Hz)</span><div style="font-size:10px;color:var(--muted)" data-i18n="lbl_hz_desc">Por defecto: 18</div></div><input class="inp num-inp" type="number" id="sv-hz" min="1" max="60" value="{{ cfg.get('CLIENT_SEND_INTERVAL_HZ','18') }}"></div>
+      <div class="fg" style="margin-top:8px"><label class="lbl">Neumáticos legales <span style="font-weight:400;color:var(--muted)" data-i18n="lbl_tyres_hint">vacío = todos permitidos</span></label><input class="inp" id="sv-tyres" placeholder="z.B. SV,SM,HR" value="{{ cfg.get('LEGAL_TYRES','') }}"></div>
     </div>
   </div>
   <div class="save-footer">
-    <button class="btn btn-red" onclick="saveAllServerSettings()" data-i18n="btn_save_server">💾 Server-Einstellungen speichern</button>
-    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Neustart</button>
+    <button class="btn btn-red" onclick="saveAllServerSettings()" data-i18n="btn_save_server">💾 Guardar ajustes del servidor</button>
+    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Reiniciar</button>
   </div>
 </div>
 
 <!-- ══ SETTINGS: STRECKE & AUTOS ═══════════════════════════════════════════ -->
 <div class="panel" id="p-settings-track">
-  <div class="sec-hdr"><h2>🗺️ <span data-i18n="nav_track">Strecke & Autos</span></h2></div>
+  <div class="sec-hdr"><h2>🗺️ <span data-i18n="nav_track">Pista y autos</span></h2></div>
   <div class="g2 gap">
     <div class="card">
-      <div class="card-ttl" data-i18n="sec_track">Strecke</div>
+      <div class="card-ttl" data-i18n="sec_track">Pista</div>
       <div class="fg">
-        <label class="lbl" data-i18n="lbl_track">Strecke</label>
+        <label class="lbl" data-i18n="lbl_track">Pista</label>
         <select class="sel" id="s-track" onchange="updateLayouts();loadTrackPreview()">
           {% for t in tracks %}<option value="{{ t.name }}" data-layouts='{{ t.layouts|tojson }}' {% if t.name == cfg.get('TRACK') %}selected{% endif %}>{{ track_ui.get(t.name, {}).get('name', t.name) }}</option>{% endfor %}
         </select>
@@ -530,11 +530,11 @@
         <div class="track-info-bar" id="track-info-bar"><span>📏 <span id="ti-length"></span></span><span>🅿️ <span id="ti-pits"></span></span></div>
       </div>
       <div class="fg"><label class="lbl">Layout</label><select class="sel" id="s-layout" onchange="loadTrackPreview()"></select></div>
-      <div class="fg"><label class="lbl" data-i18n="lbl_slots_per_car">Slots pro Auto</label><input class="inp num-inp" type="number" id="slots-per-car" min="1" max="5" value="2"></div>
+      <div class="fg"><label class="lbl" data-i18n="lbl_slots_per_car">Slots por auto</label><input class="inp num-inp" type="number" id="slots-per-car" min="1" max="5" value="2"></div>
     </div>
     <div class="card">
-      <div class="card-ttl" data-i18n="card_vehicles">Fahrzeuge</div>
-      <input class="inp" id="car-search" data-i18n-placeholder="ph_search" placeholder="Suchen..." oninput="filterCars()" style="margin-bottom:6px">
+      <div class="card-ttl" data-i18n="card_vehicles">Vehículos</div>
+      <input class="inp" id="car-search" data-i18n-placeholder="ph_search" placeholder="Buscar..." oninput="filterCars()" style="margin-bottom:6px">
       <div class="clist" id="car-list">
         {% for c in cars %}
         <div class="ci" onclick="toggleCar(this,event)">
@@ -545,7 +545,7 @@
         </div>
         <div class="car-cfg" id="cfg-{{ c }}">
           <div><label class="lbl">Skin</label><select class="sel" id="skin-{{ c }}" style="font-size:11px"></select></div>
-          <div><label class="lbl">Ballast kg</label><input class="inp num-inp" type="number" id="ballast-{{ c }}" min="0" max="150" value="0" style="width:100%"></div>
+          <div><label class="lbl">Lastre kg</label><input class="inp num-inp" type="number" id="ballast-{{ c }}" min="0" max="150" value="0" style="width:100%"></div>
           <div><label class="lbl">Restrictor %</label><input class="inp num-inp" type="number" id="restrictor-{{ c }}" min="0" max="400" value="0" style="width:100%"></div>
         </div>
         {% endfor %}
@@ -553,130 +553,130 @@
     </div>
   </div>
   <div class="save-footer">
-    <button class="btn btn-red" onclick="saveTrackCars()" data-i18n="btn_save_track">💾 Strecke & Autos speichern</button>
-    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Neustart</button>
+    <button class="btn btn-red" onclick="saveTrackCars()" data-i18n="btn_save_track">💾 Guardar pista y autos</button>
+    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Reiniciar</button>
   </div>
 </div>
 
 <!-- ══ SETTINGS: FAHRHILFEN ════════════════════════════════════════════════ -->
 <div class="panel" id="p-settings-assists">
-  <div class="sec-hdr"><h2>🛡️ <span data-i18n="nav_assists">Fahrhilfen</span> & <span data-i18n="sec_rules">Regeln</span></h2></div>
+  <div class="sec-hdr"><h2>🛡️ <span data-i18n="nav_assists">Asistencias</span> & <span data-i18n="sec_rules">Reglas</span></h2></div>
   <div class="g2 gap">
     <div class="card">
-      <div class="card-ttl" data-i18n="nav_assists">Fahrhilfen</div>
-      <div class="tog-row"><div><div class="tog-lbl">ABS</div><div class="tog-desc" data-i18n="tog_abs_desc">Anti-Blockier-System</div></div><label class="tog"><input type="checkbox" id="a-abs" {% if cfg.get('ABS_ALLOWED','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
-      <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_tc">Traktionskontrolle (TC)</div></div><label class="tog"><input type="checkbox" id="a-tc" {% if cfg.get('TC_ALLOWED','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
-      <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_esp">Stabilitätskontrolle (ESP)</div></div><label class="tog"><input type="checkbox" id="a-stab" {% if cfg.get('STABILITY_ALLOWED','0')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
-      <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_autoclutch">Auto-Kupplung</div></div><label class="tog"><input type="checkbox" id="a-clutch" {% if cfg.get('AUTOCLUTCH_ALLOWED','0')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
-      <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_blanket">Reifenwärmer</div></div><label class="tog"><input type="checkbox" id="a-blanket" {% if cfg.get('TYRE_BLANKETS_ALLOWED','0')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
-      <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_virtual_mirror">Virtueller Spiegel (erzwingen)</div></div><label class="tog"><input type="checkbox" id="a-mirror" {% if cfg.get('FORCE_VIRTUAL_MIRROR','0')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
+      <div class="card-ttl" data-i18n="nav_assists">Asistencias</div>
+      <div class="tog-row"><div><div class="tog-lbl">ABS</div><div class="tog-desc" data-i18n="tog_abs_desc">Sistema antibloqueo (ABS)</div></div><label class="tog"><input type="checkbox" id="a-abs" {% if cfg.get('ABS_ALLOWED','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
+      <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_tc">Control de tracción (TC)</div></div><label class="tog"><input type="checkbox" id="a-tc" {% if cfg.get('TC_ALLOWED','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
+      <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_esp">Control de estabilidad (ESP)</div></div><label class="tog"><input type="checkbox" id="a-stab" {% if cfg.get('STABILITY_ALLOWED','0')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
+      <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_autoclutch">Embrague automático</div></div><label class="tog"><input type="checkbox" id="a-clutch" {% if cfg.get('AUTOCLUTCH_ALLOWED','0')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
+      <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_blanket">Calefactor de neumáticos</div></div><label class="tog"><input type="checkbox" id="a-blanket" {% if cfg.get('TYRE_BLANKETS_ALLOWED','0')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
+      <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_virtual_mirror">Espejo virtual (forzar)</div></div><label class="tog"><input type="checkbox" id="a-mirror" {% if cfg.get('FORCE_VIRTUAL_MIRROR','0')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
     </div>
     <div class="card">
-      <div class="card-ttl" data-i18n="card_damage">Schaden & Verschleiß</div>
-      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_fuel_rate">Kraftstoffverbrauch %</span><input class="inp num-inp" type="number" id="v-fuel" min="0" max="200" value="{{ cfg.get('FUEL_RATE','100') }}"></div>
-      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_dmg_rate">Schadensrate %</span><input class="inp num-inp" type="number" id="v-dmg" min="0" max="200" value="{{ cfg.get('DAMAGE_MULTIPLIER','100') }}"></div>
-      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_tyre_wear">Reifenverschleiß %</span><input class="inp num-inp" type="number" id="v-tyre" min="0" max="200" value="{{ cfg.get('TYRE_WEAR_RATE','100') }}"></div>
-      <div class="num-row"><div><span class="tog-lbl" data-i18n="lbl_tyre_out">Erlaubte Reifenausritte</span><div style="font-size:10px;color:var(--muted)" data-i18n="lbl_tyre_out_desc">0=alle, 2=Standard</div></div><input class="inp num-inp" type="number" id="v-tyreout" min="0" max="4" value="{{ cfg.get('ALLOWED_TYRES_OUT','2') }}"></div>
-      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_max_players">Max. Spieler</span><input class="inp num-inp" type="number" id="v-maxcl" min="1" max="200" value="{{ cfg.get('MAX_CLIENTS','8') }}"></div>
+      <div class="card-ttl" data-i18n="card_damage">Daño y desgaste</div>
+      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_fuel_rate">Consumo de combustible %</span><input class="inp num-inp" type="number" id="v-fuel" min="0" max="200" value="{{ cfg.get('FUEL_RATE','100') }}"></div>
+      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_dmg_rate">Tasa de daño %</span><input class="inp num-inp" type="number" id="v-dmg" min="0" max="200" value="{{ cfg.get('DAMAGE_MULTIPLIER','100') }}"></div>
+      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_tyre_wear">Desgaste de neumáticos %</span><input class="inp num-inp" type="number" id="v-tyre" min="0" max="200" value="{{ cfg.get('TYRE_WEAR_RATE','100') }}"></div>
+      <div class="num-row"><div><span class="tog-lbl" data-i18n="lbl_tyre_out">Cortes de rueda permitidos</span><div style="font-size:10px;color:var(--muted)" data-i18n="lbl_tyre_out_desc">0=todos, 2=estándar</div></div><input class="inp num-inp" type="number" id="v-tyreout" min="0" max="4" value="{{ cfg.get('ALLOWED_TYRES_OUT','2') }}"></div>
+      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_max_players">Máx. jugadores</span><input class="inp num-inp" type="number" id="v-maxcl" min="1" max="200" value="{{ cfg.get('MAX_CLIENTS','8') }}"></div>
     </div>
   </div>
   <div class="save-footer">
-    <button class="btn btn-red" onclick="saveAssists()" data-i18n="btn_save_assists">💾 Fahrhilfen speichern</button>
-    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Neustart</button>
+    <button class="btn btn-red" onclick="saveAssists()" data-i18n="btn_save_assists">💾 Guardar asistencias</button>
+    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Reiniciar</button>
   </div>
 </div>
 
 <!-- ══ SETTINGS: SESSIONS ══════════════════════════════════════════════════ -->
 <div class="panel" id="p-settings-sessions">
-  <div class="sec-hdr"><h2>📅 <span data-i18n="nav_sessions">Sessions</span></h2></div>
+  <div class="sec-hdr"><h2>📅 <span data-i18n="nav_sessions">Sesiones</span></h2></div>
   {% set practice = full_cfg.get('PRACTICE', {}) %}
   {% set qualify  = full_cfg.get('QUALIFY',  {}) %}
   {% set race     = full_cfg.get('RACE',     {}) %}
   <div class="g3 gap">
     <div class="card">
       <div class="card-ttl">🏃 Practice</div>
-      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_duration_min">Dauer (min)</span><input class="inp num-inp" type="number" id="prc-time" value="{{ practice.get('TIME','9999') }}"></div>
-      <div class="tog-row"><div class="tog-lbl" data-i18n="lbl_open_practice">Offen (freier Beitritt)</div><label class="tog"><input type="checkbox" id="prc-open" {% if practice.get('IS_OPEN','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
+      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_duration_min">Duración (min)</span><input class="inp num-inp" type="number" id="prc-time" value="{{ practice.get('TIME','9999') }}"></div>
+      <div class="tog-row"><div class="tog-lbl" data-i18n="lbl_open_practice">Abierto (entrada libre)</div><label class="tog"><input type="checkbox" id="prc-open" {% if practice.get('IS_OPEN','1')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
     </div>
     <div class="card">
       <div class="card-ttl">🏎 Qualifying</div>
-      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_duration_min">Dauer (min)</span><input class="inp num-inp" type="number" id="qlf-time" value="{{ qualify.get('TIME','0') }}"></div>
-      <div class="tog-row"><div class="tog-lbl" data-i18n="lbl_open">Offen</div><label class="tog"><input type="checkbox" id="qlf-open" {% if qualify.get('IS_OPEN','0')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
+      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_duration_min">Duración (min)</span><input class="inp num-inp" type="number" id="qlf-time" value="{{ qualify.get('TIME','0') }}"></div>
+      <div class="tog-row"><div class="tog-lbl" data-i18n="lbl_open">Abierto</div><label class="tog"><input type="checkbox" id="qlf-open" {% if qualify.get('IS_OPEN','0')=='1' %}checked{% endif %}><span class="tog-sl"></span></label></div>
     </div>
     <div class="card">
       <div class="card-ttl">🏁 Race</div>
-      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_laps_0time">Runden (0=zeitbasiert)</span><input class="inp num-inp" type="number" id="race-laps" value="{{ race.get('LAPS','0') }}"></div>
-      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_wait_time">Wartezeit (s)</span><input class="inp num-inp" type="number" id="race-wait" value="{{ race.get('WAIT_TIME','0') }}"></div>
+      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_laps_0time">Vueltas (0=por tiempo)</span><input class="inp num-inp" type="number" id="race-laps" value="{{ race.get('LAPS','0') }}"></div>
+      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_wait_time">Tiempo de espera (s)</span><input class="inp num-inp" type="number" id="race-wait" value="{{ race.get('WAIT_TIME','0') }}"></div>
     </div>
   </div>
   <div class="save-footer">
-    <button class="btn btn-red" onclick="saveSessions()" data-i18n="btn_save_sessions">💾 Sessions speichern</button>
-    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Neustart</button>
+    <button class="btn btn-red" onclick="saveSessions()" data-i18n="btn_save_sessions">💾 Guardar sesiones</button>
+    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Reiniciar</button>
   </div>
 </div>
 
 <!-- ══ SETTINGS: WETTER ════════════════════════════════════════════════════ -->
 <div class="panel" id="p-settings-weather">
-  <div class="sec-hdr"><h2>🌤️ <span data-i18n="nav_weather">Wetter</span> & <span data-i18n="sec_track">Strecke</span></h2></div>
+  <div class="sec-hdr"><h2>🌤️ <span data-i18n="nav_weather">Clima</span> & <span data-i18n="sec_track">Pista</span></h2></div>
   {% set w0 = full_cfg.get('WEATHER_0', {}) %}
   {% set w1 = full_cfg.get('WEATHER_1', {}) %}
   {% set dt = full_cfg.get('DYNAMIC_TRACK', {}) %}
   <div class="g3 gap">
     <div class="card">
-      <div class="card-ttl" data-i18n="card_weather_1">Wetter Slot 1</div>
-      <div class="fg"><label class="lbl" data-i18n="lbl_graphics_preset">Grafik-Preset</label><select class="sel" id="w0-graphics">{% for wp in weather_presets %}<option value="{{ wp }}" {% if w0.get('GRAPHICS','3_clear')==wp %}selected{% endif %}>{{ wp }}</option>{% endfor %}</select></div>
-      <div class="g2"><div><label class="lbl">Ambient °C</label><input class="inp" type="number" id="w0-amb" value="{{ w0.get('BASE_TEMPERATURE_AMBIENT','18') }}"></div><div><label class="lbl" data-i18n="lbl_road_temp">Straße °C</label><input class="inp" type="number" id="w0-road" value="{{ w0.get('BASE_TEMPERATURE_ROAD','8') }}"></div></div>
+      <div class="card-ttl" data-i18n="card_weather_1">Clima Slot 1</div>
+      <div class="fg"><label class="lbl" data-i18n="lbl_graphics_preset">Preset gráfico</label><select class="sel" id="w0-graphics">{% for wp in weather_presets %}<option value="{{ wp }}" {% if w0.get('GRAPHICS','3_clear')==wp %}selected{% endif %}>{{ wp }}</option>{% endfor %}</select></div>
+      <div class="g2"><div><label class="lbl">Temp. ambiente °C</label><input class="inp" type="number" id="w0-amb" value="{{ w0.get('BASE_TEMPERATURE_AMBIENT','18') }}"></div><div><label class="lbl" data-i18n="lbl_road_temp">Asfalto °C</label><input class="inp" type="number" id="w0-road" value="{{ w0.get('BASE_TEMPERATURE_ROAD','8') }}"></div></div>
     </div>
     <div class="card">
-      <div class="card-ttl" data-i18n="card_weather_2">Wetter Slot 2</div>
-      <div class="fg"><label class="lbl" data-i18n="lbl_graphics_preset">Grafik-Preset</label><select class="sel" id="w1-graphics">{% for wp in weather_presets %}<option value="{{ wp }}" {% if w1.get('GRAPHICS','7_heavy_clouds')==wp %}selected{% endif %}>{{ wp }}</option>{% endfor %}</select></div>
-      <div class="g2"><div><label class="lbl">Ambient °C</label><input class="inp" type="number" id="w1-amb" value="{{ w1.get('BASE_TEMPERATURE_AMBIENT','15') }}"></div><div><label class="lbl" data-i18n="lbl_road_temp">Straße °C</label><input class="inp" type="number" id="w1-road" value="{{ w1.get('BASE_TEMPERATURE_ROAD','-1') }}"></div></div>
+      <div class="card-ttl" data-i18n="card_weather_2">Clima Slot 2</div>
+      <div class="fg"><label class="lbl" data-i18n="lbl_graphics_preset">Preset gráfico</label><select class="sel" id="w1-graphics">{% for wp in weather_presets %}<option value="{{ wp }}" {% if w1.get('GRAPHICS','7_heavy_clouds')==wp %}selected{% endif %}>{{ wp }}</option>{% endfor %}</select></div>
+      <div class="g2"><div><label class="lbl">Temp. ambiente °C</label><input class="inp" type="number" id="w1-amb" value="{{ w1.get('BASE_TEMPERATURE_AMBIENT','15') }}"></div><div><label class="lbl" data-i18n="lbl_road_temp">Asfalto °C</label><input class="inp" type="number" id="w1-road" value="{{ w1.get('BASE_TEMPERATURE_ROAD','-1') }}"></div></div>
     </div>
     <div class="card">
-      <div class="card-ttl" data-i18n="card_dynamic_track">Dynamische Strecke</div>
-      <div class="num-row"><span class="tog-lbl">Start Grip %</span><input class="inp num-inp" type="number" id="dt-start" min="0" max="100" value="{{ dt.get('SESSION_START','95') }}"></div>
-      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_randomness">Zufälligkeit</span><input class="inp num-inp" type="number" id="dt-rand" min="0" max="10" value="{{ dt.get('RANDOMNESS','1') }}"></div>
-      <div class="num-row"><span class="tog-lbl">Session Transfer %</span><input class="inp num-inp" type="number" id="dt-transfer" min="0" max="100" value="{{ dt.get('SESSION_TRANSFER','80') }}"></div>
-      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_lap_gain">Runden-Gewinn</span><input class="inp num-inp" type="number" id="dt-lap" min="0" max="500" value="{{ dt.get('LAP_GAIN','132') }}"></div>
+      <div class="card-ttl" data-i18n="card_dynamic_track">Pista dinámica</div>
+      <div class="num-row"><span class="tog-lbl">Agarre inicial %</span><input class="inp num-inp" type="number" id="dt-start" min="0" max="100" value="{{ dt.get('SESSION_START','95') }}"></div>
+      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_randomness">Aleatoriedad</span><input class="inp num-inp" type="number" id="dt-rand" min="0" max="10" value="{{ dt.get('RANDOMNESS','1') }}"></div>
+      <div class="num-row"><span class="tog-lbl">Transferencia de sesión %</span><input class="inp num-inp" type="number" id="dt-transfer" min="0" max="100" value="{{ dt.get('SESSION_TRANSFER','80') }}"></div>
+      <div class="num-row"><span class="tog-lbl" data-i18n="lbl_lap_gain">Ganancia de vuelta</span><input class="inp num-inp" type="number" id="dt-lap" min="0" max="500" value="{{ dt.get('LAP_GAIN','132') }}"></div>
     </div>
   </div>
   <div class="save-footer">
-    <button class="btn btn-red" onclick="saveWeatherPage()" data-i18n="btn_save_weather">💾 Wetter & Strecke speichern</button>
-    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Neustart</button>
+    <button class="btn btn-red" onclick="saveWeatherPage()" data-i18n="btn_save_weather">💾 Guardar clima y pista</button>
+    <button class="btn btn-gray" onclick="ctrl('restart')">↻ Reiniciar</button>
   </div>
 </div>
 
 <!-- ══ SETTINGS: PROFIL ════════════════════════════════════════════════════ -->
 <div class="panel" id="p-settings-profile">
-  <div class="sec-hdr"><h2>🎨 <span data-i18n="nav_profile">Serverprofil</span></h2></div>
+  <div class="sec-hdr"><h2>🎨 <span data-i18n="nav_profile">Perfil del servidor</span></h2></div>
   <div class="card gap">
-    <div class="card-ttl" data-i18n="card_server_logo">Server-Logo</div>
+    <div class="card-ttl" data-i18n="card_server_logo">Logo del servidor</div>
     <div style="display:flex;gap:1rem;align-items:flex-start">
       <img id="logo-preview" src="/api/server_logo" onerror="this.style.display='none';document.getElementById('logo-placeholder').style.display='flex'" onload="this.style.display='';document.getElementById('logo-placeholder').style.display='none'" style="width:100px;height:100px;object-fit:contain;border:1px solid var(--border);border-radius:6px;background:#111">
-      <div id="logo-placeholder" style="display:none;width:100px;height:100px;border:1px dashed var(--border);border-radius:6px;align-items:center;justify-content:center;color:var(--muted);font-size:11px;flex-shrink:0" data-i18n="lbl_no_logo">kein Logo</div>
-      <div style="flex:1"><label class="lbl">PNG / JPG</label><input type="file" id="logo-inp" accept="image/png,image/jpeg,image/webp" style="display:block;margin-bottom:8px;color:var(--text);font-size:12px" onchange="previewLogo(this)"><button class="btn btn-gray btn-sm" onclick="uploadLogo()" data-i18n="btn_upload_image">Bild hochladen</button></div>
+      <div id="logo-placeholder" style="display:none;width:100px;height:100px;border:1px dashed var(--border);border-radius:6px;align-items:center;justify-content:center;color:var(--muted);font-size:11px;flex-shrink:0" data-i18n="lbl_no_logo">sin logo</div>
+      <div style="flex:1"><label class="lbl">PNG / JPG</label><input type="file" id="logo-inp" accept="image/png,image/jpeg,image/webp" style="display:block;margin-bottom:8px;color:var(--text);font-size:12px" onchange="previewLogo(this)"><button class="btn btn-gray btn-sm" onclick="uploadLogo()" data-i18n="btn_upload_image">Subir imagen</button></div>
     </div>
   </div>
   <div class="card" style="margin-top:16px">
-    <div class="card-ttl"><span data-i18n="card_welcome">Willkommensnachricht</span> <span style="font-weight:400;color:var(--muted);float:right" id="welcome-chars">0 <span data-i18n="lbl_chars">Zeichen</span></span></div>
-    <div style="font-size:11px;color:var(--muted);margin-bottom:8px" data-i18n="lbl_welcome_desc">Wird im Content Manager angezeigt wenn ein Spieler diesen Server auswählt.</div>
+    <div class="card-ttl"><span data-i18n="card_welcome">Mensaje de bienvenida</span> <span style="font-weight:400;color:var(--muted);float:right" id="welcome-chars">0 <span data-i18n="lbl_chars">caracteres</span></span></div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:8px" data-i18n="lbl_welcome_desc">Mensaje de chat que el jugador ve al unirse en el juego.</div>
     <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap">
-      <button class="btn btn-gray btn-sm" onclick="insertWelcomeText('\n\n')" data-i18n="btn_para">↵ Absatz</button>
-      <button class="btn btn-gray btn-sm" onclick="insertWelcomeText('• ')" data-i18n="btn_bullet">• Punkt</button>
-      <button class="btn btn-gray btn-sm" onclick="insertWelcomeText('★ ')" data-i18n="btn_star">★ Stern</button>
+      <button class="btn btn-gray btn-sm" onclick="insertWelcomeText('\n\n')" data-i18n="btn_para">↵ Párrafo</button>
+      <button class="btn btn-gray btn-sm" onclick="insertWelcomeText('• ')" data-i18n="btn_bullet">• Viñeta</button>
+      <button class="btn btn-gray btn-sm" onclick="insertWelcomeText('★ ')" data-i18n="btn_star">★ Estrella</button>
       <button class="btn btn-gray btn-sm" onclick="insertWelcomeText('🏁 ')">🏁</button>
       <button class="btn btn-gray btn-sm" onclick="insertWelcomeText('🚗 ')">🚗</button>
       <button class="btn btn-gray btn-sm" onclick="insertWelcomeText('⚡ ')">⚡</button>
-      <button class="btn btn-gray btn-sm" onclick="insertWelcomeVar('NAME')" data-i18n="btn_var_name">Servername</button>
-      <button class="btn btn-gray btn-sm" onclick="insertWelcomeVar('TRACK')" data-i18n="btn_trackname">Strecke</button>
+      <button class="btn btn-gray btn-sm" onclick="insertWelcomeVar('NAME')" data-i18n="btn_var_name">Nombre del servidor</button>
+      <button class="btn btn-gray btn-sm" onclick="insertWelcomeVar('TRACK')" data-i18n="btn_trackname">Pista</button>
     </div>
     <div class="g2">
-      <div><label class="lbl" data-i18n="lbl_edit">Bearbeiten</label><textarea id="welcome-msg" rows="12" class="ta" placeholder="Willkommen auf unserem Server!&#10;&#10;• Respektvoller Umgang&#10;• Sauberes Fahren" oninput="updateWelcomePreview()"></textarea></div>
-      <div><label class="lbl" data-i18n="lbl_cm_preview">Vorschau (wie im Content Manager)</label><div id="welcome-preview" style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:12px;min-height:200px;font-size:13px;white-space:pre-wrap;color:var(--text);line-height:1.7;overflow-y:auto"></div></div>
+      <div><label class="lbl" data-i18n="lbl_edit">Editar</label><textarea id="welcome-msg" rows="12" class="ta" placeholder="Bienvenido a nuestro servidor!&#10;&#10;• Trato respetuoso&#10;• Conducción limpia" oninput="updateWelcomePreview()"></textarea></div>
+      <div><label class="lbl" data-i18n="lbl_cm_preview">Vista previa (como en Content Manager)</label><div id="welcome-preview" style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:12px;min-height:200px;font-size:13px;white-space:pre-wrap;color:var(--text);line-height:1.7;overflow-y:auto"></div></div>
     </div>
   </div>
   <div class="save-footer">
-    <button class="btn btn-red" onclick="saveServerProfile()" data-i18n="btn_save_profile">💾 Profil speichern</button>
+    <button class="btn btn-red" onclick="saveServerProfile()" data-i18n="btn_save_profile">💾 Guardar perfil</button>
   </div>
 </div>
 
@@ -684,10 +684,10 @@
 <div class="panel" id="p-content">
   <div class="g2 gap">
     <div class="card" style="max-width:660px">
-      <div class="card-ttl" data-i18n="card_folder_upload">Ordner hochladen</div>
+      <div class="card-ttl" data-i18n="card_folder_upload">Subir carpeta</div>
       <div style="display:flex;gap:10px;margin-bottom:14px">
         <button class="btn btn-gray" id="type-car-btn" onclick="setFolderType('car')" style="flex:1" data-i18n="btn_type_car">🚗 Auto</button>
-        <button class="btn btn-gray" id="type-track-btn" onclick="setFolderType('track')" style="flex:1" data-i18n="btn_type_track">🏁 Strecke</button>
+        <button class="btn btn-gray" id="type-track-btn" onclick="setFolderType('track')" style="flex:1" data-i18n="btn_type_track">🏁 Pista</button>
       </div>
       <div class="dropzone" id="folder-dz" onclick="document.getElementById('folder-inp').click()"
            ondragover="event.preventDefault();this.classList.add('dz-over')"
@@ -695,24 +695,24 @@
            ondrop="event.preventDefault();this.classList.remove('dz-over');handleFolderDrop(event)"
            style="opacity:0.4;pointer-events:none">
         <div style="font-size:36px;margin-bottom:8px">📁</div>
-        <div style="font-size:14px;font-weight:700;margin-bottom:4px" id="folder-dz-hint" data-i18n="folder_hint_choose">Zuerst Auto oder Strecke wählen</div>
-        <div style="font-size:12px;color:var(--muted)" data-i18n="folder_hint_drag">Ordner auswählen oder hierher ziehen</div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:4px" id="folder-dz-hint" data-i18n="folder_hint_choose">Primero elige auto o pista</div>
+        <div style="font-size:12px;color:var(--muted)" data-i18n="folder_hint_drag">Selecciona carpeta o arrastra aquí</div>
         <input type="file" id="folder-inp" webkitdirectory multiple style="display:none" onchange="analyzeFolder(this.files)">
       </div>
       <div style="height:1px;background:var(--border);margin:20px 0"></div>
-      <div class="card-ttl" data-i18n="card_zip_upload">ZIP hochladen</div>
+      <div class="card-ttl" data-i18n="card_zip_upload">Subir ZIP</div>
       <div class="dropzone" onclick="document.getElementById('zip-inp').click()" id="dz"
            ondragover="event.preventDefault();this.classList.add('dz-over')"
            ondragleave="this.classList.remove('dz-over')"
            ondrop="event.preventDefault();this.classList.remove('dz-over');handleDrop(event)">
         <div style="font-size:40px;margin-bottom:10px">📦</div>
-        <div style="font-size:15px;font-weight:700;margin-bottom:4px" data-i18n="zip_hint_drag">ZIP auswählen oder hierher ziehen</div>
-        <div style="font-size:12px;color:var(--muted)" data-i18n="zip_hint_size">Autos und/oder Strecken als ZIP · Max 2 GB</div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:4px" data-i18n="zip_hint_drag">Selecciona ZIP o arrastra aquí</div>
+        <div style="font-size:12px;color:var(--muted)" data-i18n="zip_hint_size">Autos y/o pistas en ZIP · Máx 2 GB</div>
         <input type="file" id="zip-inp" accept=".zip" style="display:none" onchange="uploadZip(this.files[0])">
       </div>
       <div id="up-prog" style="display:none;margin-top:14px">
         <div style="display:flex;justify-content:space-between;margin-bottom:5px">
-          <span style="font-size:12px;color:var(--muted)" id="up-msg">Uploading...</span>
+          <span style="font-size:12px;color:var(--muted)" id="up-msg">Subiendo...</span>
           <span style="font-size:12px;font-weight:700" id="up-pct">0%</span>
         </div>
         <div class="bar"><div class="bar-fill bar-cpu" id="up-bar" style="width:0%"></div></div>
@@ -722,16 +722,16 @@
     <!-- Installierte Inhalte -->
     <div class="card">
       <div class="sh">
-        <div class="sh-t" data-i18n="card_installed">Installierte Inhalte</div>
+        <div class="sh-t" data-i18n="card_installed">Contenido instalado</div>
         <button class="btn btn-gray btn-sm" onclick="loadInstalledContent()">↻</button>
       </div>
       <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase" data-i18n="lbl_cars_section">Autos</div>
       <div id="installed-cars" style="display:flex;flex-direction:column;gap:4px;margin-bottom:16px">
-        <div style="color:var(--muted);font-size:12px" data-i18n="loading">Lade...</div>
+        <div style="color:var(--muted);font-size:12px" data-i18n="loading">Cargando...</div>
       </div>
-      <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase" data-i18n="lbl_tracks_section">Strecken</div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase" data-i18n="lbl_tracks_section">Pistas</div>
       <div id="installed-tracks" style="display:flex;flex-direction:column;gap:4px">
-        <div style="color:var(--muted);font-size:12px" data-i18n="loading">Lade...</div>
+        <div style="color:var(--muted);font-size:12px" data-i18n="loading">Cargando...</div>
       </div>
     </div>
   </div>
@@ -746,10 +746,10 @@
         <div class="sh-t">✅ Whitelist</div>
         <button class="btn btn-gray btn-sm" onclick="loadGuidList('whitelist')">↻</button>
       </div>
-      <div class="guid-list" id="wl-list" style="margin-bottom:10px"><div style="color:var(--muted);font-size:12px;padding:8px" data-i18n="loading">Lade...</div></div>
+      <div class="guid-list" id="wl-list" style="margin-bottom:10px"><div style="color:var(--muted);font-size:12px;padding:8px" data-i18n="loading">Cargando...</div></div>
       <div style="display:flex;gap:6px">
         <input class="inp" id="wl-input" placeholder="Steam GUID..." style="flex:1;font-size:12px">
-        <button class="btn btn-green btn-sm" onclick="addGuid('whitelist')" data-i18n="btn_add">+ Hinzufügen</button>
+        <button class="btn btn-green btn-sm" onclick="addGuid('whitelist')" data-i18n="btn_add">+ Añadir</button>
       </div>
     </div>
     <!-- Admins -->
@@ -758,20 +758,20 @@
         <div class="sh-t">👑 Admins</div>
         <button class="btn btn-gray btn-sm" onclick="loadGuidList('admins')">↻</button>
       </div>
-      <div class="guid-list" id="adm-list" style="margin-bottom:10px"><div style="color:var(--muted);font-size:12px;padding:8px" data-i18n="loading">Lade...</div></div>
+      <div class="guid-list" id="adm-list" style="margin-bottom:10px"><div style="color:var(--muted);font-size:12px;padding:8px" data-i18n="loading">Cargando...</div></div>
       <div style="display:flex;gap:6px">
         <input class="inp" id="adm-input" placeholder="Steam GUID..." style="flex:1;font-size:12px">
-        <button class="btn btn-green btn-sm" onclick="addGuid('admins')" data-i18n="btn_add">+ Hinzufügen</button>
+        <button class="btn btn-green btn-sm" onclick="addGuid('admins')" data-i18n="btn_add">+ Añadir</button>
       </div>
     </div>
     <!-- Blacklist -->
     <div class="card">
       <div class="sh">
-        <div class="sh-t">⛔ <span data-i18n="ban_list">Ban-Liste</span></div>
+        <div class="sh-t">⛔ <span data-i18n="ban_list">Lista de baneados</span></div>
         <button class="btn btn-gray btn-sm" onclick="loadGuidList('blacklist')">↻</button>
       </div>
-      <div class="guid-list" id="bl-list" style="margin-bottom:10px"><div style="color:var(--muted);font-size:12px;padding:8px" data-i18n="loading">Lade...</div></div>
-      <div style="font-size:11px;color:var(--muted)" data-i18n="ban_hint">Gebannte Spieler können hier entfernt (unban) werden.</div>
+      <div class="guid-list" id="bl-list" style="margin-bottom:10px"><div style="color:var(--muted);font-size:12px;padding:8px" data-i18n="loading">Cargando...</div></div>
+      <div style="font-size:11px;color:var(--muted)" data-i18n="ban_hint">Aquí puedes eliminar (desbanear) a jugadores baneados.</div>
     </div>
   </div>
 </div>
@@ -783,22 +783,22 @@
     <div>
       <div class="card gap adv-section">
         <div class="card-ttl">AssettoServer (extra_cfg.yml)</div>
-        <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_server_details">Server Details aktivieren</div><div class="tog-desc" data-i18n="tog_server_details_desc">Pflicht für CM-Beschreibung</div></div><label class="tog"><input type="checkbox" id="ec-details"><span class="tog-sl"></span></label></div>
+        <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_server_details">Activar detalles del servidor</div><div class="tog-desc" data-i18n="tog_server_details_desc">Obligatorio para la descripción en CM</div></div><label class="tog"><input type="checkbox" id="ec-details"><span class="tog-sl"></span></label></div>
         <div class="tog-row"><div><div class="tog-lbl">Anti-AFK Kick</div></div><label class="tog"><input type="checkbox" id="ec-afk"><span class="tog-sl"></span></label></div>
-        <div class="num-row"><span class="tog-lbl">AFK Timeout (min)</span><input class="inp num-inp" type="number" id="ec-afkmin" min="1" max="60" value="10"></div>
-        <div class="num-row"><span class="tog-lbl">Max Ping (ms)</span><input class="inp num-inp" type="number" id="ec-ping" min="100" max="2000" value="500"></div>
-        <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_force_lights">Lichter erzwingen</div></div><label class="tog"><input type="checkbox" id="ec-lights"><span class="tog-sl"></span></label></div>
-        <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_weatherfx">WeatherFX (CSP Regen)</div><div class="tog-desc" data-i18n="tog_weatherfx_desc">Benötigt CSP 0.1.76+</div></div><label class="tog"><input type="checkbox" id="ec-wxfx"><span class="tog-sl"></span></label></div>
-        <div class="tog-row"><div><div class="tog-lbl">Client Messages (CSP)</div></div><label class="tog"><input type="checkbox" id="ec-clmsg"><span class="tog-sl"></span></label></div>
-        <div class="tog-row"><div><div class="tog-lbl">Real Time</div></div><label class="tog"><input type="checkbox" id="ec-realtime"><span class="tog-sl"></span></label></div>
-        <div class="num-row"><span class="tog-lbl" data-i18n="lbl_min_csp">Min CSP Version (0=kein Limit)</span><input class="inp num-inp" type="number" id="ec-csp" min="0" value="0"></div>
-        <div class="num-row"><span class="tog-lbl" data-i18n="lbl_security_level">Security Level (0 oder 1)</span><input class="inp num-inp" type="number" id="ec-sec" min="0" max="1" value="0"></div>
-        <div class="num-row"><span class="tog-lbl" data-i18n="lbl_rcon_port">RCON Port (0=aus)</span><input class="inp num-inp" type="number" id="ec-rcon" min="0" max="65535" value="9700"></div>
+        <div class="num-row"><span class="tog-lbl">Timeout AFK (min)</span><input class="inp num-inp" type="number" id="ec-afkmin" min="1" max="60" value="10"></div>
+        <div class="num-row"><span class="tog-lbl">Ping máx. (ms)</span><input class="inp num-inp" type="number" id="ec-ping" min="100" max="2000" value="500"></div>
+        <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_force_lights">Forzar luces</div></div><label class="tog"><input type="checkbox" id="ec-lights"><span class="tog-sl"></span></label></div>
+        <div class="tog-row"><div><div class="tog-lbl" data-i18n="tog_weatherfx">WeatherFX (lluvia CSP)</div><div class="tog-desc" data-i18n="tog_weatherfx_desc">Requiere CSP 0.1.76+</div></div><label class="tog"><input type="checkbox" id="ec-wxfx"><span class="tog-sl"></span></label></div>
+        <div class="tog-row"><div><div class="tog-lbl">Mensajes del cliente (CSP)</div></div><label class="tog"><input type="checkbox" id="ec-clmsg"><span class="tog-sl"></span></label></div>
+        <div class="tog-row"><div><div class="tog-lbl">Hora real</div></div><label class="tog"><input type="checkbox" id="ec-realtime"><span class="tog-sl"></span></label></div>
+        <div class="num-row"><span class="tog-lbl" data-i18n="lbl_min_csp">Versión mínima CSP (0=sin límite)</span><input class="inp num-inp" type="number" id="ec-csp" min="0" value="0"></div>
+        <div class="num-row"><span class="tog-lbl" data-i18n="lbl_security_level">Nivel de seguridad (0 o 1)</span><input class="inp num-inp" type="number" id="ec-sec" min="0" max="1" value="0"></div>
+        <div class="num-row"><span class="tog-lbl" data-i18n="lbl_rcon_port">Puerto RCON (0=desactivado)</span><input class="inp num-inp" type="number" id="ec-rcon" min="0" max="65535" value="9700"></div>
         <div class="fg" style="margin-top:8px">
-          <label class="lbl">Loading Image URL</label>
+          <label class="lbl">URL de imagen de carga</label>
           <input class="inp" id="ec-loadimg" placeholder="https://...">
         </div>
-        <button class="btn btn-red" onclick="saveExtraCfg()" data-i18n="btn_save_extra_cfg">💾 extra_cfg.yml speichern + Server neu starten</button>
+        <button class="btn btn-red" onclick="saveExtraCfg()" data-i18n="btn_save_extra_cfg">💾 Guardar extra_cfg.yml + reiniciar servidor</button>
       </div>
     </div>
 
@@ -812,49 +812,49 @@
           <input class="inp" id="discord-url" placeholder="https://discord.com/api/webhooks/...">
         </div>
         <div class="tog-row">
-          <div><div class="tog-lbl" data-i18n="discord_notify_join">Fahrer Join/Leave melden</div><div class="tog-desc" data-i18n="discord_notify_join_desc">Nachricht wenn Fahrer verbindet oder trennt</div></div>
+          <div><div class="tog-lbl" data-i18n="discord_notify_join">Notificar entrada/salida de pilotos</div><div class="tog-desc" data-i18n="discord_notify_join_desc">Mensaje cuando un piloto se conecta o desconecta</div></div>
           <label class="tog"><input type="checkbox" id="discord-notify-join"><span class="tog-sl"></span></label>
         </div>
         <div style="display:flex;gap:8px;margin-top:10px">
-          <button class="btn btn-red" onclick="saveDiscord()" data-i18n="btn_save">💾 Speichern</button>
-          <button class="btn btn-gray" onclick="testDiscord()">🔔 <span data-i18n="discord_test">Test senden</span></button>
+          <button class="btn btn-red" onclick="saveDiscord()" data-i18n="btn_save">💾 Guardar</button>
+          <button class="btn btn-gray" onclick="testDiscord()">🔔 <span data-i18n="discord_test">Enviar prueba</span></button>
         </div>
-        <div style="font-size:11px;color:var(--muted);margin-top:8px" data-i18n="discord_hint">Benachrichtigung wenn Server abstürzt oder wieder online geht.</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px" data-i18n="discord_hint">Notificación por caída o reinicio del servidor.</div>
       </div>
 
       <!-- Track Params Editor -->
       <div class="card gap adv-section">
-        <div class="card-ttl" data-i18n="track_params">Track Parameter</div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:10px" data-i18n="track_params_hint">Koordinaten für neu installierte Strecken setzen (für Real Time).</div>
+        <div class="card-ttl" data-i18n="track_params">Parámetros de pista</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:10px" data-i18n="track_params_hint">Fijar coordenadas para el tiempo real.</div>
         <div class="fg">
-          <label class="lbl" data-i18n="lbl_track">Strecke</label>
+          <label class="lbl" data-i18n="lbl_track">Pista</label>
           <select class="sel" id="tp-track">
             {% for t in tracks %}<option value="{{ t.name }}">{{ t.name }}</option>{% endfor %}
           </select>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <div><label class="lbl">Latitude</label><input class="inp" type="number" id="tp-lat" step="0.0001" value="0"></div>
-          <div><label class="lbl">Longitude</label><input class="inp" type="number" id="tp-lon" step="0.0001" value="0"></div>
+          <div><label class="lbl">Latitud</label><input class="inp" type="number" id="tp-lat" step="0.0001" value="0"></div>
+          <div><label class="lbl">Longitud</label><input class="inp" type="number" id="tp-lon" step="0.0001" value="0"></div>
         </div>
         <div class="fg" style="margin-top:8px">
-          <label class="lbl" data-i18n="lbl_timezone">Timezone (UTC-Offset, z.B. 1 für CET, 2 für CEST)</label>
+          <label class="lbl" data-i18n="lbl_timezone">Zona horaria (desplazamiento UTC, ej. 1 para CET, 2 para CEST)</label>
           <input class="inp" type="number" id="tp-tz" min="-12" max="14" step="1" value="1">
         </div>
-        <button class="btn btn-red" onclick="saveTrackParams()" data-i18n="btn_save">💾 Speichern</button>
+        <button class="btn btn-red" onclick="saveTrackParams()" data-i18n="btn_save">💾 Guardar</button>
       </div>
 
       <!-- Backup -->
       <div class="card gap adv-section">
-        <div class="card-ttl" data-i18n="card_backup">Config Backup / Restore</div>
+        <div class="card-ttl" data-i18n="card_backup">Copia de seguridad / Restaurar</div>
         <div style="display:flex;gap:8px;margin-bottom:12px">
-          <a href="/api/backup" class="btn btn-blue" data-i18n="btn_download_backup">⬇ Backup herunterladen</a>
+          <a href="/api/backup" class="btn btn-blue" data-i18n="btn_download_backup">⬇ Descargar copia</a>
         </div>
         <div class="fg">
-          <label class="lbl" data-i18n="lbl_restore_config">Config wiederherstellen (ZIP)</label>
+          <label class="lbl" data-i18n="lbl_restore_config">Restaurar config (ZIP)</label>
           <input type="file" id="restore-inp" accept=".zip" style="display:block;margin-bottom:8px;color:var(--text);font-size:12px">
-          <button class="btn btn-warn" onclick="restoreBackup()" data-i18n="btn_restore">⚠ Restore + Server neu starten</button>
+          <button class="btn btn-warn" onclick="restoreBackup()" data-i18n="btn_restore">⚠ Restaurar + reiniciar servidor</button>
         </div>
-        <div style="font-size:11px;color:var(--muted)" data-i18n="lbl_backup_contains">Enthält: server_cfg.ini, entry_list.ini, extra_cfg.yml, welcome.txt</div>
+        <div style="font-size:11px;color:var(--muted)" data-i18n="lbl_backup_contains">Contiene: server_cfg.ini, entry_list.ini, extra_cfg.yml, welcome.txt</div>
       </div>
     </div>
   </div>
@@ -864,24 +864,24 @@
 <div class="panel" id="p-logs">
   <div class="card">
     <div class="sh">
-      <div class="sh-t"><span data-i18n="server_logs">Server Logs</span></div>
+      <div class="sh-t"><span data-i18n="server_logs">Registros del servidor</span></div>
       <div style="display:flex;align-items:center;gap:10px">
         <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;color:var(--muted)">
-          <input type="checkbox" id="log-auto" checked style="accent-color:var(--red)"> <span data-i18n="auto_refresh">Auto-Refresh (3s)</span>
+          <input type="checkbox" id="log-auto" checked style="accent-color:var(--red)"> <span data-i18n="auto_refresh">Auto-actualizar (3s)</span>
         </label>
         <button class="btn btn-gray btn-sm" onclick="loadLogs()">↻</button>
       </div>
     </div>
-    <div class="logbox" id="logbox" data-i18n="logs_initial_msg">Klicke Neu laden oder warte auf Auto-Refresh...</div>
+    <div class="logbox" id="logbox" data-i18n="logs_initial_msg">Haz clic en recargar o espera la auto-actualización...</div>
     <!-- RCON Console -->
     <div style="margin-top:14px">
-      <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">RCON Console</div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Consola RCON</div>
       <div id="rcon-history" style="background:#080808;border:1px solid var(--border);border-radius:6px;padding:8px;font-family:monospace;font-size:11px;max-height:120px;overflow-y:auto;margin-bottom:6px;display:flex;flex-direction:column;gap:2px">
-        <span style="color:var(--muted)" data-i18n="lbl_cmd_history">Befehlsverlauf...</span>
+        <span style="color:var(--muted)" data-i18n="lbl_cmd_history">Historial de comandos...</span>
       </div>
       <div style="display:flex;gap:8px;align-items:center">
-        <input class="inp" id="rcon-inp" data-i18n-placeholder="rcon_ph" placeholder="RCON Befehl (z.B. /say Hallo)" style="flex:1;font-family:monospace" onkeydown="if(event.key==='Enter')sendRcon()">
-        <button class="btn btn-gray" onclick="sendRcon()">▶ <span data-i18n="btn_send">Senden</span></button>
+        <input class="inp" id="rcon-inp" data-i18n-placeholder="rcon_ph" placeholder="Comando RCON (ej. /say Hola)" style="flex:1;font-family:monospace" onkeydown="if(event.key==='Enter')sendRcon()">
+        <button class="btn btn-gray" onclick="sendRcon()">▶ <span data-i18n="btn_send">Enviar</span></button>
       </div>
     </div>
   </div>
@@ -889,31 +889,31 @@
 
 <!-- ══ HILFE ═══════════════════════════════════════════════════════════════ -->
 <div class="panel" id="p-help">
-  <div class="sec-hdr"><h2>❓ <span data-i18n="sec_help_title">Hilfe & Einstellungs-Referenz</span></h2></div>
+  <div class="sec-hdr"><h2>❓ <span data-i18n="sec_help_title">Ayuda y referencia de ajustes</span></h2></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">⚙️ Server Allgemein <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">NAME</div><div class="help-val">Anzeigename des Servers im Content Manager und in der Serverliste.</div></div><div class="help-row"><div class="help-key">PASSWORD</div><div class="help-val">Passwort für Spieler zum Joinen. Leer lassen = kein Passwort.</div></div><div class="help-row"><div class="help-key">ADMIN_PASSWORD</div><div class="help-val">Passwort für Admin-Befehle im Spiel (/admin) und für RCON-Verbindungen.</div></div><div class="help-row"><div class="help-key">REGISTER_TO_LOBBY</div><div class="help-val">1 = Server erscheint in der öffentlichen Kunos-Serverliste weltweit. 0 = Nur über direkte IP erreichbar.</div></div><div class="help-row"><div class="help-key">SUN_ANGLE</div><div class="help-val">Tageszeit als Winkelgrad. 0° = Mitternacht, 48° ≈ Morgen, 180° = Mittag, 320° ≈ Abend.</div></div></div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">⚙️ Servidor general <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">NAME</div><div class="help-val">Nombre que se muestra del servidor en Content Manager y en la lista de servidores.</div></div><div class="help-row"><div class="help-key">PASSWORD</div><div class="help-val">Contraseña para los jugadores al unirse. Dejar vacío = sin contraseña.</div></div><div class="help-row"><div class="help-key">ADMIN_PASSWORD</div><div class="help-val">Contraseña para comandos de administrador en el juego (/admin) y para conexiones RCON.</div></div><div class="help-row"><div class="help-key">REGISTER_TO_LOBBY</div><div class="help-val">1 = el servidor aparece en la lista pública de servidores de Kunos a nivel mundial. 0 = solo accesible por IP directa.</div></div><div class="help-row"><div class="help-key">SUN_ANGLE</div><div class="help-val">Hora del día en grados. 0° = medianoche, 48° ≈ mañana, 180° = mediodía, 320° ≈ tarde.</div></div></div></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🔌 Ports & Verbindung <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">UDP_PORT / TCP_PORT</div><div class="help-val">Hauptport für Spiel-Verbindungen (Standard: 9600). Muss in der Firewall / Router-Portweiterleitung geöffnet sein.</div></div><div class="help-row"><div class="help-key">HTTP_PORT</div><div class="help-val">Port für den HTTP-Info-Endpunkt (Standard: 8081). Wird vom Content Manager für Serverdetails abgefragt.</div></div><div class="help-row"><div class="help-key">PICKUP_MODE_ENABLED</div><div class="help-val">1 = Spieler wählen ihr Auto selbst beim Joinen. 0 = Zugewiesene Slots (z.B. für Rennevents).</div></div><div class="help-row"><div class="help-key">LOOP_MODE</div><div class="help-val">1 = Server startet nach jeder Session automatisch neu (Trackday-Modus). 0 = Server wartet auf manuellen Neustart.</div></div><div class="help-row"><div class="help-key">CLIENT_SEND_INTERVAL_HZ</div><div class="help-val">Wie oft pro Sekunde der Server Positionsdaten sendet. Standard: 18 Hz. Höher = flüssiger aber mehr Netzwerklast.</div></div></div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🔌 Puertos y conexión <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">UDP_PORT / TCP_PORT</div><div class="help-val">Puerto principal para las conexiones del juego (predeterminado: 9600). Debe estar abierto en el firewall / reenvío de puertos del router.</div></div><div class="help-row"><div class="help-key">HTTP_PORT</div><div class="help-val">Puerto para el punto de información HTTP (predeterminado: 8081). Content Manager lo consulta para los detalles del servidor.</div></div><div class="help-row"><div class="help-key">PICKUP_MODE_ENABLED</div><div class="help-val">1 = los jugadores eligen su propio auto al unirse. 0 = slots asignados (p. ej. para eventos de carrera).</div></div><div class="help-row"><div class="help-key">LOOP_MODE</div><div class="help-val">1 = el servidor se reinicia automáticamente después de cada sesión (modo Trackday). 0 = el servidor espera un reinicio manual.</div></div><div class="help-row"><div class="help-key">CLIENT_SEND_INTERVAL_HZ</div><div class="help-val">Con qué frecuencia por segundo el servidor envía datos de posición. Predeterminado: 18 Hz. Más alto = más fluido, pero más carga de red.</div></div></div></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🛡️ Fahrhilfen & Regeln <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">ABS_ALLOWED</div><div class="help-val">Anti-Blockier-System erlauben. Empfehlung: 1 für öffentliche Server.</div></div><div class="help-row"><div class="help-key">TC_ALLOWED</div><div class="help-val">Traktionskontrolle erlauben.</div></div><div class="help-row"><div class="help-key">STABILITY_ALLOWED</div><div class="help-val">Elektronisches Stabilitätsprogramm (ESP). Für realistische Server oft deaktiviert.</div></div><div class="help-row"><div class="help-key">FUEL_RATE</div><div class="help-val">Kraftstoffverbrauch in %. 100 = realistisch, 0 = unendlich, 200 = doppelt so schnell leer.</div></div><div class="help-row"><div class="help-key">DAMAGE_MULTIPLIER</div><div class="help-val">Schadensrate. 0 = kein Schaden, 100 = realistisch, >100 = erhöhter Schaden.</div></div><div class="help-row"><div class="help-key">ALLOWED_TYRES_OUT</div><div class="help-val">Wie viele Reifen außerhalb der Strecke erlaubt sind. 2 = Standard, 4 = alle (kein Limit), 0 = strikt.</div></div><div class="help-row"><div class="help-key">LEGAL_TYRES</div><div class="help-val">Erlaubte Reifentypen als Kommaliste (z.B. "SV,SM"). Leer = alle Reifen erlaubt.</div></div></div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🛡️ Ayudas de conducción y reglas <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">ABS_ALLOWED</div><div class="help-val">Permitir el sistema antibloqueo (ABS). Recomendación: 1 para servidores públicos.</div></div><div class="help-row"><div class="help-key">TC_ALLOWED</div><div class="help-val">Permitir el control de tracción.</div></div><div class="help-row"><div class="help-key">STABILITY_ALLOWED</div><div class="help-val">Programa electrónico de estabilidad (ESP). En servidores realistas suele estar desactivado.</div></div><div class="help-row"><div class="help-key">FUEL_RATE</div><div class="help-val">Consumo de combustible en %. 100 = realista, 0 = infinito, 200 = se vacía el doble de rápido.</div></div><div class="help-row"><div class="help-key">DAMAGE_MULTIPLIER</div><div class="help-val">Tasa de daño. 0 = sin daño, 100 = realista, >100 = daño aumentado.</div></div><div class="help-row"><div class="help-key">ALLOWED_TYRES_OUT</div><div class="help-val">Cuántos neumáticos fuera de la pista se permiten. 2 = predeterminado, 4 = todos (sin límite), 0 = estricto.</div></div><div class="help-row"><div class="help-key">LEGAL_TYRES</div><div class="help-val">Tipos de neumáticos permitidos como lista separada por comas (p. ej. "SV,SM"). Vacío = todos los neumáticos permitidos.</div></div></div></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">📅 Sessions <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">PRACTICE TIME</div><div class="help-val">Dauer der Practice-Session in Minuten. 9999 = unbegrenzt (empfohlen für Trackdays).</div></div><div class="help-row"><div class="help-key">IS_OPEN</div><div class="help-val">1 = Spieler können jederzeit joinen. 0 = Kein Beitritt nach Session-Start.</div></div><div class="help-row"><div class="help-key">RACE LAPS</div><div class="help-val">Rundenanzahl für das Rennen. 0 = zeitbasiertes Rennen (dann TIME setzen).</div></div><div class="help-row"><div class="help-key">RACE_OVER_TIME</div><div class="help-val">Sekunden nach dem Zieleinlauf des ersten Fahrers bis die Session endet. Standard: 180s.</div></div><div class="help-row"><div class="help-key">WAIT_TIME</div><div class="help-val">Wartezeit in Sekunden vor Race-Start nach dem Ende des Qualifyings.</div></div></div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">📅 Sesiones <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">TIEMPO DE PRÁCTICA</div><div class="help-val">Duración de la sesión de práctica en minutos. 9999 = ilimitado (recomendado para Trackdays).</div></div><div class="help-row"><div class="help-key">IS_OPEN</div><div class="help-val">1 = los jugadores pueden unirse en cualquier momento. 0 = no se permite unirse después del inicio de la sesión.</div></div><div class="help-row"><div class="help-key">VUELTAS DE CARRERA</div><div class="help-val">Número de vueltas para la carrera. 0 = carrera basada en tiempo (luego configurar TIME).</div></div><div class="help-row"><div class="help-key">RACE_OVER_TIME</div><div class="help-val">Segundos después de la meta del primer piloto hasta que termina la sesión. Predeterminado: 180 s.</div></div><div class="help-row"><div class="help-key">WAIT_TIME</div><div class="help-val">Tiempo de espera en segundos antes del inicio de la carrera tras el final del qualifying.</div></div></div></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🌤️ Wetter & Strecke <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">GRAPHICS (Wetter)</div><div class="help-val">Setzt das visuelle Wetter-Preset. Presets: 3_clear (sonnig), 2_light_clouds (leicht bewölkt), 7_heavy_clouds (stark bewölkt), 8_drizzle (Nieselregen), 11_practice_storm (Gewitter).</div></div><div class="help-row"><div class="help-key">BASE_TEMPERATURE_AMBIENT</div><div class="help-val">Lufttemperatur in °C. Beeinflusst Motortemperatur und Reifenverhalten.</div></div><div class="help-row"><div class="help-key">BASE_TEMPERATURE_ROAD</div><div class="help-val">Streckentemperatur in °C. Wärmer = mehr Grip bei Slicks, kälter = weniger.</div></div><div class="help-row"><div class="help-key">SESSION_START (Dynamic Track)</div><div class="help-val">Anfangsgripniveau in %. 95 = fast ideal, 80 = grüne Strecke. Steigt durch Runden.</div></div><div class="help-row"><div class="help-key">LAP_GAIN</div><div class="help-val">Wie stark der Grip pro Runde zunimmt. 132 = Standard-Nordschleife.</div></div></div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🌤️ Clima y pista <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">GRÁFICOS (Clima)</div><div class="help-val">Configura el preset visual de clima. Presets: 3_clear (soleado), 2_light_clouds (poco nublado), 7_heavy_clouds (muy nublado), 8_drizzle (llovizna), 11_practice_storm (tormenta).</div></div><div class="help-row"><div class="help-key">BASE_TEMPERATURE_AMBIENT</div><div class="help-val">Temperatura del aire en °C. Influye en la temperatura del motor y el comportamiento de los neumáticos.</div></div><div class="help-row"><div class="help-key">BASE_TEMPERATURE_ROAD</div><div class="help-val">Temperatura de pista en °C. Más calor = más agarre con slicks, más frío = menos.</div></div><div class="help-row"><div class="help-key">INICIO DE SESIÓN (Pista dinámica)</div><div class="help-val">Nivel inicial de agarre en %. 95 = casi ideal, 80 = pista verde. Aumenta con las vueltas.</div></div><div class="help-row"><div class="help-key">LAP_GAIN</div><div class="help-val">Cuánto aumenta el agarre por vuelta. 132 = valor predeterminado de Nordschleife.</div></div></div></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🔧 AssettoServer (extra_cfg.yml) <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">EnableServerDetails</div><div class="help-val">Muss aktiviert sein damit Beschreibung, Logo und Details im Content Manager erscheinen.</div></div><div class="help-row"><div class="help-key">EnableAntiAfk</div><div class="help-val">Spieler die zu lange AFK sind werden automatisch gekickt.</div></div><div class="help-row"><div class="help-key">MaxPing</div><div class="help-val">Maximaler Ping in ms bevor ein Spieler automatisch gekickt wird. Standard: 500ms.</div></div><div class="help-row"><div class="help-key">EnableWeatherFx</div><div class="help-val">Aktiviert CSP WeatherFX für Regen und flüssige Wetterübergänge. Benötigt CSP 0.1.76+.</div></div><div class="help-row"><div class="help-key">MinimumCSPVersion</div><div class="help-val">Minimale CSP-Version zum Joinen (0 = kein Limit). Beispiel: 2144 für CSP 0.1.77.</div></div><div class="help-row"><div class="help-key">RconPort</div><div class="help-val">Port für RCON-Verbindungen. Standard: 9700. Wird auch vom Dashboard für Kick/Ban/Chat verwendet.</div></div></div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🔧 AssettoServer (extra_cfg.yml) <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">EnableServerDetails</div><div class="help-val">Debe estar activado para que la descripción, el logo y los detalles aparezcan en Content Manager.</div></div><div class="help-row"><div class="help-key">EnableAntiAfk</div><div class="help-val">Los jugadores que permanecen AFK demasiado tiempo son expulsados automáticamente.</div></div><div class="help-row"><div class="help-key">MaxPing</div><div class="help-val">Ping máximo en ms antes de que un jugador sea expulsado automáticamente. Predeterminado: 500 ms.</div></div><div class="help-row"><div class="help-key">EnableWeatherFx</div><div class="help-val">Activa CSP WeatherFX para lluvia y transiciones de clima fluidas. Requiere CSP 0.1.76+.</div></div><div class="help-row"><div class="help-key">MinimumCSPVersion</div><div class="help-val">Versión mínima de CSP para unirse (0 = sin límite). Ejemplo: 2144 para CSP 0.1.77.</div></div><div class="help-row"><div class="help-key">RconPort</div><div class="help-val">Puerto para conexiones RCON. Predeterminado: 9700. También lo usa el panel para expulsión/bloqueo/chat.</div></div></div></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">📜 RCON-Befehle <span>▾</span></div><div class="help-card-body">
-    <p style="color:var(--muted);font-size:12px;margin-bottom:12px">RCON-Befehle können im Logs-Tab eingegeben werden. Admin-Passwort aus server_cfg.ini wird automatisch verwendet.</p>
-    <div class="help-row"><div class="help-key"><span class="help-cmd">/say &lt;text&gt;</span></div><div class="help-val">Nachricht an alle Spieler senden (erscheint im Spiel-Chat).</div></div>
-    <div class="help-row"><div class="help-key"><span class="help-cmd">/kick_id &lt;id&gt;</span></div><div class="help-val">Spieler mit Slot-ID kicken (ID sichtbar in Fahrer-Tab).</div></div>
-    <div class="help-row"><div class="help-key"><span class="help-cmd">/ban_id &lt;id&gt;</span></div><div class="help-val">Spieler bannen und kicken.</div></div>
-    <div class="help-row"><div class="help-key"><span class="help-cmd">/next_session</span></div><div class="help-val">Zur nächsten Session springen.</div></div>
-    <div class="help-row"><div class="help-key"><span class="help-cmd">/restart_session</span></div><div class="help-val">Aktuelle Session neu starten.</div></div>
-    <div class="help-row"><div class="help-key"><span class="help-cmd">/set_ballast &lt;id&gt; &lt;kg&gt;</span></div><div class="help-val">Ballast für einen Spieler live setzen.</div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">📜 Comandos RCON <span>▾</span></div><div class="help-card-body">
+    <p style="color:var(--muted);font-size:12px;margin-bottom:12px">Los comandos RCON se pueden escribir en la pestaña de registros. La contraseña de administrador de server_cfg.ini se usa automáticamente.</p>
+    <div class="help-row"><div class="help-key"><span class="help-cmd">/say &lt;text&gt;</span></div><div class="help-val">Enviar un mensaje a todos los jugadores (aparece en el chat del juego).</div></div>
+    <div class="help-row"><div class="help-key"><span class="help-cmd">/kick_id &lt;id&gt;</span></div><div class="help-val">Expulsar jugador por ID de slot (ID visible en la pestaña de pilotos).</div></div>
+    <div class="help-row"><div class="help-key"><span class="help-cmd">/ban_id &lt;id&gt;</span></div><div class="help-val">Bloquear y expulsar jugador.</div></div>
+    <div class="help-row"><div class="help-key"><span class="help-cmd">/next_session</span></div><div class="help-val">Saltar a la siguiente sesión.</div></div>
+    <div class="help-row"><div class="help-key"><span class="help-cmd">/restart_session</span></div><div class="help-val">Reiniciar la sesión actual.</div></div>
+    <div class="help-row"><div class="help-key"><span class="help-cmd">/set_ballast &lt;id&gt; &lt;kg&gt;</span></div><div class="help-val">Configurar lastre de un jugador en vivo.</div></div>
   </div></div>
 
-  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🔔 Discord Webhook <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">Webhook URL</div><div class="help-val">In Discord: Server-Einstellungen → Integrationen → Webhooks → Neuen Webhook erstellen → URL kopieren.</div></div><div class="help-row"><div class="help-key">Benachrichtigungen</div><div class="help-val">Server-Absturz/Neustart: immer. Fahrer Join/Leave: optional aktivierbar.</div></div></div></div>
+  <div class="help-card"><div class="help-card-hdr" onclick="this.nextElementSibling.classList.toggle('open')">🔔 Discord Webhook <span>▾</span></div><div class="help-card-body"><div class="help-row"><div class="help-key">Webhook URL</div><div class="help-val">En Discord: Configuración del servidor → Integraciones → Webhooks → Crear webhook → copiar URL.</div></div><div class="help-row"><div class="help-key">Notificaciones</div><div class="help-val">Caída/reinicio del servidor: siempre. Entrada/salida de pilotos: opcional.</div></div></div></div>
 </div>
 
 </div><!-- /page -->
@@ -923,41 +923,41 @@
 <!-- MODALS -->
 <div class="modal" id="up-modal">
   <div class="modal-box">
-    <div class="modal-ttl">Import: <span id="zip-name" style="color:var(--muted);font-weight:400"></span></div>
-    <div class="card-ttl" style="margin-bottom:6px" data-i18n="modal_cars_in_zip">Autos im ZIP</div>
-    <input class="inp" id="zc-search" data-i18n-placeholder="ph_search" placeholder="Suchen..." oninput="filterZip('z-cars','zc-search')" style="margin-bottom:6px">
+    <div class="modal-ttl">Importar: <span id="zip-name" style="color:var(--muted);font-weight:400"></span></div>
+    <div class="card-ttl" style="margin-bottom:6px" data-i18n="modal_cars_in_zip">Autos en el ZIP</div>
+    <input class="inp" id="zc-search" data-i18n-placeholder="ph_search" placeholder="Buscar..." oninput="filterZip('z-cars','zc-search')" style="margin-bottom:6px">
     <div class="clist gap" id="z-cars"></div>
-    <div class="card-ttl" style="margin-bottom:6px;margin-top:12px" data-i18n="modal_tracks_in_zip">Strecken im ZIP</div>
-    <input class="inp" id="zt-search" data-i18n-placeholder="ph_search" placeholder="Suchen..." oninput="filterZip('z-tracks','zt-search')" style="margin-bottom:6px">
+    <div class="card-ttl" style="margin-bottom:6px;margin-top:12px" data-i18n="modal_tracks_in_zip">Pistas en el ZIP</div>
+    <input class="inp" id="zt-search" data-i18n-placeholder="ph_search" placeholder="Buscar..." oninput="filterZip('z-tracks','zt-search')" style="margin-bottom:6px">
     <div class="clist gap" id="z-tracks"></div>
     <div style="display:flex;gap:8px;margin-top:16px">
-      <button class="btn btn-green" onclick="doImport()" data-i18n="btn_import">✓ Importieren</button>
-      <button class="btn btn-gray" onclick="closeModal()" data-i18n="btn_cancel">Abbrechen</button>
+      <button class="btn btn-green" onclick="doImport()" data-i18n="btn_import">✓ Importar</button>
+      <button class="btn btn-gray" onclick="closeModal()" data-i18n="btn_cancel">Cancelar</button>
     </div>
   </div>
 </div>
 
 <div class="modal" id="folder-modal">
   <div class="modal-box" style="max-width:520px">
-    <div class="modal-ttl">📁 <span id="fm-type-label" data-i18n="lbl_car_type">Auto</span> erkannt</div>
+    <div class="modal-ttl">📁 <span id="fm-type-label" data-i18n="lbl_car_type">Auto</span> detectado</div>
     <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:14px">
-      <div style="font-size:11px;color:var(--muted);margin-bottom:6px" data-i18n="lbl_target_path">ZIEL-PFAD</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px" data-i18n="lbl_target_path">RUTA DESTINO</div>
       <div style="font-size:13px;font-weight:600" id="fm-target-path">/content/cars/name/</div>
     </div>
-    <div style="font-size:11px;color:var(--muted);margin-bottom:6px" data-i18n="lbl_root_folder">STAMMORDNER</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:6px" data-i18n="lbl_root_folder">CARPETA RAÍZ</div>
     <input class="inp" id="fm-root-name" style="margin-bottom:14px;font-weight:700" oninput="updateFolderTarget()">
-    <div style="font-size:11px;color:var(--muted);margin-bottom:8px" data-i18n="lbl_content_tree">INHALT</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:8px" data-i18n="lbl_content_tree">CONTENIDO</div>
     <div id="fm-tree" style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:10px;max-height:220px;overflow-y:auto;font-size:12px;font-family:monospace;margin-bottom:16px"></div>
     <div id="fm-upload-prog" style="display:none;margin-bottom:12px">
       <div style="display:flex;justify-content:space-between;margin-bottom:5px">
-        <span style="font-size:12px;color:var(--muted)" id="fm-up-msg">Uploading...</span>
+        <span style="font-size:12px;color:var(--muted)" id="fm-up-msg">Subiendo...</span>
         <span style="font-size:12px;font-weight:700" id="fm-up-pct">0%</span>
       </div>
       <div class="bar"><div class="bar-fill bar-green" id="fm-up-bar" style="width:0%"></div></div>
     </div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-green" id="fm-confirm-btn" onclick="uploadFolder()" data-i18n="btn_confirm_upload">✓ Hochladen bestätigen</button>
-      <button class="btn btn-gray" onclick="closeFolderModal()" data-i18n="btn_cancel">Abbrechen</button>
+      <button class="btn btn-green" id="fm-confirm-btn" onclick="uploadFolder()" data-i18n="btn_confirm_upload">✓ Confirmar subida</button>
+      <button class="btn btn-gray" onclick="closeFolderModal()" data-i18n="btn_cancel">Cancelar</button>
     </div>
   </div>
 </div>
@@ -966,7 +966,7 @@
 
 <script src="/static/js/lang.js"></script>
 <script>
-/* Server-Daten Injection — Jinja2-Variablen für dashboard.js */
+/* Inyección de datos del servidor — variables Jinja2 para dashboard.js */
 window.AC = {
   trackLayout: "{{ cfg.get('TRACK_LAYOUT','') }}"
 };

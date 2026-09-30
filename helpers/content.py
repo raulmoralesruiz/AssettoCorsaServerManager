@@ -98,11 +98,11 @@ def validate_car(car: str) -> list:
     base = CARS_DIR / car
     issues = []
     if not (base / "collider.kn5").exists():
-        issues.append("collider.kn5 fehlt")
+        issues.append("falta collider.kn5")
     if not (base / "data").is_dir() and not (base / "data.acd").exists():
-        issues.append("data/ oder data.acd fehlt")
+        issues.append("falta data/ o data.acd")
     if not (base / "ui" / "ui_car.json").exists():
-        issues.append("ui/ui_car.json fehlt")
+        issues.append("falta ui/ui_car.json")
     return issues
 
 
@@ -116,7 +116,7 @@ def validate_track(track: str) -> list:
             for d in base.iterdir() if d.is_dir()
         ) if base.exists() else False
     if not has_ui:
-        issues.append("ui_track.json fehlt")
+        issues.append("falta ui_track.json")
     has_surfaces = (base / "data" / "surfaces.ini").exists()
     if not has_surfaces and base.exists():
         has_surfaces = any(
@@ -124,7 +124,7 @@ def validate_track(track: str) -> list:
             for d in base.iterdir() if d.is_dir()
         )
     if not has_surfaces:
-        issues.append("data/surfaces.ini fehlt")
+        issues.append("falta data/surfaces.ini")
     return issues
 
 

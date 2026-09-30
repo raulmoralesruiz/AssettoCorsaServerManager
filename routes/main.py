@@ -379,7 +379,7 @@ def content_check(kind, name):
             "data/surfaces": (base / "data" / "surfaces.ini").exists(),
         }
     else:
-        return jsonify({"ok": False, "msg": "kind must be car or track"}), 400
+        return jsonify({"ok": False, "msg": "kind debe ser car o track"}), 400
     ok = all(checks.values())
     return jsonify({"ok": ok, "name": name, "checks": checks})
 
@@ -399,7 +399,7 @@ def api_track_info(track, layout=""):
 @api_rate_limit(max_calls=10, window=60)
 def control(action):
     if action not in ("start", "stop", "restart"):
-        return jsonify({"ok": False, "msg": "Invalid action"}), 400
+        return jsonify({"ok": False, "msg": "Acción no válida"}), 400
     ok, msg = run_systemctl(action)
     return jsonify({"ok": ok, "msg": msg, "status": server_status()})
 

@@ -27,15 +27,15 @@ def api_create_event():
     action = str(data.get("action", "apply_preset")).strip()
     preset = str(data.get("preset", "")).strip()[:80]
     if not name or not dt_str:
-        return jsonify({"ok": False, "msg": "Name und Datum/Uhrzeit erforderlich"}), 400
+        return jsonify({"ok": False, "msg": "Nombre y fecha/hora obligatorios"}), 400
     try:
         datetime.strptime(dt_str, "%Y-%m-%d %H:%M")
     except ValueError:
-        return jsonify({"ok": False, "msg": "Datum/Uhrzeit muss im Format YYYY-MM-DD HH:MM sein"}), 400
+        return jsonify({"ok": False, "msg": "La fecha/hora debe estar en formato YYYY-MM-DD HH:MM"}), 400
     if action not in _ALLOWED_ACTIONS:
-        return jsonify({"ok": False, "msg": "Ungültige Aktion"}), 400
+        return jsonify({"ok": False, "msg": "Acción no válida"}), 400
     if action == "apply_preset" and not preset:
-        return jsonify({"ok": False, "msg": "Preset-Name fehlt"}), 400
+        return jsonify({"ok": False, "msg": "Falta el nombre del preset"}), 400
     evt = create_event(name, dt_str, action, preset)
     return jsonify({"ok": True, "event": evt})
 
@@ -45,7 +45,7 @@ def api_create_event():
 @csrf_protect
 def api_delete_event(eid):
     ok = delete_event(eid)
-    return jsonify({"ok": ok, "msg": "Deleted" if ok else "Not found"})
+    return jsonify({"ok": ok, "msg": "Eliminado" if ok else "No encontrado"})
 
 
 @bp.route("/api/scheduled_events/<eid>/reset", methods=["POST"])

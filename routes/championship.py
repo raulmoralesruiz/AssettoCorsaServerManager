@@ -33,7 +33,7 @@ def api_championships():
 def api_standings(cid):
     champ = get_championship(cid)
     if not champ:
-        return jsonify({"ok": False, "msg": "Not found"}), 404
+        return jsonify({"ok": False, "msg": "No encontrado"}), 404
     data = compute_standings(champ)
     return jsonify({"ok": True, "championship": champ, **data})
 
@@ -46,9 +46,9 @@ def api_create_championship():
     name   = str(data.get("name", "")).strip()
     points = data.get("points", POINTS_PRESETS["F1"])
     if not name:
-        return jsonify({"ok": False, "msg": "Name fehlt"}), 400
+        return jsonify({"ok": False, "msg": "Falta el nombre"}), 400
     if not isinstance(points, list) or not all(isinstance(p, int) for p in points):
-        return jsonify({"ok": False, "msg": "Ungültiges Punkte-Schema"}), 400
+        return jsonify({"ok": False, "msg": "Esquema de puntos no válido"}), 400
     champ = create_championship(name, points)
     return jsonify({"ok": True, "championship": champ})
 
@@ -58,7 +58,7 @@ def api_create_championship():
 @csrf_protect
 def api_delete_championship(cid):
     ok = delete_championship(cid)
-    return jsonify({"ok": ok, "msg": "Deleted" if ok else "Not found"})
+    return jsonify({"ok": ok, "msg": "Eliminado" if ok else "No encontrado"})
 
 
 @bp.route("/api/championships/<cid>", methods=["PATCH"])
@@ -78,7 +78,7 @@ def api_update_championship(cid):
 def api_add_round(cid):
     filename = (request.json or {}).get("filename", "").strip()
     if not filename:
-        return jsonify({"ok": False, "msg": "filename fehlt"}), 400
+        return jsonify({"ok": False, "msg": "Falta el nombre del archivo"}), 400
     ok = add_round(cid, filename)
     return jsonify({"ok": ok})
 

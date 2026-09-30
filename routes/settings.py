@@ -123,7 +123,7 @@ def save_session():
             return jsonify({"ok": False, "msg": msg_p})
 
     maybe_restart(data)
-    return jsonify({"ok": True, "msg": "Saved"})
+    return jsonify({"ok": True, "msg": "Guardado"})
 
 
 # ── Weather ───────────────────────────────────────────────────────────────────
@@ -147,7 +147,7 @@ def save_weather():
         if upd:
             section_updates[sect] = upd
     if not section_updates:
-        return jsonify({"ok": False, "msg": "No data"})
+        return jsonify({"ok": False, "msg": "No hay datos"})
     ok, msg = update_section_cfg(section_updates)
     maybe_restart(data)
     return jsonify({"ok": ok, "msg": msg})
@@ -164,7 +164,7 @@ def save_dynamic_track():
     allowed = {"SESSION_START", "RANDOMNESS", "SESSION_TRANSFER", "LAP_GAIN"}
     upd     = {k: v for k, v in data.items() if k in allowed}
     if not upd:
-        return jsonify({"ok": False, "msg": "No data"})
+        return jsonify({"ok": False, "msg": "No hay datos"})
     ok, msg = update_section_cfg({"DYNAMIC_TRACK": upd})
     maybe_restart(data)
     return jsonify({"ok": ok, "msg": msg})
@@ -254,7 +254,7 @@ def get_plugin_status():
     m_key = _re.search(r'^\s*OpenWeatherMapApiKey:\s*"?([^"\n]+)"?', content, _re.MULTILINE)
     api_key_raw = m_key.group(1).strip() if m_key else ""
     api_key_set = bool(api_key_raw)
-    api_key_hint = ("•" * 8 + api_key_raw[-4:]) if len(api_key_raw) > 4 else ("" if not api_key_raw else "gesetzt")
+    api_key_hint = ("•" * 8 + api_key_raw[-4:]) if len(api_key_raw) > 4 else ("" if not api_key_raw else "establecido")
 
     m_int = _re.search(r'^\s*RefreshIntervalMinutes:\s*(\d+)', content, _re.MULTILINE)
     interval = int(m_int.group(1)) if m_int else 10
@@ -278,7 +278,7 @@ def set_live_weather_plugin():
     interval = int(data.get("interval", 10) or 10)
 
     if not EXTRA_CFG_FILE.exists():
-        return jsonify({"ok": False, "msg": "extra_cfg.yml nicht gefunden"}), 500
+        return jsonify({"ok": False, "msg": "extra_cfg.yml no encontrado"}), 500
 
     try:
         content = _read_yaml()
@@ -290,7 +290,7 @@ def set_live_weather_plugin():
 
         if enabled:
             if not api_key:
-                return jsonify({"ok": False, "msg": "API-Key fehlt"}), 400
+                return jsonify({"ok": False, "msg": "Falta la API-Key"}), 400
 
             # LiveWeather und VotingWeather schließen sich gegenseitig aus
             content = _remove_plugin(content, "VotingWeatherPlugin")
@@ -352,7 +352,7 @@ def set_voting_weather():
     seq      = bool(data.get("sequential", False))
 
     if not EXTRA_CFG_FILE.exists():
-        return jsonify({"ok": False, "msg": "extra_cfg.yml nicht gefunden"}), 500
+        return jsonify({"ok": False, "msg": "extra_cfg.yml no encontrado"}), 500
     try:
         content = _read_yaml()
 
@@ -406,9 +406,9 @@ def set_ignore_config_errors():
     key   = data.get("key")
     value = bool(data.get("value"))
     if key not in _IGNORE_CFG_KEYS:
-        return jsonify({"ok": False, "msg": "Ungültiger Schlüssel"}), 400
+        return jsonify({"ok": False, "msg": "Clave no válida"}), 400
     if not EXTRA_CFG_FILE.exists():
-        return jsonify({"ok": False, "msg": "extra_cfg.yml nicht gefunden"}), 500
+        return jsonify({"ok": False, "msg": "extra_cfg.yml no encontrado"}), 500
     try:
         content  = _read_yaml()
         val_str  = "true" if value else "false"
@@ -418,7 +418,7 @@ def set_ignore_config_errors():
             content,
         )
         if n == 0:
-            return jsonify({"ok": False, "msg": f"{key} nicht in extra_cfg.yml gefunden"}), 500
+            return jsonify({"ok": False, "msg": f"{key} no encontrado en extra_cfg.yml"}), 500
         _write_yaml(new_content)
         if data.get("restart"):
             run_systemctl("restart")
@@ -460,10 +460,10 @@ def test_telegram():
     token   = cfg.get("token", "")
     chat_id = cfg.get("chat_id", "")
     if not token or not chat_id:
-        return jsonify({"ok": False, "msg": "Token und Chat-ID fehlen"})
+        return jsonify({"ok": False, "msg": "Falta el token y la Chat-ID"})
     try:
-        telegram_notify(token, chat_id, "🧪 Test\\-Nachricht vom AC Server Dashboard", raise_on_error=True)
-        return jsonify({"ok": True, "msg": "Test-Nachricht gesendet"})
+        telegram_notify(token, chat_id, "🧪 Mensaje de prueba del panel del servidor de AC", raise_on_error=True)
+        return jsonify({"ok": True, "msg": "Mensaje de prueba enviado"})
     except Exception as e:
         return jsonify({"ok": False, "msg": str(e)})
 
@@ -486,7 +486,7 @@ def set_cut_actions():
         "warn_cuts_per_lap": int(data.get("warn_cuts_per_lap", 2) or 0),
         "warn_message":      str(data.get("warn_message", "⚠️ {driver}: {cuts} Cuts!")),
         "kick_session_cuts": int(data.get("kick_session_cuts", 0) or 0),
-        "kick_message":      str(data.get("kick_message", "Kick: Zu viele Cuts ({cuts} gesamt)")),
+        "kick_message":      str(data.get("kick_message", "Kick: demasiados cuts ({cuts} en total)")),
     }
     try:
         save_cut_actions_config(cfg)
@@ -505,16 +505,16 @@ def add_track_params():
     import re as _re
     track = data.get("track", "").strip()
     if not track:
-        return jsonify({"ok": False, "msg": "track required"}), 400
+        return jsonify({"ok": False, "msg": "track obligatorio"}), 400
     if not _re.match(r'^[a-zA-Z0-9_\-]+$', track):
-        return jsonify({"ok": False, "msg": "Ungültiger Track-Name"}), 400
+        return jsonify({"ok": False, "msg": "Nombre de circuito no válido"}), 400
     city = data.get("city", track).strip() or track
     try:
         lat = float(data.get("lat", 0) or 0)
         lon = float(data.get("lon", 0) or 0)
         tz  = int(float(data.get("tz", 0) or 0))
     except (ValueError, TypeError):
-        return jsonify({"ok": False, "msg": "Ungültige Koordinaten"}), 400
+        return jsonify({"ok": False, "msg": "Coordenadas no válidas"}), 400
     from constants import TRACK_PARAMS_FILE
     section = f"[{track.lower()}]"
     TRACK_PARAMS_FILE.parent.mkdir(parents=True, exist_ok=True)
@@ -537,11 +537,11 @@ def add_track_params():
                 if k == "TIMEZONE":  new_lines.append(f"TIMEZONE={tz}"); continue
             new_lines.append(line)
         TRACK_PARAMS_FILE.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
-        return jsonify({"ok": True, "msg": f"Updated params for {track}"})
+        return jsonify({"ok": True, "msg": f"Parámetros actualizados para {track}"})
     entry = f"\n{section}\nCITY={city}\nLATITUDE={lat}\nLONGITUDE={lon}\nTIMEZONE={tz}\n"
     with open(TRACK_PARAMS_FILE, "a", encoding="utf-8") as f:
         f.write(entry)
-    return jsonify({"ok": True, "msg": f"Added params for {track}"})
+    return jsonify({"ok": True, "msg": f"Parámetros añadidos para {track}"})
 
 # ── KI-Fahrer (AI traffic) ────────────────────────────────────────────────────
 
@@ -609,4 +609,4 @@ def save_ai_config():
         if not ok2:
             return jsonify({"ok": False, "msg": msg2})
 
-    return jsonify({"ok": True, "msg": "KI-Konfiguration gespeichert"})
+    return jsonify({"ok": True, "msg": "Configuración de IA guardada"})
